@@ -1,0 +1,94 @@
+[gd_scene load_steps=3 format=3 uid="uid://b0aoy2ddbdmkp"]
+
+[ext_resource type="Script" uid="uid://dn5pk2an8si1t" path="res://Scripts/UI/SkillsDetailsPopup.gd" id="1_wgkj1"]
+[ext_resource type="Texture2D" uid="uid://dq25jpnf5whh3" path="res://Assets/Cute_Fantasy_Free/icon.svg" id="2_6v27h"]
+
+[node name="SkillsDetailPopup" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_wgkj1")
+
+[node name="DetailsPanel" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(600, 450)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ContentVbox" type="VBoxContainer" parent="DetailsPanel"]
+layout_mode = 2
+
+[node name="HeaderVbox" type="VBoxContainer" parent="DetailsPanel/ContentVbox"]
+layout_mode = 2
+
+[node name="SkillIcon" type="TextureRect" parent="DetailsPanel/ContentVbox/HeaderVbox"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_horizontal = 5
+size_flags_vertical = 6
+texture = ExtResource("2_6v27h")
+expand_mode = 3
+stretch_mode = 3
+
+[node name="SkillNameLabel" type="Label" parent="DetailsPanel/ContentVbox/HeaderVbox"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 10
+theme_override_font_sizes/font_size = 24
+text = "Pulso de ataque"
+
+[node name="HSeparator" type="HSeparator" parent="DetailsPanel/ContentVbox"]
+layout_mode = 2
+
+[node name="CodePanel" type="PanelContainer" parent="DetailsPanel/ContentVbox"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="CodeLabel" type="Label" parent="DetailsPanel/ContentVbox/CodePanel"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+text = "func attack_pulse():
+  var targets = get_nearby_enemies(area_range)    
+  for target in targets:
+ㅤㅤㅤtarget.take_damage(base_damage)
+ㅤㅤㅤ# UPGRADE 1
+ㅤㅤㅤ# UPGRADE 2"
+autowrap_mode = 2
+
+[node name="HSeparator2" type="HSeparator" parent="DetailsPanel/ContentVbox"]
+layout_mode = 2
+
+[node name="UpgradesHBox" type="HBoxContainer" parent="DetailsPanel/ContentVbox"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Upgrade1Button" type="Button" parent="DetailsPanel/ContentVbox/UpgradesHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "UPGRADE 1"
+
+[node name="Upgrade2Button" type="Button" parent="DetailsPanel/ContentVbox/UpgradesHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "UPGRADE 2"
+
+[node name="CloseButton" type="Button" parent="DetailsPanel"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+text = "X"

@@ -1,0 +1,95 @@
+[gd_scene load_steps=2 format=3 uid="uid://dfrv82bw7ubb7"]
+
+[ext_resource type="Script" uid="uid://cif02fo22galg" path="res://Scripts/UI/MainMenu.gd" id="1_g18y6"]
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_g18y6")
+
+[node name="InitialScreen" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="InitialScreen"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 29
+text = "PRESSIONE ENTER PARA COMEÇAR"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GameTitleInitial" type="Label" parent="InitialScreen"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.1
+anchor_right = 0.5
+anchor_bottom = 2.0
+offset_left = -44.5
+offset_right = 44.5
+offset_bottom = 23.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 80
+text = "Human.exe"
+
+[node name="MainOptionsScreen" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ButtonsContainer" type="VBoxContainer" parent="MainOptionsScreen"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.898
+anchor_top = 0.829
+anchor_right = 1.0
+anchor_bottom = 0.829
+offset_left = -200.0
+offset_top = -101.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="StartGameButton" type="Button" parent="MainOptionsScreen/ButtonsContainer"]
+layout_mode = 2
+text = "Começar o Jogo
+"
+
+[node name="OptionsButton" type="Button" parent="MainOptionsScreen/ButtonsContainer"]
+layout_mode = 2
+text = "Opções
+"
+
+[node name="QuitButton" type="Button" parent="MainOptionsScreen/ButtonsContainer"]
+layout_mode = 2
+text = "Sair do Jogo
+"
+
+[node name="GameTitleInitial" type="Label" parent="MainOptionsScreen"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.034
+anchor_top = 0.068
+anchor_right = 0.034
+anchor_bottom = 0.068
+offset_right = 443.0
+offset_bottom = 110.0
+theme_override_font_sizes/font_size = 80
+text = "Human.exe"

@@ -1,0 +1,90 @@
+[gd_scene load_steps=2 format=3 uid="uid://cg547mw2fpp6s"]
+
+[ext_resource type="Script" uid="uid://bxfybetiijmy8" path="res://Scripts/UI/InventoryMenu.gd" id="1_8irge"]
+
+[node name="InventoryMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_8irge")
+
+[node name="MainContainer" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ContentVBox" type="VBoxContainer" parent="MainContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MainContainer/ContentVBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "INVENTÁRIO"
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="MainContainer/ContentVBox"]
+layout_mode = 2
+
+[node name="ItemGrid" type="GridContainer" parent="MainContainer/ContentVBox"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 4.0
+theme_override_constants/h_separation = 5
+theme_override_constants/v_separation = 5
+columns = 5
+
+[node name="ItemSlot" type="Panel" parent="MainContainer/ContentVBox/ItemGrid"]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+
+[node name="ItemSlot2" type="Panel" parent="MainContainer/ContentVBox/ItemGrid"]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+
+[node name="ItemSlot3" type="Panel" parent="MainContainer/ContentVBox/ItemGrid"]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+
+[node name="ItemSlot4" type="Panel" parent="MainContainer/ContentVBox/ItemGrid"]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+
+[node name="ItemSlot5" type="Panel" parent="MainContainer/ContentVBox/ItemGrid"]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+
+[node name="ItemSlot6" type="Panel" parent="MainContainer/ContentVBox/ItemGrid"]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+
+[node name="ItemSlot7" type="Panel" parent="MainContainer/ContentVBox/ItemGrid"]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+
+[node name="ItemSlot8" type="Panel" parent="MainContainer/ContentVBox/ItemGrid"]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+
+[node name="ItemSlot9" type="Panel" parent="MainContainer/ContentVBox/ItemGrid"]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+
+[node name="ItemSlot10" type="Panel" parent="MainContainer/ContentVBox/ItemGrid"]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+
+[node name="HSeparator2" type="HSeparator" parent="MainContainer/ContentVBox"]
+layout_mode = 2
+
+[node name="ItemDescriptionLabel" type="Label" parent="MainContainer/ContentVBox"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+theme_override_font_sizes/font_size = 30
+text = "Descrição do item selecionado aqui..."
