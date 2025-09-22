@@ -1,38 +1,33 @@
-extends Area2D
+extends StaticBody2D
 class_name Chest
 
-## Arraste o seu recurso LootTableData.tres para este campo no Inspetor.
 @export var loot_data: LootTableData
 
-# Preloads das cenas de itens que podem ser geradas
 const ITEM_SCENE = preload("res://Scenes/Items/Item.tscn")
 const CODE_FRAGMENT_SCENE = preload("res://Scenes/Upgrades/CodeFragment.tscn")
 
 @onready var sprite_2d: Sprite2D = $Sprite2D
-@onready var collision_shape: CollisionShape2D = $CollisionShape2D
+@onready var interaction_area: Area2D = $Area2D
+@onready var interaction_collision_shape: CollisionShape2D = $Area2D/InteractionShape
 
 var player_in_area: Node2D = null
 var is_opened: bool = false
 
 func _ready():
-	# Conecta os sinais da própria Area2D para saber quando o jogador está perto.
-	self.body_entered.connect(_on_body_entered)
-	self.body_exited.connect(_on_body_exited)
+	interaction_area.body_entered.connect(_on_body_entered)
+	interaction_area.body_exited.connect(_on_body_exited)
 
 func _unhandled_input(event):
-	# Se o jogador está na área, o baú não foi aberto e a tecla de interação foi pressionada...
 	if player_in_area and not is_opened and event.is_action_pressed("interact"):
 		open_chest()
 
 func _on_body_entered(body):
 	if body.is_in_group("player"):
 		player_in_area = body
-		# Opcional: mostrar um feedback visual de que o baú é interativo (ex: um balão com "F")
 
 func _on_body_exited(body):
 	if body == player_in_area:
 		player_in_area = null
-		# Opcional: esconder o feedback visual
 
 func open_chest():
 	if not loot_data:
@@ -41,14 +36,11 @@ func open_chest():
 	
 	is_opened = true
 	print("Baú aberto!")
-	
-	# Feedback visual de que o baú foi aberto (fica semi-transparente)
 	sprite_2d.modulate.a = 0.3
 	
-	# Desativa a colisão para não poder interagir novamente
-	collision_shape.set_deferred("disabled", true)
+	# Desativa APENAS a área de interação. O corpo físico continua ativo.
+	interaction_collision_shape.set_deferred("disabled", true)
 	
-	# Gera os itens da tabela de loot
 	spawn_loot()
 
 func spawn_loot():
@@ -70,15 +62,26 @@ func spawn_loot():
 			else:
 				continue # Pula se o tipo de item for desconhecido
 			
-			# Adiciona o item à cena do mundo (como irmão do baú)
 			get_parent().add_child(item_instance)
 			
-			# Lógica para fazer o item "pular" para fora do baú
+			# Define a posição e a escala INICIAL do item
 			var spawn_pos = global_position
+			item_instance.global_position = spawn_pos
+			item_instance.scale = Vector2(0.1, 0.1) # <<-- NOVA LINHA AQUI
+
+			# Define o alvo do "pulo"
 			var jump_target = spawn_pos + Vector2(randf_range(-40, 40), randf_range(-40, 40))
 			
-			item_instance.global_position = spawn_pos
-			
+			# Cria a animação Tween
 			var tween = create_tween()
+			tween.set_parallel(true) # <<-- IMPORTANTE: Faz as animações rodarem ao mesmo tempo
 			tween.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
+			
+			# Anima a POSIÇÃO para o alvo do pulo
 			tween.tween_property(item_instance, "global_position", jump_target, 0.4)
+			# Anima a ESCALA de 0.1 para o tamanho normal (1.0)
+			tween.tween_property(item_instance, "scale", Vector2(0.1, 0.1), 0.4) # <<-- NOVA LINHA AQUI
+			
+			# Inicia o atraso de coleta após o pulo
+			if item_instance.has_method("activate_collect_delay"):
+				item_instance.activate_collect_delay(2.0)

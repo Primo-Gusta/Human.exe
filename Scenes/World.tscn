@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=4 uid="uid://cgbrftyxikcd2"]
+[gd_scene load_steps=32 format=4 uid="uid://cgbrftyxikcd2"]
 
 [ext_resource type="Script" uid="uid://wconnifnreuf" path="res://Scripts/World.gd" id="1_ti1bm"]
 [ext_resource type="PackedScene" uid="uid://dvh8xr2aqvtxp" path="res://Scenes/Player.tscn" id="2_op4cu"]
@@ -18,8 +18,10 @@
 [ext_resource type="Resource" uid="uid://4upytm4btuql" path="res://Resources/Spawners/GrassAreaSpawn.tres" id="16_xiqgv"]
 [ext_resource type="PackedScene" uid="uid://b0jq7i6d2avwh" path="res://Scenes/Upgrades/CodeFragment.tscn" id="17_rwt1y"]
 [ext_resource type="Resource" uid="uid://c7mgf8fri38bp" path="res://Resources/Upgrades/Fragments/fragment_skill_q_damage.tres" id="18_mvfa8"]
+[ext_resource type="PackedScene" uid="uid://bsrl1yn0nd8j2" path="res://Scenes/Items/Chest.tscn" id="19_mvfa8"]
 [ext_resource type="Resource" uid="uid://dcq3sknr3k40d" path="res://Resources/Upgrades/Fragments/fragment_one.tres" id="19_r0dna"]
 [ext_resource type="Resource" uid="uid://b2dyou1cis1df" path="res://Resources/Upgrades/Fragments/fragment_plus_equals.tres" id="20_b5aes"]
+[ext_resource type="Resource" uid="uid://dvgqvicrsxrno" path="res://Resources/Items/LootTables/Chest_IntroFragments_Loot.tres" id="22_w0bku"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_xk7c1"]
 texture = ExtResource("3_8l3nt")
@@ -171,12 +173,10 @@ tile_set = SubResource("TileSet_ua1ij")
 
 [node name="Item" parent="." instance=ExtResource("14_xiqgv")]
 position = Vector2(753, 262)
-scale = Vector2(0.1, 0.1)
 item_data = ExtResource("15_waglr")
 
 [node name="Item2" parent="." instance=ExtResource("14_xiqgv")]
 position = Vector2(945, 112)
-scale = Vector2(0.1, 0.1)
 item_data = ExtResource("16_rwt1y")
 
 [node name="EnemySpawner" parent="." instance=ExtResource("15_kwl8l")]
@@ -197,5 +197,9 @@ fragment_data = ExtResource("19_r0dna")
 position = Vector2(206, 540)
 scale = Vector2(0.1, 0.1)
 fragment_data = ExtResource("20_b5aes")
+
+[node name="Chest" parent="." instance=ExtResource("19_mvfa8")]
+position = Vector2(-42, 277)
+loot_data = ExtResource("22_w0bku")
 
 [editable path="Player"]

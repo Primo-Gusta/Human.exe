@@ -1,10 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://c3qmuj12ketan"]
+[gd_scene load_steps=4 format=3 uid="uid://c3qmuj12ketan"]
 
 [ext_resource type="Script" uid="uid://0yt1c3t375y7" path="res://Scripts/UI/GameMenus.gd" id="1_v4l3l"]
 [ext_resource type="PackedScene" uid="uid://cg547mw2fpp6s" path="res://Scenes/UI/InventoryMenu.tscn" id="2_xf27r"]
 [ext_resource type="PackedScene" uid="uid://ufdlqljm3bfo" path="res://Scenes/UI/SkillsMenu.tscn" id="3_axb7j"]
-[ext_resource type="Script" uid="uid://dww0skht3p658" path="res://Scripts/Upgrades/UpgradeReceiptData.gd" id="4_axb7j"]
-[ext_resource type="Resource" uid="uid://dp0rbvprpjj27" path="res://Resources/Upgrades/Recipes/recipe_pulse_damage_1.tres" id="5_khg1f"]
 
 [node name="GameMenus" type="CanvasLayer"]
 script = ExtResource("1_v4l3l")
@@ -43,5 +41,4 @@ metadata/_tab_index = 0
 [node name="SkillsMenu" parent="MainContainer/Tabs" instance=ExtResource("3_axb7j")]
 visible = false
 layout_mode = 2
-pulse_skill_recipes = Array[ExtResource("4_axb7j")]([ExtResource("5_khg1f")])
 metadata/_tab_index = 1

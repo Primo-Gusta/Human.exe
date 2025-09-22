@@ -6,6 +6,8 @@ class_name CodeFragment
 @export var fragment_data: CodeFragmentData
 
 @onready var sprite_2d: Sprite2D = $Sprite2D
+@onready var collect_delay_timer = $CollectDelayTimer
+@onready var collision_shape = $CollisionShape2D
 
 func _ready():
 	# Conecta o sinal 'body_entered' da própria Area2D a uma função neste script.
@@ -30,3 +32,13 @@ func _on_body_entered(body):
 			
 			# Remove o fragmento do mundo.
 			queue_free()
+
+# Esta função será chamada pelo Baú
+func activate_collect_delay(duration: float):
+	collision_shape.disabled = true # Desativa a coleta
+	collect_delay_timer.wait_time = duration
+	collect_delay_timer.start()
+	collect_delay_timer.timeout.connect(_on_collect_delay_timer_timeout)
+
+func _on_collect_delay_timer_timeout():
+	collision_shape.disabled = false # Reativa a coleta
