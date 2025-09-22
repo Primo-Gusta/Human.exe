@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://clj4nliurxrd4"]
+
+[ext_resource type="Script" uid="uid://cgnov6s201qw6" path="res://Scripts/Upgrades/FragmentIcon.gd" id="1_2wd17"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oep45"]
+bg_color = Color(0.6, 0.6, 0.6, 0.647059)
+
+[node name="FragmentIcon" type="Control"]
+custom_minimum_size = Vector2(155, 40)
+layout_mode = 3
+anchors_preset = 0
+scale = Vector2(1, 1.01889)
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_2wd17")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_oep45")
+text = "fragmento_exemplo"

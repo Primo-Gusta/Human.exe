@@ -8,6 +8,14 @@ signal menu_closed_requested
 @onready var inventory_menu = $MainContainer/Tabs/InventoryMenu
 @onready var skills_menu = $MainContainer/Tabs/SkillsMenu
 
+signal request_set_active_item(item_data: ItemData)
+
+
+# Adicione esta nova função PÚBLICA:
+func initialize_with_player(p_player: Node):
+	if is_instance_valid(skills_menu) and skills_menu.has_method("set_player_reference"):
+		skills_menu.set_player_reference(p_player)
+
 func _ready() -> void:
 	visible = false
 
@@ -34,6 +42,9 @@ func _ready() -> void:
 		inventory_menu.focus_mode = Control.FOCUS_ALL
 	if is_instance_valid(skills_menu):
 		skills_menu.focus_mode = Control.FOCUS_ALL
+	# NOVO: Conecta o sinal do menu de inventário a uma função neste script
+	if is_instance_valid(inventory_menu):
+		inventory_menu.item_selected.connect(_on_inventory_item_selected)
 
 
 func set_menu_state(active: bool) -> void:
@@ -79,3 +90,12 @@ func _release_focus_recursive(node: Node) -> void:
 			node.release_focus()
 	for child in node.get_children():
 		_release_focus_recursive(child)
+		
+func update_inventory(inventory_data: Dictionary, current_active_item: ItemData):
+	if is_instance_valid(inventory_menu):
+		# Passa os dois argumentos para a função do InventoryMenu
+		inventory_menu.update_inventory_display(inventory_data, current_active_item)
+		
+# NOVO: Esta função ouve o sinal do InventoryMenu e o repassa para o World
+func _on_inventory_item_selected(item_data: ItemData):
+	emit_signal("request_set_active_item", item_data)

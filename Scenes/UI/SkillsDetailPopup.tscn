@@ -53,11 +53,20 @@ text = "Pulso de ataque"
 [node name="HSeparator" type="HSeparator" parent="DetailsPanel/ContentVbox"]
 layout_mode = 2
 
-[node name="CodePanel" type="PanelContainer" parent="DetailsPanel/ContentVbox"]
+[node name="HBoxContainer" type="HBoxContainer" parent="DetailsPanel/ContentVbox"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="CodeLabel" type="Label" parent="DetailsPanel/ContentVbox/CodePanel"]
+[node name="RecipePanel" type="VBoxContainer" parent="DetailsPanel/ContentVbox/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+
+[node name="CodePanel" type="PanelContainer" parent="DetailsPanel/ContentVbox/HBoxContainer/RecipePanel"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="CodeLabel" type="Label" parent="DetailsPanel/ContentVbox/HBoxContainer/RecipePanel/CodePanel"]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 text = "func attack_pulse():
@@ -68,23 +77,33 @@ text = "func attack_pulse():
 ㅤㅤㅤ# UPGRADE 2"
 autowrap_mode = 2
 
+[node name="RecipeSlotsContainer" type="HBoxContainer" parent="DetailsPanel/ContentVbox/HBoxContainer/RecipePanel"]
+layout_mode = 2
+theme_override_constants/separation = 50
+
+[node name="CompileButton" type="Button" parent="DetailsPanel/ContentVbox/HBoxContainer/RecipePanel"]
+layout_mode = 2
+text = "Compilar"
+
+[node name="FragmentsPanel" type="VBoxContainer" parent="DetailsPanel/ContentVbox/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="DetailsPanel/ContentVbox/HBoxContainer/FragmentsPanel"]
+layout_mode = 2
+text = "Fragmentos Disponíveis"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="DetailsPanel/ContentVbox/HBoxContainer/FragmentsPanel"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="FragmentInventoryGrid" type="GridContainer" parent="DetailsPanel/ContentVbox/HBoxContainer/FragmentsPanel/ScrollContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/v_separation = -100
+
 [node name="HSeparator2" type="HSeparator" parent="DetailsPanel/ContentVbox"]
 layout_mode = 2
-
-[node name="UpgradesHBox" type="HBoxContainer" parent="DetailsPanel/ContentVbox"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-
-[node name="Upgrade1Button" type="Button" parent="DetailsPanel/ContentVbox/UpgradesHBox"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "UPGRADE 1"
-
-[node name="Upgrade2Button" type="Button" parent="DetailsPanel/ContentVbox/UpgradesHBox"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "UPGRADE 2"
 
 [node name="CloseButton" type="Button" parent="DetailsPanel"]
 custom_minimum_size = Vector2(50, 50)

@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="LootTableData" load_steps=3 format=3 uid="uid://cwavjg6gno8iu"]
+
+[ext_resource type="Script" uid="uid://csa4m2e7e7dw1" path="res://Scripts/Items/LootTableData.gd" id="1_uejdt"]
+
+[sub_resource type="GDScript" id="GDScript_ygmam"]
+
+[resource]
+script = ExtResource("1_uejdt")
+loot_drops = Array[SubResource("GDScript_ygmam")]([])
+metadata/_custom_type_script = "uid://csa4m2e7e7dw1"

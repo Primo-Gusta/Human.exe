@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://b0jq7i6d2avwh"]
+
+[ext_resource type="Script" uid="uid://c4dl5j5sgqglp" path="res://Scripts/Upgrades/CodeFragment.gd" id="1_fwwwi"]
+[ext_resource type="Texture2D" uid="uid://dq25jpnf5whh3" path="res://Assets/Cute_Fantasy_Free/icon.svg" id="2_xaua5"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mqxk5"]
+size = Vector2(117, 122)
+
+[node name="CodeFragment" type="Area2D"]
+script = ExtResource("1_fwwwi")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_xaua5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, 0)
+shape = SubResource("RectangleShape2D_mqxk5")

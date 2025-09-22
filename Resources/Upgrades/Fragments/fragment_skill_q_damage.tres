@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="CodeFragmentData" load_steps=3 format=3 uid="uid://c7mgf8fri38bp"]
+
+[ext_resource type="Script" uid="uid://bs312yevxwkex" path="res://Scripts/Upgrades/CodeFragmentData.gd" id="1_lnc45"]
+[ext_resource type="Texture2D" uid="uid://dq25jpnf5whh3" path="res://Assets/Cute_Fantasy_Free/icon.svg" id="1_u055i"]
+
+[resource]
+script = ExtResource("1_lnc45")
+fragment_text = "skill_q_damage"
+fragment_id = "skill_q_damage"
+icon = ExtResource("1_u055i")
+metadata/_custom_type_script = "uid://bs312yevxwkex"

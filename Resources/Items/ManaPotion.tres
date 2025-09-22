@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3 uid="uid://bi3uey6fvv5xf"]
+
+[ext_resource type="Texture2D" uid="uid://dq25jpnf5whh3" path="res://Assets/Cute_Fantasy_Free/icon.svg" id="1_b5vqn"]
+[ext_resource type="Script" uid="uid://cbtwiu7viccda" path="res://Scripts/Items/ItemData.gd" id="1_x5bu4"]
+
+[resource]
+script = ExtResource("1_x5bu4")
+item_name = "Poção de Mana"
+item_description = "Restaura 10 pontos de mana."
+item_icon = ExtResource("1_b5vqn")
+is_stackable = true
+effect_type = "Mana"
+effect_value = 10.0
+metadata/_custom_type_script = "uid://cbtwiu7viccda"

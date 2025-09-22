@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://cg547mw2fpp6s"]
+[gd_scene load_steps=3 format=3 uid="uid://cg547mw2fpp6s"]
 
 [ext_resource type="Script" uid="uid://bxfybetiijmy8" path="res://Scripts/UI/InventoryMenu.gd" id="1_8irge"]
+[ext_resource type="Texture2D" uid="uid://dq25jpnf5whh3" path="res://Assets/Cute_Fantasy_Free/icon.svg" id="2_jjmdy"]
 
 [node name="InventoryMenu" type="Control"]
 layout_mode = 3
@@ -31,53 +32,77 @@ horizontal_alignment = 1
 [node name="HSeparator" type="HSeparator" parent="MainContainer/ContentVBox"]
 layout_mode = 2
 
-[node name="ItemGrid" type="GridContainer" parent="MainContainer/ContentVBox"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MainContainer/ContentVBox"]
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 4.0
+
+[node name="ItemGrid" type="GridContainer" parent="MainContainer/ContentVBox/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 2.0
 theme_override_constants/h_separation = 5
 theme_override_constants/v_separation = 5
 columns = 5
 
-[node name="ItemSlot" type="Panel" parent="MainContainer/ContentVBox/ItemGrid"]
+[node name="ItemSlot" type="Panel" parent="MainContainer/ContentVBox/HBoxContainer/ItemGrid"]
 custom_minimum_size = Vector2(96, 96)
 layout_mode = 2
 
-[node name="ItemSlot2" type="Panel" parent="MainContainer/ContentVBox/ItemGrid"]
+[node name="ItemSlot2" type="Panel" parent="MainContainer/ContentVBox/HBoxContainer/ItemGrid"]
 custom_minimum_size = Vector2(96, 96)
 layout_mode = 2
 
-[node name="ItemSlot3" type="Panel" parent="MainContainer/ContentVBox/ItemGrid"]
+[node name="ItemSlot3" type="Panel" parent="MainContainer/ContentVBox/HBoxContainer/ItemGrid"]
 custom_minimum_size = Vector2(96, 96)
 layout_mode = 2
 
-[node name="ItemSlot4" type="Panel" parent="MainContainer/ContentVBox/ItemGrid"]
+[node name="ItemSlot4" type="Panel" parent="MainContainer/ContentVBox/HBoxContainer/ItemGrid"]
 custom_minimum_size = Vector2(96, 96)
 layout_mode = 2
 
-[node name="ItemSlot5" type="Panel" parent="MainContainer/ContentVBox/ItemGrid"]
+[node name="ItemSlot5" type="Panel" parent="MainContainer/ContentVBox/HBoxContainer/ItemGrid"]
 custom_minimum_size = Vector2(96, 96)
 layout_mode = 2
 
-[node name="ItemSlot6" type="Panel" parent="MainContainer/ContentVBox/ItemGrid"]
+[node name="ItemSlot6" type="Panel" parent="MainContainer/ContentVBox/HBoxContainer/ItemGrid"]
 custom_minimum_size = Vector2(96, 96)
 layout_mode = 2
 
-[node name="ItemSlot7" type="Panel" parent="MainContainer/ContentVBox/ItemGrid"]
+[node name="ItemSlot7" type="Panel" parent="MainContainer/ContentVBox/HBoxContainer/ItemGrid"]
 custom_minimum_size = Vector2(96, 96)
 layout_mode = 2
 
-[node name="ItemSlot8" type="Panel" parent="MainContainer/ContentVBox/ItemGrid"]
+[node name="ItemSlot8" type="Panel" parent="MainContainer/ContentVBox/HBoxContainer/ItemGrid"]
 custom_minimum_size = Vector2(96, 96)
 layout_mode = 2
 
-[node name="ItemSlot9" type="Panel" parent="MainContainer/ContentVBox/ItemGrid"]
+[node name="ItemSlot9" type="Panel" parent="MainContainer/ContentVBox/HBoxContainer/ItemGrid"]
 custom_minimum_size = Vector2(96, 96)
 layout_mode = 2
 
-[node name="ItemSlot10" type="Panel" parent="MainContainer/ContentVBox/ItemGrid"]
+[node name="ItemSlot10" type="Panel" parent="MainContainer/ContentVBox/HBoxContainer/ItemGrid"]
 custom_minimum_size = Vector2(96, 96)
 layout_mode = 2
+
+[node name="SelectedItemContainer" type="VBoxContainer" parent="MainContainer/ContentVBox/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SelectedItemIcon" type="TextureRect" parent="MainContainer/ContentVBox/HBoxContainer/SelectedItemContainer"]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+texture = ExtResource("2_jjmdy")
+stretch_mode = 3
+
+[node name="SelectedItemName" type="Label" parent="MainContainer/ContentVBox/HBoxContainer/SelectedItemContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 44
+text = "Poção"
 
 [node name="HSeparator2" type="HSeparator" parent="MainContainer/ContentVBox"]
 layout_mode = 2
