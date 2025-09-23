@@ -1,21 +1,27 @@
-[gd_resource type="Resource" script_class="SkillData" load_steps=5 format=3 uid="uid://dedmw6kg165m8"]
+[gd_resource type="Resource" script_class="SkillData" load_steps=6 format=3 uid="uid://dedmw6kg165m8"]
 
 [ext_resource type="Script" uid="uid://dww0skht3p658" path="res://Scripts/Upgrades/UpgradeReceiptData.gd" id="1_1g67k"]
 [ext_resource type="Texture2D" uid="uid://dq25jpnf5whh3" path="res://Assets/Cute_Fantasy_Free/icon.svg" id="1_1o215"]
 [ext_resource type="Script" uid="uid://lr1cpsyhtirc" path="res://Scripts/Upgrades/SkillData.gd" id="2_oukl4"]
 [ext_resource type="Resource" uid="uid://dp0rbvprpjj27" path="res://Resources/Upgrades/Recipes/recipe_pulse_damage_1.tres" id="3_ge4yg"]
+[ext_resource type="PackedScene" uid="uid://djfwenjljl5ol" path="res://Scenes/Skills/AttackPulseSkill.tscn" id="5_ge4yg"]
 
 [resource]
 script = ExtResource("2_oukl4")
+skill_id = "pulse"
 skill_name = "Pulso de ataque"
 icon = ExtResource("1_1o215")
 description = "Lança um pulso em inimigos"
 function_name = "func attack_pulse()"
-skill_id = "pulse"
 base_code = "var targets = get_nearby_enemies(area_range)
 # UPGRADE 1
 for target in targets:
 ㅤtarget.take_damage(base_damage)
 # UPGRADE 2"
 recipes = Array[ExtResource("1_1g67k")]([ExtResource("3_ge4yg")])
+skill_scene = ExtResource("5_ge4yg")
+mana_cost = 5
+cooldown_time = 2.0
+base_damage = 1
+base_range = 60.0
 metadata/_custom_type_script = "uid://lr1cpsyhtirc"

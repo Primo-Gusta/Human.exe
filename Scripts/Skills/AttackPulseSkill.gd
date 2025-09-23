@@ -21,17 +21,16 @@ func _ready():
 
 # Esta função SOBRESCREVE a função "_execute" do nosso "contrato" Skill.gd
 func _execute():
-	# 1. Verifica as condições de uso
 	if not can_use or not is_instance_valid(player) or player.mana < mana_cost:
 		if is_instance_valid(player) and player.mana < mana_cost:
 			print("Mana insuficiente para o Pulso de Ataque!")
 		return
 
-	# 2. Prepara a habilidade
 	can_use = false
 	player.use_mana(mana_cost)
 	cooldown_timer.wait_time = cooldown_time
 	cooldown_timer.start()
+	# O Player é quem deve avisar a HUD
 	player.skill_q_cooldown_started.emit(cooldown_time) # Avisa a HUD
 
 	print("Executando Pulso de Ataque (versão componente)!")
@@ -72,3 +71,27 @@ func play_visual_effect():
 
 func _on_cooldown_finished():
 	can_use = true
+	
+# Esta função é chamada automaticamente quando a variável 'skill_data' é definida
+func set_skill_data(new_data: SkillData):
+	super.skill_data = new_data
+	if not skill_data: return
+	
+	# Popula os stats da habilidade com os valores base do Resource
+	self.mana_cost = skill_data.mana_cost
+	self.cooldown_time = skill_data.cooldown_time
+	self.damage = skill_data.base_damage
+	self.skill_range = skill_data.base_range
+	
+	# Aplica upgrades que o jogador já possa ter desbloqueado
+	if is_instance_valid(player):
+		for upgrade_id in player.unlocked_upgrade_ids:
+			_apply_upgrade(upgrade_id)
+			
+# Esta função SOBRESCREVE a função de upgrade do nosso "contrato"
+func _apply_upgrade(upgrade_id: String):
+	match upgrade_id:
+		"pulse_damage_1":
+			damage += 1
+			print("Stat de dano do Pulso de Ataque atualizado para: ", damage)
+		# Adicione outros 'case' para upgrades futuros desta skill aqui

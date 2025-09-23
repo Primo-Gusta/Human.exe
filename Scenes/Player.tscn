@@ -1,7 +1,6 @@
-[gd_scene load_steps=59 format=3 uid="uid://dvh8xr2aqvtxp"]
+[gd_scene load_steps=58 format=3 uid="uid://dvh8xr2aqvtxp"]
 
 [ext_resource type="Script" uid="uid://devnmv46js42j" path="res://Scripts/Player.gd" id="1_kpjcp"]
-[ext_resource type="Texture2D" uid="uid://dq25jpnf5whh3" path="res://Assets/Cute_Fantasy_Free/icon.svg" id="2_gntrk"]
 [ext_resource type="Texture2D" uid="uid://dv8dj7cea6nnr" path="res://Assets/Cute_Fantasy_Free/Player/Player.png" id="2_kyqiw"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kyqiw"]
@@ -431,12 +430,6 @@ size = Vector2(32, 24)
 [node name="Jogador" type="CharacterBody2D" groups=["player"]]
 scale = Vector2(1.5, 1.5)
 script = ExtResource("1_kpjcp")
-
-[node name="SkillQ_PulseVisual" type="Sprite2D" parent="."]
-modulate = Color(0, 1, 1, 0)
-position = Vector2(-5.72205e-06, 0)
-scale = Vector2(0.1, 0.1)
-texture = ExtResource("2_gntrk")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_5v66d")
