@@ -1,9 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://ufdlqljm3bfo"]
+[gd_scene load_steps=3 format=3 uid="uid://ufdlqljm3bfo"]
 
 [ext_resource type="Texture2D" uid="uid://dq25jpnf5whh3" path="res://Assets/Cute_Fantasy_Free/icon.svg" id="1_e24u0"]
 [ext_resource type="Script" uid="uid://cirw46kjwcv4n" path="res://Scripts/UI/SkillsMenu.gd" id="1_xq74t"]
-[ext_resource type="Script" uid="uid://dww0skht3p658" path="res://Scripts/Upgrades/UpgradeReceiptData.gd" id="2_jle5d"]
-[ext_resource type="Resource" uid="uid://dp0rbvprpjj27" path="res://Resources/Upgrades/Recipes/recipe_pulse_damage_1.tres" id="3_5htks"]
 
 [node name="SkillsMenu" type="Control"]
 layout_mode = 3
@@ -13,7 +11,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_xq74t")
-pulse_skill_recipes = Array[ExtResource("2_jle5d")]([ExtResource("3_5htks")])
 
 [node name="SkillsTabContainer" type="PanelContainer" parent="."]
 layout_mode = 1
@@ -35,30 +32,36 @@ horizontal_alignment = 1
 [node name="HSeparator" type="HSeparator" parent="SkillsTabContainer/ContentVBox"]
 layout_mode = 2
 
-[node name="MainContainer" type="PanelContainer" parent="SkillsTabContainer/ContentVBox"]
+[node name="MainContainer" type="HSplitContainer" parent="SkillsTabContainer/ContentVBox"]
 custom_minimum_size = Vector2(800, 500)
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Tabs" type="TabContainer" parent="SkillsTabContainer/ContentVBox/MainContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="SkillsTabContainer/ContentVBox/MainContainer"]
+layout_mode = 2
+
+[node name="Tabs" type="TabContainer" parent="SkillsTabContainer/ContentVBox/MainContainer/VBoxContainer"]
 layout_mode = 2
 current_tab = 0
 
-[node name="Scripts" type="Control" parent="SkillsTabContainer/ContentVBox/MainContainer/Tabs"]
+[node name="Scripts" type="Control" parent="SkillsTabContainer/ContentVBox/MainContainer/VBoxContainer/Tabs"]
 layout_mode = 2
 metadata/_tab_index = 0
 
-[node name="MainSkillsContainer" type="HBoxContainer" parent="SkillsTabContainer/ContentVBox/MainContainer/Tabs/Scripts"]
+[node name="ScrollsContainer" type="ScrollContainer" parent="SkillsTabContainer/ContentVBox/MainContainer/VBoxContainer/Tabs/Scripts"]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-theme_override_constants/separation = 50
+offset_right = 306.0
+offset_bottom = 128.0
 
-[node name="PulseSkillSlot" type="Control" parent="SkillsTabContainer/ContentVBox/MainContainer/Tabs/Scripts/MainSkillsContainer"]
+[node name="SkillGrid" type="GridContainer" parent="SkillsTabContainer/ContentVBox/MainContainer/VBoxContainer/Tabs/Scripts/ScrollsContainer"]
+layout_mode = 2
+columns = 2
+
+[node name="PulseSkillSlot" type="Control" parent="SkillsTabContainer/ContentVBox/MainContainer/VBoxContainer/Tabs/Scripts/ScrollsContainer/SkillGrid"]
 custom_minimum_size = Vector2(128, 128)
 layout_mode = 2
 
-[node name="attack_pulse_skill_icon" type="TextureButton" parent="SkillsTabContainer/ContentVBox/MainContainer/Tabs/Scripts/MainSkillsContainer/PulseSkillSlot"]
+[node name="attack_pulse_skill_icon" type="TextureButton" parent="SkillsTabContainer/ContentVBox/MainContainer/VBoxContainer/Tabs/Scripts/ScrollsContainer/SkillGrid/PulseSkillSlot"]
 custom_minimum_size = Vector2(128, 128)
 layout_mode = 1
 anchors_preset = 15
@@ -68,7 +71,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture_normal = ExtResource("1_e24u0")
 
-[node name="ModifyLabel" type="Label" parent="SkillsTabContainer/ContentVBox/MainContainer/Tabs/Scripts/MainSkillsContainer/PulseSkillSlot"]
+[node name="ModifyLabel" type="Label" parent="SkillsTabContainer/ContentVBox/MainContainer/VBoxContainer/Tabs/Scripts/ScrollsContainer/SkillGrid/PulseSkillSlot"]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -82,11 +85,11 @@ text = "Modificar"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="LoopSkillSlot" type="Control" parent="SkillsTabContainer/ContentVBox/MainContainer/Tabs/Scripts/MainSkillsContainer"]
+[node name="LoopSkillSlot" type="Control" parent="SkillsTabContainer/ContentVBox/MainContainer/VBoxContainer/Tabs/Scripts/ScrollsContainer/SkillGrid"]
 custom_minimum_size = Vector2(128, 128)
 layout_mode = 2
 
-[node name="attack_loop_skill_icon" type="TextureButton" parent="SkillsTabContainer/ContentVBox/MainContainer/Tabs/Scripts/MainSkillsContainer/LoopSkillSlot"]
+[node name="attack_loop_skill_icon" type="TextureButton" parent="SkillsTabContainer/ContentVBox/MainContainer/VBoxContainer/Tabs/Scripts/ScrollsContainer/SkillGrid/LoopSkillSlot"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -95,7 +98,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture_normal = ExtResource("1_e24u0")
 
-[node name="ModifyLabel" type="Label" parent="SkillsTabContainer/ContentVBox/MainContainer/Tabs/Scripts/MainSkillsContainer/LoopSkillSlot"]
+[node name="ModifyLabel" type="Label" parent="SkillsTabContainer/ContentVBox/MainContainer/VBoxContainer/Tabs/Scripts/ScrollsContainer/SkillGrid/LoopSkillSlot"]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -109,42 +112,159 @@ text = "Modificar"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Cybersecurity" type="Control" parent="SkillsTabContainer/ContentVBox/MainContainer/Tabs"]
+[node name="Cybersecurity" type="Control" parent="SkillsTabContainer/ContentVBox/MainContainer/VBoxContainer/Tabs"]
 visible = false
 layout_mode = 2
 metadata/_tab_index = 1
 
-[node name="MainSkillsContainer" type="HBoxContainer" parent="SkillsTabContainer/ContentVBox/MainContainer/Tabs/Cybersecurity"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-theme_override_constants/separation = 50
+[node name="ScrollsContainer" type="ScrollContainer" parent="SkillsTabContainer/ContentVBox/MainContainer/VBoxContainer/Tabs/Cybersecurity"]
+offset_right = 306.0
+offset_bottom = 128.0
 
-[node name="AttackPulseSkillButton" type="TextureButton" parent="SkillsTabContainer/ContentVBox/MainContainer/Tabs/Cybersecurity/MainSkillsContainer"]
+[node name="SkillGrid" type="GridContainer" parent="SkillsTabContainer/ContentVBox/MainContainer/VBoxContainer/Tabs/Cybersecurity/ScrollsContainer"]
+layout_mode = 2
+columns = 2
+
+[node name="PulseSkillSlot" type="Control" parent="SkillsTabContainer/ContentVBox/MainContainer/VBoxContainer/Tabs/Cybersecurity/ScrollsContainer/SkillGrid"]
 custom_minimum_size = Vector2(128, 128)
 layout_mode = 2
+
+[node name="attack_pulse_skill_icon" type="TextureButton" parent="SkillsTabContainer/ContentVBox/MainContainer/VBoxContainer/Tabs/Cybersecurity/ScrollsContainer/SkillGrid/PulseSkillSlot"]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 texture_normal = ExtResource("1_e24u0")
 
-[node name="AttackLoopSkillButton" type="TextureButton" parent="SkillsTabContainer/ContentVBox/MainContainer/Tabs/Cybersecurity/MainSkillsContainer"]
+[node name="ModifyLabel" type="Label" parent="SkillsTabContainer/ContentVBox/MainContainer/VBoxContainer/Tabs/Cybersecurity/ScrollsContainer/SkillGrid/PulseSkillSlot"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0.960784, 0.0823529, 1)
+theme_override_font_sizes/font_size = 22
+text = "Modificar"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LoopSkillSlot" type="Control" parent="SkillsTabContainer/ContentVBox/MainContainer/VBoxContainer/Tabs/Cybersecurity/ScrollsContainer/SkillGrid"]
+custom_minimum_size = Vector2(128, 128)
 layout_mode = 2
+
+[node name="attack_loop_skill_icon" type="TextureButton" parent="SkillsTabContainer/ContentVBox/MainContainer/VBoxContainer/Tabs/Cybersecurity/ScrollsContainer/SkillGrid/LoopSkillSlot"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 texture_normal = ExtResource("1_e24u0")
 
-[node name="Database" type="Control" parent="SkillsTabContainer/ContentVBox/MainContainer/Tabs"]
+[node name="ModifyLabel" type="Label" parent="SkillsTabContainer/ContentVBox/MainContainer/VBoxContainer/Tabs/Cybersecurity/ScrollsContainer/SkillGrid/LoopSkillSlot"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0.960784, 0.0823529, 1)
+theme_override_font_sizes/font_size = 22
+text = "Modificar"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Database" type="Control" parent="SkillsTabContainer/ContentVBox/MainContainer/VBoxContainer/Tabs"]
 visible = false
 layout_mode = 2
 metadata/_tab_index = 2
 
-[node name="MainSkillsContainer" type="HBoxContainer" parent="SkillsTabContainer/ContentVBox/MainContainer/Tabs/Database"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-theme_override_constants/separation = 50
+[node name="ScrollsContainer" type="ScrollContainer" parent="SkillsTabContainer/ContentVBox/MainContainer/VBoxContainer/Tabs/Database"]
+offset_right = 306.0
+offset_bottom = 128.0
 
-[node name="AttackPulseSkillButton" type="TextureButton" parent="SkillsTabContainer/ContentVBox/MainContainer/Tabs/Database/MainSkillsContainer"]
+[node name="SkillGrid" type="GridContainer" parent="SkillsTabContainer/ContentVBox/MainContainer/VBoxContainer/Tabs/Database/ScrollsContainer"]
+layout_mode = 2
+columns = 2
+
+[node name="PulseSkillSlot" type="Control" parent="SkillsTabContainer/ContentVBox/MainContainer/VBoxContainer/Tabs/Database/ScrollsContainer/SkillGrid"]
 custom_minimum_size = Vector2(128, 128)
 layout_mode = 2
+
+[node name="attack_pulse_skill_icon" type="TextureButton" parent="SkillsTabContainer/ContentVBox/MainContainer/VBoxContainer/Tabs/Database/ScrollsContainer/SkillGrid/PulseSkillSlot"]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 texture_normal = ExtResource("1_e24u0")
 
-[node name="AttackLoopSkillButton" type="TextureButton" parent="SkillsTabContainer/ContentVBox/MainContainer/Tabs/Database/MainSkillsContainer"]
+[node name="ModifyLabel" type="Label" parent="SkillsTabContainer/ContentVBox/MainContainer/VBoxContainer/Tabs/Database/ScrollsContainer/SkillGrid/PulseSkillSlot"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0.960784, 0.0823529, 1)
+theme_override_font_sizes/font_size = 22
+text = "Modificar"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LoopSkillSlot" type="Control" parent="SkillsTabContainer/ContentVBox/MainContainer/VBoxContainer/Tabs/Database/ScrollsContainer/SkillGrid"]
+custom_minimum_size = Vector2(128, 128)
 layout_mode = 2
+
+[node name="attack_loop_skill_icon" type="TextureButton" parent="SkillsTabContainer/ContentVBox/MainContainer/VBoxContainer/Tabs/Database/ScrollsContainer/SkillGrid/LoopSkillSlot"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 texture_normal = ExtResource("1_e24u0")
+
+[node name="ModifyLabel" type="Label" parent="SkillsTabContainer/ContentVBox/MainContainer/VBoxContainer/Tabs/Database/ScrollsContainer/SkillGrid/LoopSkillSlot"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0.960784, 0.0823529, 1)
+theme_override_font_sizes/font_size = 22
+text = "Modificar"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SkillDetailsPanel" type="VBoxContainer" parent="SkillsTabContainer/ContentVBox/MainContainer"]
+layout_mode = 2
+
+[node name="SkillNameLabel" type="Label" parent="SkillsTabContainer/ContentVBox/MainContainer/SkillDetailsPanel"]
+layout_mode = 2
+
+[node name="SkillDescriptsLabel" type="Label" parent="SkillsTabContainer/ContentVBox/MainContainer/SkillDetailsPanel"]
+layout_mode = 2
+
+[node name="HSeparator" type="HSeparator" parent="SkillsTabContainer/ContentVBox/MainContainer/SkillDetailsPanel"]
+layout_mode = 2
+
+[node name="ModifyButton" type="Button" parent="SkillsTabContainer/ContentVBox/MainContainer/SkillDetailsPanel"]
+layout_mode = 2
+
+[node name="EquipQButton" type="Button" parent="SkillsTabContainer/ContentVBox/MainContainer/SkillDetailsPanel"]
+layout_mode = 2
+
+[node name="EquipEButton" type="Button" parent="SkillsTabContainer/ContentVBox/MainContainer/SkillDetailsPanel"]
+layout_mode = 2

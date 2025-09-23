@@ -174,3 +174,12 @@ func find_next_available_recipe() -> UpgradeRecipeData:
 		if not recipe.upgrade_effect_id in player_node.unlocked_upgrade_ids:
 			return recipe # Retorna a primeira receita que o jogador ainda não tem
 	return null # Retorna nulo se todos os upgrades já foram feitos
+	
+func _unhandled_input(event):
+	# Se a ação "ui_cancel" (geralmente ESC) for pressionada...
+	if event.is_action_pressed("ui_cancel"):
+		# ...marca o evento como "manuseado". Isso impede que outros nós (como o GameMenus)
+		# recebam este mesmo evento e reajam a ele.
+		get_viewport().set_input_as_handled()
+		# Chama a nossa função de fechar o popup.
+		on_close_button_pressed()

@@ -32,6 +32,7 @@ grow_vertical = 2
 
 [node name="Tabs" type="TabContainer" parent="MainContainer"]
 layout_mode = 2
+tab_alignment = 1
 current_tab = 0
 
 [node name="InventoryMenu" parent="MainContainer/Tabs" instance=ExtResource("2_xf27r")]

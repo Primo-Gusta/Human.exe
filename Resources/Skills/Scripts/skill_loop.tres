@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="SkillData" load_steps=4 format=3 uid="uid://bovv80piofqpw"]
+
+[ext_resource type="Texture2D" uid="uid://dq25jpnf5whh3" path="res://Assets/Cute_Fantasy_Free/icon.svg" id="1_8cpqj"]
+[ext_resource type="Script" uid="uid://dww0skht3p658" path="res://Scripts/Upgrades/UpgradeReceiptData.gd" id="1_gbyke"]
+[ext_resource type="Script" uid="uid://lr1cpsyhtirc" path="res://Scripts/Upgrades/SkillData.gd" id="2_8cpqj"]
+
+[resource]
+script = ExtResource("2_8cpqj")
+skill_name = "Loop Shot"
+icon = ExtResource("1_8cpqj")
+description = "Atira no inimigo com um loop que não termina até concluir sua condição"
+function_name = "func loop_shot()"
+skill_id = "loop"
+base_code = "var projectile = Projectile.new()
+
+projectile.setup(direction, initial_damage)
+
+projectile.spawn()
+
+# UPGRADE 1
+
+# UPGRADE 2"
+recipes = Array[ExtResource("1_gbyke")]([])
+metadata/_custom_type_script = "uid://lr1cpsyhtirc"
