@@ -17,6 +17,7 @@ var game_ready_for_input: bool = false # flag para ignorar inputs iniciais
 func _ready() -> void:
 	# Conectar sinais do player/hud de forma explícita
 	if is_instance_valid(player):
+		hud.player = player # Apresenta o jogador à HUD
 		if player.has_signal("player_died"):
 			player.player_died.connect(Callable(self, "on_player_died"))
 		if player.has_signal("health_updated"):
@@ -26,11 +27,12 @@ func _ready() -> void:
 			player.mana_updated.connect(Callable(hud, "update_mana"))
 		if player.has_signal("player_took_damage"):
 			player.player_took_damage.connect(Callable(hud, "flash_screen"))
-		if player.has_signal("skill_q_cooldown_started"):
-			player.skill_q_cooldown_started.connect(Callable(hud, "start_skill_q_cooldown_visual"))
-		if player.has_signal("skill_e_cooldown_started"):
-			player.skill_e_cooldown_started.connect(Callable(hud, "start_skill_e_cooldown_visual"))
-		player.active_item_changed.connect(_on_player_active_item_changed)
+		if player.has_signal("skill_used"):
+			player.skill_used.connect(Callable(hud, "start_cooldown_visual"))
+		# --- FIM DA ALTERAÇÃO ---
+		# ADICIONE esta nova conexão
+		player.equipped_skills_changed.connect(Callable(hud, "update_equipped_skills"))
+
 
 	# Conectar inimigos já presentes
 	var enemies_in_scene = get_tree().get_nodes_in_group("enemies")
@@ -95,8 +97,7 @@ func start_game() -> void:
 		hud.update_health(player.health)
 		hud.set_max_mana(player.max_mana) # NOVO
 		hud.update_mana(player.mana)       # NOVO
-		hud.set_skill_mana_costs(player.skill_q_mana_cost, player.skill_e_mana_cost)
-
+		hud.update_equipped_skills(player.equipped_skill_q, player.equipped_skill_e)
 	get_tree().paused = false
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	print("World: Jogo inicializado e rodando. Menus escondidos.")

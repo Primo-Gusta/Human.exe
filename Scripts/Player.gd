@@ -9,6 +9,7 @@ signal inventory_updated(inventory_data: Dictionary, current_active_item: ItemDa
 signal active_item_changed(item_data: ItemData)
 signal code_fragments_inventory_updated(fragments_inventory: Dictionary)
 signal equipped_skills_changed(equipped_q: Skill, equipped_e: Skill)
+signal skill_used(slot: String, duration: float)
 
 # --- ATRIBUTOS ---
 @export var velocidade = 150.0
@@ -26,6 +27,8 @@ var unlocked_upgrade_ids: Array[String] = []
 # --- HABILIDADES EQUIPADAS ---
 var equipped_skill_q: Skill = null # Armazena a INSTÂNCIA da cena da skill
 var equipped_skill_e: Skill = null # Armazena a INSTÂNCIA da cena da skill
+@export var default_skill_q: SkillData
+@export var default_skill_e: SkillData
 
 # --- PRELOADS E REFERÊNCIAS ---
 @onready var animated_sprite = $AnimatedSprite2D
@@ -39,9 +42,15 @@ var active_item: ItemData = null
 var hit_enemies = []
 var is_dead = false
 var is_in_knockback = false
+
 func _ready():
 	health_updated.emit(health)
 	mana_updated.emit(mana)
+	# NOVO: Equipa as habilidades padrão ao iniciar o jogo
+	if default_skill_q:
+		equip_skill(default_skill_q, "q")
+	if default_skill_e:
+		equip_skill(default_skill_e, "e")
 
 # --- NOVO: Função de Inventário ---
 func add_item_to_inventory(item_data: ItemData):
@@ -174,7 +183,7 @@ func equip_skill(skill_data: SkillData, slot: String):
 		
 	var skill_scene = skill_data.skill_scene.instantiate()
 	skill_scene.player = self
-	skill_scene.skill_data = skill_data
+	skill_scene.set_skill_data(skill_data)
 	
 	match slot:
 		"q":
@@ -191,10 +200,14 @@ func equip_skill(skill_data: SkillData, slot: String):
 func use_skill_q():
 	if is_instance_valid(equipped_skill_q):
 		equipped_skill_q._execute()
+		# AVISA A HUD SOBRE O COOLDOWN (LINHA QUE FALTAVA)
+		emit_signal("skill_used", "q", equipped_skill_q.cooldown_time)
 
 func use_skill_e():
 	if is_instance_valid(equipped_skill_e):
 		equipped_skill_e._execute()
+		# NOVO: O player avisa a HUD sobre o cooldown
+		emit_signal("skill_used", "e", equipped_skill_e.cooldown_time)
 
 # --- Demais funções ---
 # ... (todas as outras funções como `update_animation`, `take_damage`, `die`, etc., permanecem as mesmas)

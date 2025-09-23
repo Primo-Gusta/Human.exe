@@ -7,11 +7,10 @@ class_name AttackPulseSkill
 
 # --- STATS DA HABILIDADE ---
 # Estes valores serão preenchidos a partir do SkillData
-var mana_cost: int = 5
-var damage: int = 1
-var skill_range: float = 60.0
-var cooldown_time: float = 2.0
-
+var mana_cost: int 
+var damage: int 
+var skill_range: float
+var cooldown_time: float
 var can_use: bool = true
 
 func _ready():
@@ -30,9 +29,6 @@ func _execute():
 	player.use_mana(mana_cost)
 	cooldown_timer.wait_time = cooldown_time
 	cooldown_timer.start()
-	# O Player é quem deve avisar a HUD
-	player.skill_q_cooldown_started.emit(cooldown_time) # Avisa a HUD
-
 	print("Executando Pulso de Ataque (versão componente)!")
 
 	# 3. Executa a lógica de dano
@@ -74,7 +70,7 @@ func _on_cooldown_finished():
 	
 # Esta função é chamada automaticamente quando a variável 'skill_data' é definida
 func set_skill_data(new_data: SkillData):
-	super.skill_data = new_data
+	skill_data = new_data
 	if not skill_data: return
 	
 	# Popula os stats da habilidade com os valores base do Resource

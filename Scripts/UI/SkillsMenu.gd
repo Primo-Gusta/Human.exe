@@ -1,13 +1,13 @@
 extends Control
 
 # --- REFERÊNCIAS DA CENA ---
-@onready var skill_grid = $SkillsTabContainer/ContentVbox/MainContainer/VBoxContainer/Tabs/Scripts/ScrollContainer/SkillGrid
-@onready var skill_details_panel = $SkillsTabContainer/ContentVbox/MainContainer/SkillDetailsPanel
-@onready var skill_name_label = $SkillsTabContainer/ContentVbox/MainContainer/SkillDetailsPanel/SkillNameLabel
-@onready var skill_description_label = $SkillsTabContainer/ContentVbox/MainContainer/SkillDetailsPanel/SkillDescriptionLabel
-@onready var modify_button = $SkillsTabContainer/ContentVbox/MainContainer/SkillDetailsPanel/ModifyButton
-@onready var equip_q_button = $SkillsTabContainer/ContentVbox/MainContainer/SkillDetailsPanel/EquipQButton
-@onready var equip_e_button = $SkillsTabContainer/ContentVbox/MainContainer/SkillDetailsPanel/EquipEButton
+@onready var skill_grid = $SkillsTabContainer/ContentVBox/MainContainer/VBoxContainer/Tabs/Scripts/ScrollsContainer/SkillGrid
+@onready var skill_details_panel = $SkillsTabContainer/ContentVBox/MainContainer/SkillDetailsPanel
+@onready var skill_name_label = $SkillsTabContainer/ContentVBox/MainContainer/SkillDetailsPanel/SkillNameLabel
+@onready var skill_description_label = $SkillsTabContainer/ContentVBox/MainContainer/SkillDetailsPanel/SkillDescriptsLabel
+@onready var modify_button = $SkillsTabContainer/ContentVBox/MainContainer/SkillDetailsPanel/ModifyButton
+@onready var equip_q_button = $SkillsTabContainer/ContentVBox/MainContainer/SkillDetailsPanel/EquipQButton
+@onready var equip_e_button = $SkillsTabContainer/ContentVBox/MainContainer/SkillDetailsPanel/EquipEButton
 
 # --- PRELOADS ---
 var UpgradePopupScene = preload("res://Scenes/UI/SkillsDetailPopup.tscn")

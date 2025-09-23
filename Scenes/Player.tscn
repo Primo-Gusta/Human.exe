@@ -450,5 +450,7 @@ position = Vector2(2, 2)
 shape = SubResource("RectangleShape2D_kyqiw")
 disabled = true
 
+[node name="EquippedSkillsContainer" type="Node" parent="."]
+
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]

@@ -118,6 +118,7 @@ layout_mode = 2
 metadata/_tab_index = 1
 
 [node name="ScrollsContainer" type="ScrollContainer" parent="SkillsTabContainer/ContentVBox/MainContainer/VBoxContainer/Tabs/Cybersecurity"]
+layout_mode = 0
 offset_right = 306.0
 offset_bottom = 128.0
 
@@ -186,6 +187,7 @@ layout_mode = 2
 metadata/_tab_index = 2
 
 [node name="ScrollsContainer" type="ScrollContainer" parent="SkillsTabContainer/ContentVBox/MainContainer/VBoxContainer/Tabs/Database"]
+layout_mode = 0
 offset_right = 306.0
 offset_bottom = 128.0
 

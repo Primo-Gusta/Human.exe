@@ -1,5 +1,6 @@
 extends CanvasLayer
 
+var player: Node
 @onready var health_bar = $HealthBar
 @onready var mana_bar = $ManaBar # NOVO: Referência para a barra de mana
 @onready var damage_flash = $DamageFlash
@@ -14,16 +15,32 @@ extends CanvasLayer
 @onready var active_item_icon = $ActiveItemSlot/ItemIcon
 @onready var active_item_quantity = $ActiveItemSlot/QuantityLabel
 # Adicione estas variáveis no topo do script
-var skill_q_mana_cost: int = 0
-var skill_e_mana_cost: int = 0
 
-# Adicione esta nova função ao script
-func set_skill_mana_costs(q_cost: int, e_cost: int):
-	skill_q_mana_cost = q_cost
-	skill_e_mana_cost = e_cost
-	# NOVO: Atualiza o texto dos labels de custo assim que os recebe
-	skill_q_cost_label.text = str(q_cost)
-	skill_e_cost_label.text = str(e_cost)	
+# SUBSTITUA a sua função 'update_equipped_skills' inteira por esta:
+func update_equipped_skills(equipped_q: Skill, equipped_e: Skill):
+	# Atualiza o Slot Q
+	if is_instance_valid(equipped_q):
+		# Acessa os dados (.tres) que estão DENTRO da instância da skill
+		var skill_data_q = equipped_q.skill_data
+		skill_q_icon.texture = skill_data_q.icon
+		skill_q_cost_label.text = str(skill_data_q.mana_cost)
+		skill_q_icon.visible = true
+		skill_q_cost_label.visible = true
+	else: # Se não houver skill, esconde tudo
+		skill_q_icon.visible = false
+		skill_q_cost_label.visible = false
+
+	# Atualiza o Slot E
+	if is_instance_valid(equipped_e):
+		# Acessa os dados (.tres) que estão DENTRO da instância da skill
+		var skill_data_e = equipped_e.skill_data
+		skill_e_icon.texture = skill_data_e.icon
+		skill_e_cost_label.text = str(skill_data_e.mana_cost)
+		skill_e_icon.visible = true
+		skill_e_cost_label.visible = true
+	else: # Se não houver skill, esconde tudo
+		skill_e_icon.visible = false
+		skill_e_cost_label.visible = false
 
 # --- Funções de Vida ---
 func set_max_health(max_value):
@@ -38,16 +55,20 @@ func set_max_mana(max_value):
 	mana_bar.max_value = max_value
 	mana_bar.value = max_value
 
+# AJUSTE a função 'update_mana' para usar as novas referências
 func update_mana(new_value):
 	mana_bar.value = new_value
 	
-	var has_mana_for_q = new_value >= skill_q_mana_cost
-	skill_q_icon.modulate.a = 1.0 if has_mana_for_q else 0.5
-	skill_q_cost_label.modulate.a = 1.0 if has_mana_for_q else 0.5 # NOVO: Modula o custo também
+	# Agora a verificação é mais segura
+	if is_instance_valid(player) and is_instance_valid(player.equipped_skill_q):
+		var has_mana_for_q = new_value >= player.equipped_skill_q.mana_cost
+		skill_q_icon.modulate.a = 1.0 if has_mana_for_q else 0.5
+		skill_q_cost_label.modulate.a = 1.0 if has_mana_for_q else 0.5
 	
-	var has_mana_for_e = new_value >= skill_e_mana_cost
-	skill_e_icon.modulate.a = 1.0 if has_mana_for_e else 0.5
-	skill_e_cost_label.modulate.a = 1.0 if has_mana_for_e else 0.5 # NOVO: Modula o custo também
+	if is_instance_valid(player) and is_instance_valid(player.equipped_skill_e):
+		var has_mana_for_e = new_value >= player.equipped_skill_e.mana_cost
+		skill_e_icon.modulate.a = 1.0 if has_mana_for_e else 0.5
+		skill_e_cost_label.modulate.a = 1.0 if has_mana_for_e else 0.5
 
 # --- Funções de Feedback Visual ---
 func flash_screen():
@@ -61,35 +82,39 @@ func flash_screen():
 	tween.tween_property(damage_flash, "modulate:a", 0.0, 0.15)
 	tween.tween_callback(func(): damage_flash.z_index = 0)
 	
-func start_skill_q_cooldown_visual(duration):
-	if not is_instance_valid(skill_q_cooldown_overlay) or not is_instance_valid(skill_q_icon):
-		return
-	skill_q_cooldown_overlay.value = 1.0 
-	skill_q_cooldown_overlay.max_value = 1.0 
-	skill_q_cooldown_overlay.visible = true
-	skill_q_icon.modulate = Color(0.5, 0.5, 0.5, 1.0)
-	var tween = create_tween()
-	tween.set_trans(Tween.TRANS_LINEAR)
-	tween.tween_property(skill_q_cooldown_overlay, "value", 0.0, duration)
-	tween.chain().tween_callback(func(): 
-		skill_q_cooldown_overlay.visible = false
-		skill_q_icon.modulate = Color(1.0, 1.0, 1.0, 1.0)
-	) 
+# --- NOVA FUNÇÃO DE COOLDOWN UNIFICADA ---
+# Esta função será conectada ao sinal 'skill_used' do Player.
+func start_cooldown_visual(slot: String, duration: float):
+	var icon: TextureRect
+	var overlay: TextureProgressBar
 	
-func start_skill_e_cooldown_visual(duration):
-	if not is_instance_valid(skill_e_cooldown_overlay) or not is_instance_valid(skill_e_icon):
+	# Decide quais nós da UI afetar com base no slot
+	match slot:
+		"q":
+			icon = skill_q_icon
+			overlay = skill_q_cooldown_overlay
+		"e":
+			icon = skill_e_icon
+			overlay = skill_e_cooldown_overlay
+		_:
+			return # Sai da função se o slot for desconhecido
+
+	if not is_instance_valid(overlay) or not is_instance_valid(icon):
 		return
-	skill_e_cooldown_overlay.value = 1.0 
-	skill_e_cooldown_overlay.max_value = 1.0 
-	skill_e_cooldown_overlay.visible = true
-	skill_e_icon.modulate = Color(0.5, 0.5, 0.5, 1.0)
+
+	overlay.value = 1.0
+	overlay.max_value = 1.0
+	overlay.visible = true
+	icon.modulate = Color(0.5, 0.5, 0.5, 1.0) # Escurece o ícone
+
 	var tween = create_tween()
 	tween.set_trans(Tween.TRANS_LINEAR)
-	tween.tween_property(skill_e_cooldown_overlay, "value", 0.0, duration)
-	tween.chain().tween_callback(func(): 
-		skill_e_cooldown_overlay.visible = false
-		skill_e_icon.modulate = Color(1.0, 1.0, 1.0, 1.0)
+	tween.tween_property(overlay, "value", 0.0, duration)
+	tween.chain().tween_callback(func():
+		overlay.visible = false
+		icon.modulate = Color(1.0, 1.0, 1.0, 1.0) # Volta à cor normal
 	)
+	
 	
 # Adicione esta nova função ao final do script
 func update_active_item_display(item_data: ItemData, inventory_data: Dictionary):

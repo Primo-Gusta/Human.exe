@@ -24,4 +24,5 @@ mana_cost = 5
 cooldown_time = 2.0
 base_damage = 1
 base_range = 60.0
+base_bounces = 2
 metadata/_custom_type_script = "uid://lr1cpsyhtirc"
