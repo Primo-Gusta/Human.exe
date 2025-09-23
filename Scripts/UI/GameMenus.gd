@@ -13,8 +13,8 @@ signal request_set_active_item(item_data: ItemData)
 
 # Adicione esta nova função PÚBLICA:
 func initialize_with_player(p_player: Node):
-	if is_instance_valid(skills_menu) and skills_menu.has_method("set_player_reference"):
-		skills_menu.set_player_reference(p_player)
+	if is_instance_valid(skills_menu) and skills_menu.has_method("initialize"):
+		skills_menu.initialize(p_player)
 
 func _ready() -> void:
 	visible = false

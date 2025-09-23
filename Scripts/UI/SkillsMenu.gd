@@ -1,4 +1,5 @@
 extends Control
+@onready var tabs = $SkillsTabContainer/ContentVBox/MainContainer/VBoxContainer/Tabs
 
 # --- REFERÊNCIAS DA CENA ---
 @onready var skill_grid = $SkillsTabContainer/ContentVBox/MainContainer/VBoxContainer/Tabs/Scripts/ScrollsContainer/SkillGrid
@@ -12,64 +13,79 @@ extends Control
 # --- PRELOADS ---
 var UpgradePopupScene = preload("res://Scenes/UI/SkillsDetailPopup.tscn")
 
+
 # --- DADOS DAS HABILIDADES ---
-# ATUALIZADO: Arraste seus arquivos SkillData.tres para este array no Inspetor.
+# Arraste seus arquivos SkillData.tres para estes arrays no Inspetor
 @export var script_skills: Array[SkillData]
+@export var cybersecurity_skills: Array[SkillData]
+@export var database_skills: Array[SkillData]
 
 # --- VARIÁVEIS DE ESTADO ---
 var player_node: Node
 var selected_skill: SkillData = null
 
 func _ready():
-	skill_details_panel.visible = false
+	skill_details_panel.visible = false # O painel começa invisível
 	modify_button.pressed.connect(_on_modify_pressed)
 	equip_q_button.pressed.connect(_on_equip_q_pressed)
 	equip_e_button.pressed.connect(_on_equip_e_pressed)
 
 func initialize(p_player: Node):
 	self.player_node = p_player
-	populate_skill_grid()
-
-func populate_skill_grid():
+	print("Iniciou SkillsMenu")
+	# Popula todas as grades de habilidades
+	populate_skill_grid(script_skills, "Scripts")
+	populate_skill_grid(cybersecurity_skills, "Cybersecurity")
+	populate_skill_grid(database_skills, "Database")
+	
+# Popula a grade de uma aba específica com os dados de skill fornecidos
+func populate_skill_grid(skills_array: Array[SkillData], tab_name: String):
+	# Encontra o GridContainer dentro da aba correta
+	var skill_grid = tabs.get_node(tab_name).get_node("ScrollsContainer/SkillGrid")
+	print("entrando em nó: ", skill_grid)
+	
+	# Limpa a grade antes de adicionar os novos ícones
 	for child in skill_grid.get_children():
+		print("child é:", child)
 		child.queue_free()
 	
-	for skill_data in script_skills:
+	# Cria um botão para cada habilidade na lista
+	for skill_data in skills_array:
 		var skill_button = Button.new()
+		print("butão é:", skill_button)
 		skill_button.icon = skill_data.icon
 		skill_button.custom_minimum_size = Vector2(128, 128)
+		# Conecta o clique deste botão específico à função que mostra os detalhes
 		skill_button.pressed.connect(_on_skill_icon_pressed.bind(skill_data))
 		skill_grid.add_child(skill_button)
-
+		
+# Chamado quando um ícone de habilidade na grade é clicado
 func _on_skill_icon_pressed(skill_data: SkillData):
 	selected_skill = skill_data
 	
 	skill_name_label.text = selected_skill.skill_name
 	skill_description_label.text = selected_skill.description
 	
-	var next_recipe = find_next_available_recipe(selected_skill.recipes)
-	modify_button.disabled = (next_recipe == null)
+	# Habilita o botão "Modificar" apenas se houver receitas de upgrade para esta skill
+	modify_button.disabled = selected_skill.recipes.is_empty()
 	
+	# A linha mais importante: torna o painel de detalhes visível
 	skill_details_panel.visible = true
-
+# --- Funções dos botões do painel de detalhes ---
 func _on_modify_pressed():
+	# (Lógica para abrir o popup de upgrade)
 	if not selected_skill: return
-	
-	var next_recipe = find_next_available_recipe(selected_skill.recipes)
-	if next_recipe:
-		# Passa a lista completa de receitas da skill selecionada
-		open_upgrade_popup(selected_skill.recipes, selected_skill.function_name, selected_skill.base_code)
+	open_upgrade_popup(selected_skill.recipes, selected_skill.function_name, selected_skill.base_code)
 
 func _on_equip_q_pressed():
+	# (Lógica para equipar a skill)
 	if is_instance_valid(player_node) and selected_skill:
-		# Esta função ainda precisa ser criada no Player.gd
-		# player_node.equip_skill(selected_skill, "q")
-		print("Equipando ", selected_skill.skill_name, " no slot Q (Lógica a ser implementada no Player)")
+		player_node.equip_skill(selected_skill, "q")
 
 func _on_equip_e_pressed():
+	# (Lógica para equipar a skill)
 	if is_instance_valid(player_node) and selected_skill:
-		# player_node.equip_skill(selected_skill, "e")
-		print("Equipando ", selected_skill.skill_name, " no slot E (Lógica a ser implementada no Player)")
+		player_node.equip_skill(selected_skill, "e")
 
 # Esta função agora está completa
 func find_next_available_recipe(recipe_list: Array[UpgradeRecipeData]) -> UpgradeRecipeData:
