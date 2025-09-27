@@ -6,9 +6,9 @@ extends Control
 @onready var skill_details_panel = $SkillsTabContainer/ContentVBox/MainContainer/SkillDetailsPanel
 @onready var skill_name_label = $SkillsTabContainer/ContentVBox/MainContainer/SkillDetailsPanel/SkillNameLabel
 @onready var skill_description_label = $SkillsTabContainer/ContentVBox/MainContainer/SkillDetailsPanel/SkillDescriptsLabel
-@onready var modify_button = $SkillsTabContainer/ContentVBox/MainContainer/SkillDetailsPanel/ModifyButton
-@onready var equip_q_button = $SkillsTabContainer/ContentVBox/MainContainer/SkillDetailsPanel/EquipQButton
-@onready var equip_e_button = $SkillsTabContainer/ContentVBox/MainContainer/SkillDetailsPanel/EquipEButton
+@onready var modify_button = $SkillsTabContainer/ContentVBox/MainContainer/SkillDetailsPanel/VBoxContainer/ModifyButton
+@onready var equip_q_button = $SkillsTabContainer/ContentVBox/MainContainer/SkillDetailsPanel/VBoxContainer/EquipQButton
+@onready var equip_e_button = $SkillsTabContainer/ContentVBox/MainContainer/SkillDetailsPanel/VBoxContainer/EquipEButton
 
 # --- PRELOADS ---
 var UpgradePopupScene = preload("res://Scenes/UI/SkillsDetailPopup.tscn")

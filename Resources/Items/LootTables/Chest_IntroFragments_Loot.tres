@@ -32,7 +32,7 @@ metadata/_custom_type_script = "uid://ciogljxhp40ot"
 script = ExtResource("1_ygmam")
 item_data = ExtResource("5_71prc")
 quantity = 1
-chance_percent = 50.0
+chance_percent = 100.0
 metadata/_custom_type_script = "uid://ciogljxhp40ot"
 
 [resource]

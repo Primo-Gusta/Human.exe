@@ -29,7 +29,8 @@ func _ready() -> void:
 			player.player_took_damage.connect(Callable(hud, "flash_screen"))
 		if player.has_signal("skill_used"):
 			player.skill_used.connect(Callable(hud, "start_cooldown_visual"))
-		# --- FIM DA ALTERAÇÃO ---
+		if player.has_signal("active_item_change"):
+			player.use_active_item.connect(Callable(hud, "update_active_item_display"))
 		# ADICIONE esta nova conexão
 		player.equipped_skills_changed.connect(Callable(hud, "update_equipped_skills"))
 

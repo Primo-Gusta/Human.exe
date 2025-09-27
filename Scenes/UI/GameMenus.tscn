@@ -32,6 +32,7 @@ grow_vertical = 2
 
 [node name="Tabs" type="TabContainer" parent="MainContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 30
 tab_alignment = 1
 current_tab = 0
 
