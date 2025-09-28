@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://bxi6gaooqpqy5"]
+
+[ext_resource type="Script" uid="uid://guw7xsth3lnv" path="res://Scripts/Enemies/AreaAttackWave.gd" id="1_54oli"]
+[ext_resource type="Texture2D" uid="uid://dq25jpnf5whh3" path="res://Assets/icon.svg" id="2_7h1qp"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ktwes"]
+radius = 65.0308
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_54oli"]
+radius = 58.1378
+
+[node name="AreaAttackWave" type="Area2D"]
+scale = Vector2(0.3, 0.3)
+script = ExtResource("1_54oli")
+
+[node name="Visuals" type="Node2D" parent="."]
+
+[node name="OuterSprite" type="Sprite2D" parent="Visuals"]
+modulate = Color(1, 0, 0, 1)
+texture = ExtResource("2_7h1qp")
+
+[node name="InnerSprite" type="Sprite2D" parent="Visuals"]
+modulate = Color(0, 0, 0, 1)
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("2_7h1qp")
+
+[node name="OuterShape" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_ktwes")
+
+[node name="InnerShape" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_54oli")

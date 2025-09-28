@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://cg547mw2fpp6s"]
 
 [ext_resource type="Script" uid="uid://bxfybetiijmy8" path="res://Scripts/UI/InventoryMenu.gd" id="1_8irge"]
-[ext_resource type="Texture2D" uid="uid://dq25jpnf5whh3" path="res://Assets/Cute_Fantasy_Free/icon.svg" id="2_jjmdy"]
+[ext_resource type="Texture2D" uid="uid://dq25jpnf5whh3" path="res://Assets/icon.svg" id="2_jjmdy"]
 
 [node name="InventoryMenu" type="Control"]
 layout_mode = 3

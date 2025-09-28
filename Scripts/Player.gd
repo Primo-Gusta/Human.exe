@@ -11,10 +11,11 @@ signal code_fragments_inventory_updated(fragments_inventory: Dictionary)
 signal equipped_skills_changed(equipped_q: Skill, equipped_e: Skill)
 signal skill_used(slot: String, duration: float)
 
+
 # --- ATRIBUTOS ---
 @export var velocidade = 150.0
-var health = 10
-var max_health = 10
+var health = 100
+var max_health = 100
 var mana = 20
 var max_mana = 20
 @export var mana_regeneration_rate: float = 0.5
@@ -34,6 +35,7 @@ var equipped_skill_e: Skill = null # Armazena a INSTÂNCIA da cena da skill
 @onready var animated_sprite = $AnimatedSprite2D
 @onready var hitbox_shape = $Hitbox/CollisionShape2D
 @onready var equipped_skills_container = $EquippedSkillsContainer
+@onready var dash_cooldown_timer: Timer = $DashCooldownTimer
 
 # --- ESTADO ---
 var is_attacking = false
@@ -42,6 +44,15 @@ var active_item: ItemData = null
 var hit_enemies = []
 var is_dead = false
 var is_in_knockback = false
+const BUMP_FORCE = 100.0
+var has_code_patch: bool = false
+
+@export_group("Dash Settings")
+@export var dash_speed: float = 500.0
+@export var dash_duration: float = 0.15 # Duração curta para um dash rápido
+
+var can_dash: bool = true
+var is_dashing: bool = false
 
 func _ready():
 	health_updated.emit(health)
@@ -76,6 +87,27 @@ func add_item_to_inventory(item_data: ItemData):
 	# Emite o sinal com todo o dicionário atualizado para a UI
 	inventory_updated.emit(inventory, active_item)
 	
+# Esta função será conectada ao sinal 'item_collected' de qualquer item.
+func _on_item_collected(item_data: ItemData):
+	# Verificamos se o item coletado é o nosso Code Patch.
+	# Usar o 'item_name' é uma forma simples e eficaz de identificá-lo.
+	if item_data.item_name == "Code Patch":
+		print("Player coletou o Code Patch!")
+		has_code_patch = true
+		
+		# Futuramente, podemos adicionar um feedback aqui:
+		# - Tocar um som especial de "item chave".
+		# - hud.show_notification("Code Patch Adquirido!")
+
+# Esta função será chamada pelo boss quando a interação for bem-sucedida.
+func consume_code_patch():
+	if has_code_patch:
+		print("Player consumiu o Code Patch.")
+		has_code_patch = false
+	else:
+		push_warning("Tentativa de consumir um Code Patch que o jogador não possui.")
+
+
 func add_fragment_to_inventory(fragment_data: CodeFragmentData):
 	# A CHAVE agora é o ID do fragmento (uma String), que é único e confiável.
 	var id = fragment_data.fragment_id
@@ -93,6 +125,9 @@ func add_fragment_to_inventory(fragment_data: CodeFragmentData):
 	print("Fragmento de código coletado: '", fragment_data.fragment_text, "' | Quantidade: ", code_fragments_inventory[id]["quantity"])
 	# Avisa a UI que este inventário específico foi atualizado.
 	code_fragments_inventory_updated.emit(code_fragments_inventory)
+	
+		# NOVO: Conecta o sinal do timer de cooldown do dash
+	dash_cooldown_timer.timeout.connect(_on_dash_cooldown_timer_timeout)
 	
 func set_active_item(item_data: ItemData):
 	# Se o item clicado for o mesmo que já está ativo, desativa-o (deixa as mãos livres)
@@ -123,15 +158,23 @@ func _physics_process(delta):
 		move_and_slide()
 		return
 
+	if is_dashing:
+		return
 	# Lógica de Movimento
 	var direction = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
-	if direction != Vector2.ZERO:
-		velocity = direction.normalized() * velocidade
-		last_direction = direction
+	# NOVO: Checa pelo input do dash ANTES do movimento normal
+	if Input.is_action_just_pressed("dash") and can_dash:
+		_execute_dash(direction)
 	else:
-		velocity = Vector2.ZERO
-	move_and_slide()
-	update_animation(direction)
+		# Lógica de Movimento Normal (só acontece se não usar o dash)
+		if direction != Vector2.ZERO:
+			velocity = direction.normalized() * velocidade
+			last_direction = direction
+		else:
+			velocity = Vector2.ZERO
+		
+		move_and_slide()
+		update_animation(direction)
 	
 	# Lógica de Inputs de Ação
 	if Input.is_action_just_pressed("attack"):
@@ -352,5 +395,34 @@ func apply_skill_upgrade(upgrade_effect_id: String):
 		equipped_skill_e._apply_upgrade(upgrade_effect_id)
 
 	unlocked_upgrade_ids.append(upgrade_effect_id)
+# --- NOVAS FUNÇÕES ---
+
+func _execute_dash(input_direction: Vector2):
+	can_dash = false
+	is_dashing = true
+	dash_cooldown_timer.start()
+
+	var dash_direction = input_direction
+	# Se o jogador estiver parado, usa a última direção em que ele se moveu
+	if dash_direction == Vector2.ZERO:
+		dash_direction = last_direction
+
+	# Usamos um tween para um movimento curto e preciso que não usa a física normal
+	var tween = create_tween()
+	tween.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_SINE)
 	
-# --- Lógica das Habilidades (Agora em funções privadas) ---
+	# Calcula a posição final do dash
+	var target_position = global_position + dash_direction.normalized() * dash_speed * dash_duration
+	tween.tween_property(self, "global_position", target_position, dash_duration)
+	
+	# Toca uma animação de "dash" se tiver uma
+	# animated_sprite.play("dash")
+	
+	# Quando o tween terminar, o estado de 'is_dashing' é resetado
+	tween.finished.connect(func(): is_dashing = false)
+
+
+
+func _on_dash_cooldown_timer_timeout():
+	can_dash = true
+	

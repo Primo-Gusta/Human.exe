@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="CodeFragmentData" load_steps=3 format=3 uid="uid://dcq3sknr3k40d"]
 
-[ext_resource type="Texture2D" uid="uid://dq25jpnf5whh3" path="res://Assets/Cute_Fantasy_Free/icon.svg" id="1_16hcc"]
+[ext_resource type="Texture2D" uid="uid://dq25jpnf5whh3" path="res://Assets/icon.svg" id="1_16hcc"]
 [ext_resource type="Script" uid="uid://bs312yevxwkex" path="res://Scripts/Upgrades/CodeFragmentData.gd" id="1_lyu4c"]
 
 [resource]

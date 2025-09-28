@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://djfwenjljl5ol"]
 
 [ext_resource type="Script" uid="uid://b68v8uc5sehyi" path="res://Scripts/Skills/AttackPulseSkill.gd" id="1_o82aa"]
-[ext_resource type="Texture2D" uid="uid://dq25jpnf5whh3" path="res://Assets/Cute_Fantasy_Free/icon.svg" id="2_wub36"]
+[ext_resource type="Texture2D" uid="uid://dq25jpnf5whh3" path="res://Assets/icon.svg" id="2_wub36"]
 
 [node name="AttackPulseSkill" type="Node"]
 script = ExtResource("1_o82aa")

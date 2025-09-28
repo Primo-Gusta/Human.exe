@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://dmvdb78ivhd4v"]
 
 [ext_resource type="Script" uid="uid://yqwp6ovg6pgl" path="res://Scripts/HUD.gd" id="1_sd512"]
-[ext_resource type="Texture2D" uid="uid://dq25jpnf5whh3" path="res://Assets/Cute_Fantasy_Free/icon.svg" id="2_jo1ms"]
+[ext_resource type="Texture2D" uid="uid://dq25jpnf5whh3" path="res://Assets/icon.svg" id="2_jo1ms"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jo1ms"]
 bg_color = Color(0.926299, 2.5028e-06, 1.54018e-06, 1)

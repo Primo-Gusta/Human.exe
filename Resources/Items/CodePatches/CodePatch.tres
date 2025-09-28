@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3 uid="uid://fd1sfcx28114"]
+
+[ext_resource type="Texture2D" uid="uid://dq25jpnf5whh3" path="res://Assets/icon.svg" id="1_otxqf"]
+[ext_resource type="Script" uid="uid://cbtwiu7viccda" path="res://Scripts/Items/ItemData.gd" id="1_sc5ig"]
+
+[resource]
+script = ExtResource("1_sc5ig")
+item_name = "Code Patch"
+item_description = "Um fragmento de código recuperado. Parece ser a chave para depurar o Guardião."
+item_icon = ExtResource("1_otxqf")
+is_stackable = true
+effect_type = "Nenhum"
+effect_value = 0.0
+metadata/_custom_type_script = "uid://cbtwiu7viccda"

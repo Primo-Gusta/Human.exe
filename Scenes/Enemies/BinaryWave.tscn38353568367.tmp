@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://cx5vcg0a3nmnr"]
+
+[ext_resource type="Script" uid="uid://c5pfmk178vk2i" path="res://Scripts/Enemies/BinaryWave.gd" id="1_ja4qb"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ov7rd"]
+size = Vector2(1147, 249)
+
+[node name="BinaryWave" type="Area2D"]
+script = ExtResource("1_ja4qb")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(571.5, 126.5)
+shape = SubResource("RectangleShape2D_ov7rd")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2

@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://bl2lgd7wsd3pn"]
+
+[ext_resource type="Script" uid="uid://ccg76cuw4ep6e" path="res://Scripts/Items/CodePatch.gd" id="1_k7yc3"]
+[ext_resource type="Texture2D" uid="uid://dq25jpnf5whh3" path="res://Assets/icon.svg" id="2_ka4v6"]
+[ext_resource type="Resource" uid="uid://fd1sfcx28114" path="res://Resources/Items/CodePatches/CodePatch.tres" id="2_n2gm5"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mqxk5"]
+size = Vector2(117, 122)
+
+[node name="CodePatch" type="Area2D"]
+scale = Vector2(0.1, 0.1)
+script = ExtResource("1_k7yc3")
+data = ExtResource("2_n2gm5")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_ka4v6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, 0)
+shape = SubResource("RectangleShape2D_mqxk5")
+
+[node name="CollectDelayTimer" type="Timer" parent="."]
+wait_time = 1.5
+one_shot = true

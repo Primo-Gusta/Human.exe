@@ -11,7 +11,8 @@ extends Control
 # signal start_game_requested 
 # signal options_menu_requested # Manter se for usar internamente no MainMenu para outras telas de opção.
 
-@onready var world_scene_packed = preload("res://Scenes/World.tscn") # Adiciona o preload para o World
+#@onready var world_scene_packed = preload("res://Scenes/Maps/World.tscn") # Adiciona o preload para o World
+@onready var world_scene_packed = preload("res://Scenes/Maps/BossArena.tscn") # Adiciona o preload para o World
 
 func _ready():
 	# Conecta os botões
