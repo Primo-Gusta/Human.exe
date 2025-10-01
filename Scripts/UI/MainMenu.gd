@@ -1,4 +1,3 @@
-# Arquivo: res://Scripts/UI/MainMenu.gd
 extends Control
 
 @onready var initial_screen = $InitialScreen
@@ -6,61 +5,77 @@ extends Control
 @onready var start_game_button = $MainOptionsScreen/ButtonsContainer/StartGameButton
 @onready var options_button = $MainOptionsScreen/ButtonsContainer/OptionsButton
 @onready var quit_button = $MainOptionsScreen/ButtonsContainer/QuitButton
+@onready var animation_player = $AnimationPlayer
+@onready var world_scene_packed = preload("res://Scenes/Maps/World.tscn")
 
-# O World será carregado diretamente, então não precisamos mais de um sinal externo para ele.
-# signal start_game_requested 
-# signal options_menu_requested # Manter se for usar internamente no MainMenu para outras telas de opção.
-
-#@onready var world_scene_packed = preload("res://Scenes/Maps/World.tscn") # Adiciona o preload para o World
-@onready var world_scene_packed = preload("res://Scenes/Maps/BossArena.tscn") # Adiciona o preload para o World
+var intro_sequence_started = false
 
 func _ready():
-	# Conecta os botões
+	# Conecta os sinais dos botões
 	start_game_button.pressed.connect(on_start_game_button_pressed)
 	options_button.pressed.connect(on_options_button_pressed)
 	quit_button.pressed.connect(on_quit_button_pressed)
-
-	# Garante que o foco inicial esteja no Start Game Button quando as opções aparecerem
-	start_game_button.grab_focus() # Isso ainda é relevante para a tela de opções
-
-	# Para testes, se você quiser que o MainOptionsScreen apareça direto para clicar.
-	# initial_screen.visible = false
-	# main_options_screen.visible = true
-
+	
+	# Garante que o estado inicial está correto
+	main_options_screen.visible = false
+	initial_screen.visible = true
+	# Garante que os botões comecem invisíveis para a animação de fade-in
+	$MainOptionsScreen/ButtonsContainer.modulate.a = 0
+	
+	# Inicia a animação do cursor a piscar
+	animation_player.play("CursorBlink")
 
 func _unhandled_input(event):
-	if initial_screen.visible and event.is_action_pressed("ui_accept"):
-		initial_screen.visible = false
-		main_options_screen.visible = true
+	# Só reage ao input se a sequência ainda não começou
+	if not intro_sequence_started and initial_screen.visible and event.is_action_pressed("ui_accept"):
+		intro_sequence_started = true
 		get_viewport().set_input_as_handled()
-		print("Entrou no menu principal!")
-		# Opcional: Se quiser dar foco a algum botão ao entrar na MainOptionsScreen
-		if start_game_button:
-			start_game_button.grab_focus()
+		# Chama a função que controla toda a sequência de animações
+		_start_intro_sequence()
 
+# Função assíncrona que controla a sequência de introdução
+func _start_intro_sequence():
+	# 1. Para o cursor de piscar
+	animation_player.stop()
+	
+	# 2. Fade para preto
+	animation_player.play("FadeToBlack")
+	await animation_player.animation_finished
+
+	# 3. Troca as telas enquanto a tela está preta
+	initial_screen.visible = false
+	main_options_screen.visible = true
+
+	# 4. Fade de volta do preto
+	animation_player.play("FadeFromBlack")
+	await animation_player.animation_finished
+
+	# 5. Animação de "digitar" o título
+	animation_player.play("TypeTitle")
+	await animation_player.animation_finished
+	
+	# 6. Fade-in dos botões
+	animation_player.play("ButtonsFadeIn")
+	await animation_player.animation_finished
+	
+	# 7. Foco no primeiro botão, agora que tudo está visível
+	if start_game_button:
+		start_game_button.grab_focus()
 
 func on_start_game_button_pressed():
 	print("MainMenu: Botão COMEÇAR JOGO pressionado! Carregando World...")
-	# 1. Instanciar a cena do World
 	var world_instance = world_scene_packed.instantiate()
-
-	# 2. Adicionar o World à árvore de cena (como filho da raiz da árvore)
 	get_tree().root.add_child(world_instance)
-
-	# 3. Chamar a função de inicialização do World
 	if world_instance.has_method("start_game"):
 		world_instance.start_game()
 	else:
 		print("MainMenu Erro: A cena World.tscn não possui a função 'start_game()'.")
-
-	# 4. Remover o MainMenu da árvore de cena
-	queue_free() # Remove o MainMenu da memória e da tela.
+	queue_free()
 
 func on_options_button_pressed():
 	print("MainMenu: Botão OPÇÕES pressionado!")
-	# Por enquanto, apenas imprime. Futuramente, pode emitir um sinal para um menu de opções,
-	# ou carregar uma cena de opções.
+	# Lógica futura para o menu de opções
 
 func on_quit_button_pressed():
 	print("MainMenu: Botão SAIR pressionado!")
-	get_tree().quit() # Sai do jogo
+	get_tree().quit()

@@ -14,8 +14,8 @@ signal skill_used(slot: String, duration: float)
 
 # --- ATRIBUTOS ---
 @export var velocidade = 150.0
-var health = 100
-var max_health = 100
+var health = 5
+var max_health = 5
 var mana = 20
 var max_mana = 20
 @export var mana_regeneration_rate: float = 0.5
@@ -55,7 +55,7 @@ var can_dash: bool = true
 var is_dashing: bool = false
 
 func _ready():
-	health_updated.emit(health)
+	health_updated.emit(health, max_health)
 	mana_updated.emit(mana)
 	# NOVO: Equipa as habilidades padrão ao iniciar o jogo
 	if default_skill_q:
@@ -149,7 +149,7 @@ func _physics_process(delta):
 	if mana < max_mana:
 		mana += mana_regeneration_rate * delta
 		mana = min(mana, max_mana)
-		mana_updated.emit(mana)
+		mana_updated.emit(mana, max_mana)
 
 	# Lógica de Estados (Morte, Knockback, Ataque)
 	if is_dead: return
@@ -191,13 +191,13 @@ func _physics_process(delta):
 func use_mana(amount: int):
 	mana -= amount
 	mana = max(0, mana)
-	mana_updated.emit(mana)
+	mana_updated.emit(mana, max_mana)
 	print("Mana gasta. Mana atual: ", mana)
 
 func restore_mana(amount: int):
 	mana += amount
 	mana = min(mana, max_mana)
-	mana_updated.emit(mana)
+	mana_updated.emit(mana, max_mana)
 	print("Mana restaurada. Mana atual: ", mana)
 # NOVO: Função para o menu de skills chamar
 
@@ -295,7 +295,7 @@ func take_damage(amount, knockback_direction = Vector2.ZERO):
 	if is_dead:
 		return
 	health -= amount
-	health_updated.emit(health)
+	health_updated.emit(health, max_health)
 	player_took_damage.emit()
 	is_in_knockback = true
 	velocity = knockback_direction * 80.0
@@ -332,7 +332,7 @@ func die():
 func restore_health(amount: int):
 	health += amount
 	health = min(health, max_health) # Garante que a vida não ultrapasse o máximo
-	health_updated.emit(health)
+	health_updated.emit(health, max_health)
 	print("Vida restaurada. Vida atual: ", health)
 # --- NOVAS Funções de Gerenciamento de Itens ---
 # Adicione estas duas novas funções ao final do seu script

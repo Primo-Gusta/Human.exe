@@ -94,10 +94,8 @@ func start_game() -> void:
 	hud.visible = true
 	# ATUALIZADO: Inicializa ambas as barras (Vida e Mana)
 	if is_instance_valid(player) and is_instance_valid(hud):
-		hud.set_max_health(player.max_health)
-		hud.update_health(player.health)
-		hud.set_max_mana(player.max_mana) # NOVO
-		hud.update_mana(player.mana)       # NOVO
+		hud.update_health(player.health, player.max_health)
+		hud.update_mana(player.mana, player.max_mana)       # NOVO
 		hud.update_equipped_skills(player.equipped_skill_q, player.equipped_skill_e)
 	get_tree().paused = false
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)

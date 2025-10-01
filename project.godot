@@ -21,6 +21,10 @@ player=""
 enemies=""
 spawners=""
 
+[gui]
+
+theme/custom="uid://d2dri48p82psd"
+
 [input]
 
 ui_left={

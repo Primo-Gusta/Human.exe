@@ -1,6 +1,146 @@
-[gd_scene load_steps=2 format=3 uid="uid://dfrv82bw7ubb7"]
+[gd_scene load_steps=10 format=3 uid="uid://dfrv82bw7ubb7"]
 
 [ext_resource type="Script" uid="uid://cif02fo22galg" path="res://Scripts/UI/MainMenu.gd" id="1_g18y6"]
+[ext_resource type="Texture2D" uid="uid://cy377s0hdcpjv" path="res://Assets/zReM6.png" id="2_mjmdf"]
+
+[sub_resource type="Animation" id="Animation_jex3y"]
+resource_name = "ButtonsFadeIn"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MainOptionsScreen/ButtonsContainer:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_72sra"]
+resource_name = "CursorBlink"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("InitialScreen/Label:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": ["> Pressione Enter _", "> Pressione Enter ", "> Pressione Enter _"]
+}
+
+[sub_resource type="Animation" id="Animation_744d7"]
+resource_name = "FadeFromBlack"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_mjmdf"]
+resource_name = "FadeToBlack"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_t6w0q"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("InitialScreen/Label:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["> Pressione Enter _"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MainOptionsScreen/GameTitleInitial:visible_ratio")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("MainOptionsScreen/ButtonsContainer:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("ColorRect:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_k8um8"]
+resource_name = "TypeTitle"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MainOptionsScreen/GameTitleInitial:visible_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_744d7"]
+_data = {
+&"ButtonsFadeIn": SubResource("Animation_jex3y"),
+&"CursorBlink": SubResource("Animation_72sra"),
+&"FadeFromBlack": SubResource("Animation_744d7"),
+&"FadeToBlack": SubResource("Animation_mjmdf"),
+&"RESET": SubResource("Animation_t6w0q"),
+&"TypeTitle": SubResource("Animation_k8um8")
+}
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -11,7 +151,20 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_g18y6")
 
+[node name="TextureRect" type="TextureRect" parent="."]
+modulate = Color(0.783523, 0.783523, 0.783523, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_mjmdf")
+expand_mode = 1
+stretch_mode = 6
+
 [node name="InitialScreen" type="Control" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -21,32 +174,16 @@ grow_vertical = 2
 
 [node name="Label" type="Label" parent="InitialScreen"]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_font_sizes/font_size = 29
-text = "PRESSIONE ENTER PARA COMEÇAR"
+anchors_preset = -1
+offset_top = 28.0
+offset_right = 221.0
+offset_bottom = 30.0
+theme_override_font_sizes/font_size = 43
+text = "> Pressione Enter _"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="GameTitleInitial" type="Label" parent="InitialScreen"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.5
-anchor_top = 0.1
-anchor_right = 0.5
-anchor_bottom = 2.0
-offset_left = -44.5
-offset_right = 44.5
-offset_bottom = 23.0
-grow_horizontal = 2
-theme_override_font_sizes/font_size = 80
-text = "Human.exe"
-
 [node name="MainOptionsScreen" type="Control" parent="."]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -55,30 +192,36 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="ButtonsContainer" type="VBoxContainer" parent="MainOptionsScreen"]
-custom_minimum_size = Vector2(200, 0)
+modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(200, 40)
 layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.898
-anchor_top = 0.829
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
 anchor_right = 1.0
-anchor_bottom = 0.829
-offset_left = -200.0
-offset_top = -101.0
+anchor_bottom = 1.0
+offset_left = -474.0
+offset_top = -256.0
 grow_horizontal = 0
 grow_vertical = 0
+theme_override_constants/separation = 30
 
 [node name="StartGameButton" type="Button" parent="MainOptionsScreen/ButtonsContainer"]
 layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 50
 text = "Começar o Jogo
 "
 
 [node name="OptionsButton" type="Button" parent="MainOptionsScreen/ButtonsContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 50
 text = "Opções
 "
 
 [node name="QuitButton" type="Button" parent="MainOptionsScreen/ButtonsContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 50
 text = "Sair do Jogo
 "
 
@@ -93,3 +236,22 @@ offset_right = 443.0
 offset_bottom = 110.0
 theme_override_font_sizes/font_size = 80
 text = "Human.exe"
+visible_characters = 0
+visible_ratio = 0.0
+
+[node name="ColorRect" type="ColorRect" parent="."]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 21.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_744d7")
+}

@@ -1,8 +1,8 @@
 extends CanvasLayer
 
 var player: Node
-@onready var health_bar = $HealthBar
-@onready var mana_bar = $ManaBar # NOVO: Referência para a barra de mana
+@onready var health_bar_fill: NinePatchRect = $HealthBarContainer/HealthBarFill
+@onready var mana_bar_fill: NinePatchRect = $ManaBarContainer/ManaBarFill
 @onready var damage_flash = $DamageFlash
 @onready var skill_q_cooldown_overlay = $SkillBarContainer/SkillSlotQ/SkillQ_CooldownOverlay
 @onready var skill_q_icon = $SkillBarContainer/SkillSlotQ/SkillQ_Icon
@@ -14,8 +14,23 @@ var player: Node
 @onready var active_item_slot = $ActiveItemSlot
 @onready var active_item_icon = $ActiveItemSlot/ItemIcon
 @onready var active_item_quantity = $ActiveItemSlot/QuantityLabel
+
+
+var max_health_bar_width: float = 0.0 # Para guardar a largura máxima
+var max_mana_bar_width: float = 0.0 # NOVA variável para a mana
 # Adicione estas variáveis no topo do script
 
+
+func _ready():
+	# Espera um frame para que os tamanhos da UI sejam calculados
+	await get_tree().process_frame
+	# Guarda a largura inicial da barra de preenchimento, que é a sua largura máxima
+	if is_instance_valid(health_bar_fill):
+		max_health_bar_width = health_bar_fill.size.x
+		
+	# NOVO: Guarda a largura máxima da barra de mana
+	if is_instance_valid(mana_bar_fill):
+		max_mana_bar_width = mana_bar_fill.size.x
 # SUBSTITUA a sua função 'update_equipped_skills' inteira por esta:
 func update_equipped_skills(equipped_q: Skill, equipped_e: Skill):
 	# Atualiza o Slot Q
@@ -42,22 +57,30 @@ func update_equipped_skills(equipped_q: Skill, equipped_e: Skill):
 		skill_e_icon.visible = false
 		skill_e_cost_label.visible = false
 
-# --- Funções de Vida ---
-func set_max_health(max_value):
-	health_bar.max_value = max_value
-	health_bar.value = max_value
 
-func update_health(new_value):
-	health_bar.value = new_value
+func update_health(new_value: float, max_value: float):
+	if max_health_bar_width == 0: # Protecção para o caso de _ready ainda não ter corrido
+		return
+		
+	# Calcula a percentagem de vida
+	var health_percent = 0.0
+	if max_value > 0:
+		health_percent = new_value / max_value
+	
+	# Ajusta a largura do NinePatchRect de preenchimento
+	health_bar_fill.size.x = max_health_bar_width * health_percent
 
-# --- Funções de Mana (NOVAS) ---
-func set_max_mana(max_value):
-	mana_bar.max_value = max_value
-	mana_bar.value = max_value
 
-# AJUSTE a função 'update_mana' para usar as novas referências
-func update_mana(new_value):
-	mana_bar.value = new_value
+
+# NOVA função para actualizar a mana
+func update_mana(new_value: float, max_value: float):
+	if max_mana_bar_width == 0: return
+
+	var mana_percent = 0.0
+	if max_value > 0:
+		mana_percent = new_value / max_value
+	
+	mana_bar_fill.size.x = max_mana_bar_width * mana_percent
 	
 	# Agora a verificação é mais segura
 	if is_instance_valid(player) and is_instance_valid(player.equipped_skill_q):

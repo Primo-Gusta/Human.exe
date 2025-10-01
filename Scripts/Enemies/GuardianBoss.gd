@@ -130,7 +130,7 @@ func _physics_process(delta):
 	if current_state == State.STUNNED and player_is_in_interaction_area:
 		if Input.is_action_just_pressed("interact"):
 			if is_instance_valid(player) and player.has_code_patch:
-				_apply_core_damage()
+				_start_phase_3_transition()
 			else:
 				print("Boss: O jogador tentou interagir, mas não tem o Code Patch.")
 				# Tocar um som de "falha"
@@ -466,40 +466,61 @@ func _spawn_code_patch():
 		
 # --- FASE 3 ---
 
-func _apply_core_damage():
-	print("Code Patch inserido! Dano de Corrupção aplicado!")
+# Esta função é a "porta de entrada" para a Fase 3
+func _start_phase_3_transition():
+	print("Code Patch aceito! Guardião entrando em modo frenético. FASE 3 INICIADA.")
 	
+	# 1. Consome o patch do jogador, pois ele já foi usado como chave
 	if is_instance_valid(player):
 		player.consume_code_patch()
 	
+	# 2. Desativa a área de interação, pois esta interação já aconteceu
 	interaction_area_shape.set_deferred("disabled", true)
 	player_is_in_interaction_area = false
 	
-	corruption_health -= 1
-	print("Vida de Corrupção restante: ", corruption_health)
+	# 3. Define oficialmente a fase e o estado para começar o ciclo de ataques
+	current_phase = 3
+	current_state = State.IDLE # Vai para IDLE para poder chamar _decide_phase_3_action
+	
+	# 4. Reseta o ciclo de ataques e garante que o boss pode agir
+	phase_3_attack_sequence_count = 0
+	can_attack = true
+	attack_cooldown_timer.stop()
+	
+	# Opcional: Tocar uma animação de "power up" antes de começar a atacar
+	await get_tree().create_timer(1.5).timeout
+	if is_instance_valid(self):
+		_decide_phase_3_action() # Inicia o primeiro ciclo de ataques da Fase 3
 
-	# --- LÓGICA DE DESATIVAÇÃO DE ATAQUES ---
+# NOTA: Esta função NÃO mexe na 'corruption_health'.
+
+# Esta função é a RECOMPENSA por resolver o puzzle
+func _apply_core_damage():
+	print("Puzzle resolvido! Dano de Corrupção aplicado!")
+
+	# Lógica de desativação de ataques (baseada na vida ANTES do dano)
 	match corruption_health:
-		2: # Se a vida de corrupção agora é 2 (primeiro acerto)
+		3:
 			disabled_attacks.append("TopPosition")
 			print("SISTEMA: Ataque da posição superior DESATIVADO.")
-		1: # Se a vida de corrupção agora é 1 (segundo acerto)
+		2:
 			disabled_attacks.append("BottomPosition")
 			print("SISTEMA: Ataque da posição inferior DESATIVADO.")
-			
+
+	# Aplica o dano
+	corruption_health -= 1
+	print("Vida de Corrupção restante: ", corruption_health)
+	
+	# Verifica a condição de vitória
 	if corruption_health <= 0:
 		_die()
 	else:
-		# Se ainda não foi derrotado, ele se recupera e reinicia o ciclo da Fase 3
-		current_phase = 3 # Garante que continue na fase 3
-		current_state = State.IDLE # Volta a um estado seguro
-		
-		# Reinicia o ciclo de ataques
-		phase_3_attack_sequence_count = 0 
+		# Se não foi derrotado, se recupera e reinicia o ciclo da Fase 3
+		current_state = State.IDLE
+		phase_3_attack_sequence_count = 0
 		can_attack = true
 		attack_cooldown_timer.stop()
 		
-		# Opcional: Tocar uma animação de "se recuperando" antes de voltar a atacar
 		await get_tree().create_timer(1.5).timeout
 		if is_instance_valid(self):
 			_decide_phase_3_action()
@@ -647,7 +668,7 @@ func _expose_core():
 	minigame.puzzle_solved.connect(_apply_core_damage)
 	
 	# 4. Inicia o puzzle, passando os dados do nosso primeiro puzzle
-	minigame.start_puzzle(puzzles["security_routine_1"])
+	minigame.call_deferred("start_puzzle", puzzles["security_routine_1"])
 
 # Funções para os sinais da InteractionArea
 func _on_interaction_area_body_entered(body):
