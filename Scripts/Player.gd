@@ -10,7 +10,7 @@ signal active_item_changed(item_data: ItemData)
 signal code_fragments_inventory_updated(fragments_inventory: Dictionary)
 signal equipped_skills_changed(equipped_q: Skill, equipped_e: Skill)
 signal skill_used(slot: String, duration: float)
-
+signal player_ready(player_node)
 
 # --- ATRIBUTOS ---
 @export var velocidade = 150.0
@@ -62,6 +62,7 @@ func _ready():
 		equip_skill(default_skill_q, "q")
 	if default_skill_e:
 		equip_skill(default_skill_e, "e")
+	
 
 # --- NOVO: Função de Inventário ---
 func add_item_to_inventory(item_data: ItemData):

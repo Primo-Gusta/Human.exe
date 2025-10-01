@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="SkillData" load_steps=5 format=3 uid="uid://bovv80piofqpw"]
 
-[ext_resource type="Texture2D" uid="uid://dq25jpnf5whh3" path="res://Assets/icon.svg" id="1_8cpqj"]
+[ext_resource type="Texture2D" uid="uid://c8kmejivnb65u" path="res://Assets/1200 Icons RPG + Recolors - Free version/Abyssal lamp/Variant 2/Abyssal lamp19_Variant 2_1.png" id="1_54lxi"]
 [ext_resource type="Script" uid="uid://dww0skht3p658" path="res://Scripts/Upgrades/UpgradeReceiptData.gd" id="1_gbyke"]
 [ext_resource type="Script" uid="uid://lr1cpsyhtirc" path="res://Scripts/Upgrades/SkillData.gd" id="2_8cpqj"]
 [ext_resource type="PackedScene" uid="uid://qpimemjdbg2k" path="res://Scenes/Skills/AttackLoopSkill.tscn" id="4_54lxi"]
@@ -9,7 +9,7 @@
 script = ExtResource("2_8cpqj")
 skill_id = "loop"
 skill_name = "Loop Shot"
-icon = ExtResource("1_8cpqj")
+icon = ExtResource("1_54lxi")
 description = "Atira no inimigo com um loop que não termina até concluir sua condição"
 function_name = "func loop_shot()"
 base_code = "var projectile = Projectile.new()

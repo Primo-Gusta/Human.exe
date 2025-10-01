@@ -34,13 +34,13 @@ grow_vertical = 2
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
 tab_alignment = 1
-current_tab = 0
+current_tab = 1
 
 [node name="InventoryMenu" parent="MainContainer/Tabs" instance=ExtResource("2_xf27r")]
+visible = false
 layout_mode = 2
 metadata/_tab_index = 0
 
 [node name="SkillsMenu" parent="MainContainer/Tabs" instance=ExtResource("3_axb7j")]
-visible = false
 layout_mode = 2
 metadata/_tab_index = 1

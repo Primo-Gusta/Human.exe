@@ -63,14 +63,8 @@ func _start_intro_sequence():
 		start_game_button.grab_focus()
 
 func on_start_game_button_pressed():
-	print("MainMenu: Botão COMEÇAR JOGO pressionado! Carregando World...")
-	var world_instance = world_scene_packed.instantiate()
-	get_tree().root.add_child(world_instance)
-	if world_instance.has_method("start_game"):
-		world_instance.start_game()
-	else:
-		print("MainMenu Erro: A cena World.tscn não possui a função 'start_game()'.")
-	queue_free()
+	print("MainMenu: A pedir ao GameManager para iniciar o jogo...")
+	GameManager.start_new_game()
 
 func on_options_button_pressed():
 	print("MainMenu: Botão OPÇÕES pressionado!")

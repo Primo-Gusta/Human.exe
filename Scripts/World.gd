@@ -4,18 +4,47 @@ extends Node2D
 @onready var hud = $HUD
 @onready var canvas_modulate = $CanvasModulate
 @onready var player_camera = $Player/Camera2D
+@onready var skill_q_icon = $SkillBarContainer/SkillSlotQ/SkillQ_Icon
+@onready var skill_e_icon = $SkillBarContainer/SkillSlotE/SkillE_Icon
 
 # Pré-carregar as cenas dos menus
 var game_menus_scene = preload("res://Scenes/UI/GameMenus.tscn")
 var pause_menu_scene = preload("res://Scenes/UI/PauseMenu.tscn")
+const GameOverScreenScene = preload("res://Scenes/UI/GameOverScreen.tscn")
 
 var current_game_menus_instance: CanvasLayer = null
 var current_pause_menu_instance: CanvasLayer = null
+var current_game_over_screen = null
 
 var game_ready_for_input: bool = false # flag para ignorar inputs iniciais
 
 func _ready() -> void:
-	# Conectar sinais do player/hud de forma explícita
+	# Instanciar e configurar GameMenus
+	if game_menus_scene: # Verifica se a cena está definida
+		current_game_menus_instance = game_menus_scene.instantiate()
+		add_child(current_game_menus_instance)
+		current_game_menus_instance.process_mode = Node.PROCESS_MODE_ALWAYS
+		if current_game_menus_instance.has_signal("menu_closed_requested"):
+			current_game_menus_instance.menu_closed_requested.connect(_on_game_menus_closed)
+		current_game_menus_instance.visible = false # Começa escondido
+		print("World: GameMenus instanciado e conectado.")
+
+	# Instanciar e configurar PauseMenu
+	if pause_menu_scene:
+		current_pause_menu_instance = pause_menu_scene.instantiate()
+		add_child(current_pause_menu_instance)
+		current_pause_menu_instance.process_mode = Node.PROCESS_MODE_ALWAYS
+		if current_pause_menu_instance.has_signal("resume_game_requested"):
+			current_pause_menu_instance.resume_game_requested.connect(_on_pause_menu_resumed_game)
+		if current_pause_menu_instance.has_signal("quit_to_main_menu_requested"):
+			current_pause_menu_instance.quit_to_main_menu_requested.connect(_on_pause_menu_quit_to_main_menu_requested)
+		current_pause_menu_instance.visible = false # Começa escondido
+		print("World: PauseMenu instanciado e conectado.")
+	
+	# Estado inicial do jogo
+	hud.visible = true
+	get_tree().paused = false
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	if is_instance_valid(player):
 		hud.player = player # Apresenta o jogador à HUD
 		if player.has_signal("player_died"):
@@ -32,7 +61,17 @@ func _ready() -> void:
 		if player.has_signal("active_item_change"):
 			player.use_active_item.connect(Callable(hud, "update_active_item_display"))
 		# ADICIONE esta nova conexão
-		player.equipped_skills_changed.connect(Callable(hud, "update_equipped_skills"))
+		if player.has_signal("equipped_skills_changed"):
+			player.equipped_skills_changed.connect(Callable(hud, "update_equipped_skills"))
+
+		# --- SINCRONIZAÇÃO INICIAL (Ainda necessária para resolver o timing) ---
+		if is_instance_valid(hud) and hud.has_method("update_equipped_skills"):
+			hud.update_equipped_skills(player.equipped_skill_q, player.equipped_skill_e)
+			
+	if is_instance_valid(current_game_menus_instance):
+		# Assumindo que o GameMenus tem uma função 'initialize' que chama a do SkillsMenu
+		if current_game_menus_instance.has_method("initialize"):
+			current_game_menus_instance.initialize(player)
 
 
 	# Conectar inimigos já presentes
@@ -40,8 +79,6 @@ func _ready() -> void:
 	for enemy in enemies_in_scene:
 		if enemy.has_signal("enemy_died"):
 			enemy.enemy_died.connect(Callable(self, "on_enemy_died"))
-
-	print("World: Cena World.tscn carregada. Esperando 'start_game()' do MainMenu.")
 
 	var t = get_tree().create_timer(0.12)
 	t.timeout.connect(func ():
@@ -56,70 +93,34 @@ func _ready() -> void:
 			spawner.set_player_camera(player_camera)
 			print("Referência da câmera entregue para o spawner: ", spawner.name)
 
-func start_game() -> void:
-	print("World: Executando 'start_game()' para inicializar GameMenus e PauseMenu...")
-
-	# ... (código de instanciação dos menus permanece o mesmo)
-	# Instanciar GameMenus se necessário
-	if current_game_menus_instance == null:
-		current_game_menus_instance = game_menus_scene.instantiate()
-		add_child(current_game_menus_instance)
-		current_game_menus_instance.process_mode = Node.PROCESS_MODE_ALWAYS
-		if current_game_menus_instance.has_signal("menu_closed_requested"):
-			current_game_menus_instance.menu_closed_requested.connect(Callable(self, "_on_game_menus_closed"))
-		player.inventory_updated.connect(Callable(self, "_on_player_inventory_updated"))
-		current_game_menus_instance.request_set_active_item.connect(Callable(player, "set_active_item"))
-		print("World: GameMenus instanciado e conectado.")
-		# --- ADICIONE ESTA LINHA AQUI ---
-		# Inicializa o GameMenus com a referência do jogador assim que ele é criado.
-		current_game_menus_instance.initialize_with_player(player)
-		# --- FIM DA ADIÇÃO ---
-	current_game_menus_instance.visible = false
-
-
-	# Instanciar PauseMenu se necessário
-	if current_pause_menu_instance == null:
-		current_pause_menu_instance = pause_menu_scene.instantiate()
-		add_child(current_pause_menu_instance)
-		current_pause_menu_instance.process_mode = Node.PROCESS_MODE_ALWAYS
-		if current_pause_menu_instance.has_signal("resume_game_requested"):
-			current_pause_menu_instance.resume_game_requested.connect(Callable(self, "_on_pause_menu_resumed_game"))
-		if current_pause_menu_instance.has_signal("quit_to_main_menu_requested"):
-			current_pause_menu_instance.quit_to_main_menu_requested.connect(Callable(self, "_on_pause_menu_quit_to_main_menu_requested"))
-		print("World: PauseMenu instanciado e conectado.")
-	current_pause_menu_instance.visible = false
-
-
-	# Estado inicial do jogo
-	hud.visible = true
-	# ATUALIZADO: Inicializa ambas as barras (Vida e Mana)
-	if is_instance_valid(player) and is_instance_valid(hud):
-		hud.update_health(player.health, player.max_health)
-		hud.update_mana(player.mana, player.max_mana)       # NOVO
-		hud.update_equipped_skills(player.equipped_skill_q, player.equipped_skill_e)
-	get_tree().paused = false
-	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	print("World: Jogo inicializado e rodando. Menus escondidos.")
-
-# --- As demais funções (on_player_died, on_enemy_died, _unhandled_input, etc.) permanecem exatamente as mesmas ---
-# ... (código omitido para brevidade, pois não há alterações)
-
+# MODIFIQUE a sua função on_player_died
 func on_player_died() -> void:
 	print("O jogador foi corrompido! Game Over.")
-	if not is_instance_valid(canvas_modulate):
-		print("AVISO: Nó 'CanvasModulate' não encontrado. Fade-out não funcionará.")
-		get_tree().reload_current_scene()
-		return
-	if not is_instance_valid(player_camera):
-		print("AVISO: Nó 'Camera2D' no Player não encontrado. Zoom não funcionará.")
+
 	var tween = create_tween()
-	tween.set_parallel(true)
-	tween.tween_property(canvas_modulate, "color", Color.BLACK, 2.5)
-	if is_instance_valid(player_camera):
-		tween.tween_property(player_camera, "zoom", Vector2(1.8, 1.8), 2.5) \
-			.set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)
-	tween.chain().tween_interval(1.0)
-	tween.chain().tween_callback(get_tree().reload_current_scene)
+	tween.tween_property(canvas_modulate, "color", Color.BLACK, 1.0)
+	await tween.finished
+	
+	# Se já houver uma tela de game over, não crie outra
+	if is_instance_valid(current_game_over_screen):
+		return
+		
+	current_game_over_screen = GameOverScreenScene.instantiate()
+	current_game_over_screen.restart_requested.connect(_on_restart_requested)
+	add_child(current_game_over_screen)
+	
+# MODIFIQUE a sua função _on_restart_requested
+func _on_restart_requested():
+	print("World: Pedido de reinício recebido. A recarregar a cena...")
+	
+	# --- A CORRECÇÃO ESTÁ AQUI ---
+	# 1. Liberta a memória da tela de Game Over antes de mudar de cena
+	if is_instance_valid(current_game_over_screen):
+		current_game_over_screen.queue_free()
+		current_game_over_screen = null # Limpa a referência
+	
+	# 2. Agora, recarrega a cena de forma segura
+	get_tree().change_scene_to_file(scene_file_path)
 
 func on_enemy_died() -> void:
 	print("Um inimigo foi derrotado!")
@@ -181,23 +182,9 @@ func _on_pause_menu_resumed_game() -> void:
 		hud.visible = true
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
-func _on_pause_menu_quit_to_main_menu_requested() -> void:
-	print("World: PauseMenu sinalizou para voltar ao MainMenu.")
-	get_tree().paused = false
-	var main_menu_path := "res://Scenes/UI/MainMenu.tscn"
-	var main_menu_res = ResourceLoader.load(main_menu_path)
-	if main_menu_res == null:
-		push_warning("World: Não foi possível carregar " + main_menu_path + " (ResourceLoader.load retornou null). Verifique o caminho/arquivo.")
-		return
-	if not (main_menu_res is PackedScene):
-		push_warning("World: O recurso carregado em " + main_menu_path + " não é um PackedScene.")
-		return
-	var main_menu_instance = main_menu_res.instantiate()
-	if main_menu_instance == null:
-		push_warning("World: Falha ao instanciar PackedScene '" + main_menu_path + "'.")
-		return
-	get_tree().root.add_child(main_menu_instance)
-	queue_free()
+func _on_pause_menu_quit_to_main_menu_requested():
+	print("World: A pedir ao GameManager para voltar ao Main Menu.")
+	GameManager.go_to_main_menu()
 
 func _on_player_active_item_changed(item_data: ItemData):
 	# Pega os dados mais recentes do inventário do jogador
@@ -222,3 +209,4 @@ func _on_player_inventory_updated(inventory_data: Dictionary, current_active_ite
 	# 2. Manda para a HUD principal
 	if is_instance_valid(hud):
 		hud.update_active_item_display(current_active_item, inventory_data)
+		

@@ -99,3 +99,8 @@ func update_inventory(inventory_data: Dictionary, current_active_item: ItemData)
 # NOVO: Esta função ouve o sinal do InventoryMenu e o repassa para o World
 func _on_inventory_item_selected(item_data: ItemData):
 	emit_signal("request_set_active_item", item_data)
+	
+func initialize(player_node: Node):
+	# Apenas passa a chamada de inicialização para o SkillsMenu, se ele existir
+	if is_instance_valid(skills_menu) and skills_menu.has_method("initialize"):
+		skills_menu.initialize(player_node)

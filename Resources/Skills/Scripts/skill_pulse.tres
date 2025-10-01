@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="SkillData" load_steps=6 format=3 uid="uid://dedmw6kg165m8"]
 
 [ext_resource type="Script" uid="uid://dww0skht3p658" path="res://Scripts/Upgrades/UpgradeReceiptData.gd" id="1_1g67k"]
-[ext_resource type="Texture2D" uid="uid://dq25jpnf5whh3" path="res://Assets/icon.svg" id="1_1o215"]
+[ext_resource type="Texture2D" uid="uid://chd7va0j7ioqq" path="res://Assets/1200 Icons RPG + Recolors - Free version/Abyssal orb/Variant 2/Abyssal orb13_Variant 2_1.png" id="1_ge4yg"]
 [ext_resource type="Script" uid="uid://lr1cpsyhtirc" path="res://Scripts/Upgrades/SkillData.gd" id="2_oukl4"]
 [ext_resource type="Resource" uid="uid://dp0rbvprpjj27" path="res://Resources/Upgrades/Recipes/recipe_pulse_damage_1.tres" id="3_ge4yg"]
 [ext_resource type="PackedScene" uid="uid://djfwenjljl5ol" path="res://Scenes/Skills/AttackPulseSkill.tscn" id="5_ge4yg"]
@@ -10,7 +10,7 @@
 script = ExtResource("2_oukl4")
 skill_id = "pulse"
 skill_name = "Pulso de ataque"
-icon = ExtResource("1_1o215")
+icon = ExtResource("1_ge4yg")
 description = "Lança um pulso em inimigos"
 function_name = "func attack_pulse()"
 base_code = "var targets = get_nearby_enemies(area_range)
