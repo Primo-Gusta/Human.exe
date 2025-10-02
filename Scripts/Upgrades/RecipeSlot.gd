@@ -14,6 +14,12 @@ var is_filled = false
 
 func _ready():
 	label.text = "[ ... ]"
+	# Garante que o Label se expande para preencher o nó pai
+	label.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	
+	# Centraliza o texto dentro da área do Label
+	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 
 # Chamado pelo Godot quando algo está sendo arrastado sobre este controle.
 func _can_drop_data(at_position, data):

@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://ufdlqljm3bfo"]
+[gd_scene load_steps=6 format=3 uid="uid://ufdlqljm3bfo"]
 
 [ext_resource type="Script" uid="uid://cirw46kjwcv4n" path="res://Scripts/UI/SkillsMenu.gd" id="1_xq74t"]
 [ext_resource type="Script" uid="uid://lr1cpsyhtirc" path="res://Scripts/Upgrades/SkillData.gd" id="2_5htks"]
 [ext_resource type="Resource" uid="uid://dedmw6kg165m8" path="res://Resources/Skills/Scripts/skill_pulse.tres" id="3_vya2p"]
 [ext_resource type="Resource" uid="uid://bovv80piofqpw" path="res://Resources/Skills/Scripts/skill_loop.tres" id="4_dqpod"]
+[ext_resource type="Texture2D" uid="uid://dq25jpnf5whh3" path="res://Assets/icon.svg" id="5_5htks"]
 
 [node name="SkillsMenu" type="Control"]
 layout_mode = 3
@@ -97,6 +98,13 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 1.62
 
+[node name="SkillIconDisplay" type="TextureRect" parent="SkillsTabContainer/ContentVBox/MainContainer/SkillDetailsPanel"]
+custom_minimum_size = Vector2(64, 4)
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("5_5htks")
+stretch_mode = 5
+
 [node name="SkillNameLabel" type="Label" parent="SkillsTabContainer/ContentVBox/MainContainer/SkillDetailsPanel"]
 layout_mode = 2
 size_flags_vertical = 6
@@ -125,14 +133,17 @@ size_flags_vertical = 8
 [node name="ModifyButton" type="Button" parent="SkillsTabContainer/ContentVBox/MainContainer/SkillDetailsPanel/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 10
+theme_override_font_sizes/font_size = 40
 text = "Modificar"
 
 [node name="EquipQButton" type="Button" parent="SkillsTabContainer/ContentVBox/MainContainer/SkillDetailsPanel/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_font_sizes/font_size = 40
 text = "Equipar Q"
 
 [node name="EquipEButton" type="Button" parent="SkillsTabContainer/ContentVBox/MainContainer/SkillDetailsPanel/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_font_sizes/font_size = 40
 text = "Equipar E"

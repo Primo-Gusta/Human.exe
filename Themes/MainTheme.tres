@@ -1,6 +1,8 @@
-[gd_resource type="Theme" load_steps=6 format=3 uid="uid://d2dri48p82psd"]
+[gd_resource type="Theme" load_steps=9 format=3 uid="uid://d2dri48p82psd"]
 
 [ext_resource type="FontFile" uid="uid://drvsaehsihduc" path="res://Assets/Fonts/VT323-Regular.ttf" id="1_3yihd"]
+[ext_resource type="Texture2D" uid="uid://cxka8fpu4jp83" path="res://Assets/UI/Frames/item_frame.tres" id="1_it85y"]
+[ext_resource type="Texture2D" uid="uid://chyl2krjxgpiq" path="res://Assets/UI/Frames/menu_frame.tres" id="2_w6813"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ota51"]
 bg_color = Color(0.277528, 0.277528, 0.277528, 1)
@@ -11,8 +13,15 @@ bg_color = Color(0.2, 0.2, 0.2, 0)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_it85y"]
 bg_color = Color(0.427493, 0.427493, 0.427493, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w6813"]
-bg_color = Color(0.133333, 0.133333, 0.133333, 1)
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_x56o4"]
+texture = ExtResource("1_it85y")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_akaef"]
+texture = ExtResource("2_w6813")
+texture_margin_left = 16.0
+texture_margin_top = 16.0
+texture_margin_right = 16.0
+texture_margin_bottom = 16.0
 
 [resource]
 default_font = ExtResource("1_3yihd")
@@ -21,4 +30,5 @@ Button/colors/font_color = Color(1, 1, 1, 1)
 Button/styles/hover = SubResource("StyleBoxFlat_ota51")
 Button/styles/normal = SubResource("StyleBoxFlat_wfqup")
 Button/styles/pressed = SubResource("StyleBoxFlat_it85y")
-PanelContainer/styles/panel = SubResource("StyleBoxFlat_w6813")
+Panel/styles/panel = SubResource("StyleBoxTexture_x56o4")
+PanelContainer/styles/panel = SubResource("StyleBoxTexture_akaef")

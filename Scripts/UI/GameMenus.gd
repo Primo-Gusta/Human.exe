@@ -5,8 +5,9 @@ signal menu_closed_requested
 @onready var background_overlay: ColorRect = $BackgroundOverlay
 @onready var main_container: PanelContainer = $MainContainer
 @onready var tabs: TabContainer = $MainContainer/Tabs
-@onready var inventory_menu = $MainContainer/Tabs/InventoryMenu
-@onready var skills_menu = $MainContainer/Tabs/SkillsMenu
+@onready var inventory_menu = $MainContainer/Tabs/Inventário
+@onready var skills_menu = $MainContainer/Tabs/Habilidades
+var player_node: Node
 
 signal request_set_active_item(item_data: ItemData)
 
@@ -100,7 +101,19 @@ func update_inventory(inventory_data: Dictionary, current_active_item: ItemData)
 func _on_inventory_item_selected(item_data: ItemData):
 	emit_signal("request_set_active_item", item_data)
 	
-func initialize(player_node: Node):
-	# Apenas passa a chamada de inicialização para o SkillsMenu, se ele existir
+# Altere a sua função 'initialize' para guardar a referência do player
+func initialize(p_player: Node):
+	self.player_node = p_player
 	if is_instance_valid(skills_menu) and skills_menu.has_method("initialize"):
 		skills_menu.initialize(player_node)
+	
+	# --- NOVA CONEXÃO AQUI ---
+	# Conecta o sinal de selecção de item do inventário à função 'set_active_item' do jogador
+	if is_instance_valid(inventory_menu) and inventory_menu.has_signal("item_selected"):
+		inventory_menu.item_selected.connect(Callable(player_node, "set_active_item"))
+
+		
+# Esta função é chamada pelo World.gd
+func on_player_inventory_updated(inventory_data: Dictionary, current_active_item: ItemData):
+	if is_instance_valid(inventory_menu) and inventory_menu.has_method("update_inventory_display"):
+		inventory_menu.update_inventory_display(inventory_data, current_active_item)

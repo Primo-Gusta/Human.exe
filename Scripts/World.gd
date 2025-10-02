@@ -4,8 +4,6 @@ extends Node2D
 @onready var hud = $HUD
 @onready var canvas_modulate = $CanvasModulate
 @onready var player_camera = $Player/Camera2D
-@onready var skill_q_icon = $SkillBarContainer/SkillSlotQ/SkillQ_Icon
-@onready var skill_e_icon = $SkillBarContainer/SkillSlotE/SkillE_Icon
 
 # Pré-carregar as cenas dos menus
 var game_menus_scene = preload("res://Scenes/UI/GameMenus.tscn")
@@ -60,6 +58,8 @@ func _ready() -> void:
 			player.skill_used.connect(Callable(hud, "start_cooldown_visual"))
 		if player.has_signal("active_item_change"):
 			player.use_active_item.connect(Callable(hud, "update_active_item_display"))
+		if player.has_signal("inventory_updated"):
+			player.inventory_updated.connect(Callable(hud, "update_active_item_display"))
 		# ADICIONE esta nova conexão
 		if player.has_signal("equipped_skills_changed"):
 			player.equipped_skills_changed.connect(Callable(hud, "update_equipped_skills"))
@@ -67,6 +67,12 @@ func _ready() -> void:
 		# --- SINCRONIZAÇÃO INICIAL (Ainda necessária para resolver o timing) ---
 		if is_instance_valid(hud) and hud.has_method("update_equipped_skills"):
 			hud.update_equipped_skills(player.equipped_skill_q, player.equipped_skill_e)
+		if is_instance_valid(hud) and hud.has_method("update_active_item_display"):
+			hud.update_active_item_display( player.active_item, player.inventory)
+		if player.has_signal("inventory_updated"):
+			player.inventory_updated.connect(Callable(current_game_menus_instance, "on_player_inventory_updated"))
+		if is_instance_valid(current_game_menus_instance) and current_game_menus_instance.has_method("on_player_inventory_updated"):
+			current_game_menus_instance.on_player_inventory_updated(player.inventory, player.active_item)
 			
 	if is_instance_valid(current_game_menus_instance):
 		# Assumindo que o GameMenus tem uma função 'initialize' que chama a do SkillsMenu

@@ -1,8 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://c3qmuj12ketan"]
+[gd_scene load_steps=5 format=3 uid="uid://c3qmuj12ketan"]
 
 [ext_resource type="Script" uid="uid://0yt1c3t375y7" path="res://Scripts/UI/GameMenus.gd" id="1_v4l3l"]
 [ext_resource type="PackedScene" uid="uid://cg547mw2fpp6s" path="res://Scenes/UI/InventoryMenu.tscn" id="2_xf27r"]
 [ext_resource type="PackedScene" uid="uid://ufdlqljm3bfo" path="res://Scenes/UI/SkillsMenu.tscn" id="3_axb7j"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v4l3l"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
 
 [node name="GameMenus" type="CanvasLayer"]
 script = ExtResource("1_v4l3l")
@@ -29,6 +32,7 @@ offset_right = 20.0
 offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_v4l3l")
 
 [node name="Tabs" type="TabContainer" parent="MainContainer"]
 layout_mode = 2
@@ -36,11 +40,13 @@ theme_override_font_sizes/font_size = 30
 tab_alignment = 1
 current_tab = 1
 
-[node name="InventoryMenu" parent="MainContainer/Tabs" instance=ExtResource("2_xf27r")]
+[node name="Inventário" parent="MainContainer/Tabs" instance=ExtResource("2_xf27r")]
 visible = false
 layout_mode = 2
 metadata/_tab_index = 0
 
-[node name="SkillsMenu" parent="MainContainer/Tabs" instance=ExtResource("3_axb7j")]
+[node name="Habilidades" parent="MainContainer/Tabs" instance=ExtResource("3_axb7j")]
 layout_mode = 2
 metadata/_tab_index = 1
+
+[editable path="MainContainer/Tabs/Inventário"]

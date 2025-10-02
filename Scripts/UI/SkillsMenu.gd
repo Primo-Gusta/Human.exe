@@ -5,6 +5,7 @@ extends Control
 @onready var skill_grid = $SkillsTabContainer/ContentVBox/MainContainer/VBoxContainer/Tabs/Scripts/ScrollsContainer/SkillGrid
 @onready var skill_details_panel = $SkillsTabContainer/ContentVBox/MainContainer/SkillDetailsPanel
 @onready var skill_name_label = $SkillsTabContainer/ContentVBox/MainContainer/SkillDetailsPanel/SkillNameLabel
+@onready var skill_icon_display = $SkillsTabContainer/ContentVBox/MainContainer/SkillDetailsPanel/SkillIconDisplay # Supondo este nome
 @onready var skill_description_label = $SkillsTabContainer/ContentVBox/MainContainer/SkillDetailsPanel/SkillDescriptsLabel
 @onready var modify_button = $SkillsTabContainer/ContentVBox/MainContainer/SkillDetailsPanel/VBoxContainer/ModifyButton
 @onready var equip_q_button = $SkillsTabContainer/ContentVBox/MainContainer/SkillDetailsPanel/VBoxContainer/EquipQButton
@@ -55,6 +56,8 @@ func populate_skill_grid(skills_array: Array[SkillData], tab_name: String):
 		print("butão é:", skill_button)
 		skill_button.icon = skill_data.icon
 		skill_button.custom_minimum_size = Vector2(128, 128)
+		skill_button.icon_alignment = HORIZONTAL_ALIGNMENT_CENTER | VERTICAL_ALIGNMENT_CENTER
+		skill_button.expand_icon = true # Faz o ícone preencher o espaço do botão
 		# Conecta o clique deste botão específico à função que mostra os detalhes
 		skill_button.pressed.connect(_on_skill_icon_pressed.bind(skill_data))
 		skill_grid.add_child(skill_button)
@@ -65,6 +68,7 @@ func _on_skill_icon_pressed(skill_data: SkillData):
 	
 	skill_name_label.text = selected_skill.skill_name
 	skill_description_label.text = selected_skill.description
+	skill_icon_display.texture = selected_skill.icon # 'icon' é o nome da propriedade no seu SkillData
 	
 	# Habilita o botão "Modificar" apenas se houver receitas de upgrade para esta skill
 	modify_button.disabled = selected_skill.recipes.is_empty()
@@ -75,7 +79,7 @@ func _on_skill_icon_pressed(skill_data: SkillData):
 func _on_modify_pressed():
 	# (Lógica para abrir o popup de upgrade)
 	if not selected_skill: return
-	open_upgrade_popup(selected_skill.recipes, selected_skill.function_name, selected_skill.base_code)
+	open_upgrade_popup(selected_skill.recipes, selected_skill.function_name, selected_skill.base_code, selected_skill.icon)
 
 func _on_equip_q_pressed():
 	# (Lógica para equipar a skill)
@@ -96,12 +100,12 @@ func find_next_available_recipe(recipe_list: Array[UpgradeRecipeData]) -> Upgrad
 	return null
 
 # Esta função agora está completa
-func open_upgrade_popup(recipes_to_build: Array[UpgradeRecipeData], skill_name: String, base_code: String):
+func open_upgrade_popup(recipes_to_build: Array[UpgradeRecipeData], skill_name: String, base_code: String, skill_texture: Texture2D):
 	if not is_instance_valid(player_node): return
 		
 	var popup_instance = UpgradePopupScene.instantiate()
 	add_child(popup_instance)
-	popup_instance.open_with_recipes(recipes_to_build, player_node, skill_name, base_code)
+	popup_instance.open_with_recipes(recipes_to_build, player_node, skill_name, base_code, skill_texture)
 	popup_instance.upgrade_compiled.connect(_on_upgrade_compiled)
 
 func _on_upgrade_compiled(recipe_data: UpgradeRecipeData):

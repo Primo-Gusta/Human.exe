@@ -5,7 +5,7 @@ signal health_updated(current_health)
 signal player_died
 signal player_took_damage
 signal mana_updated(current_mana)
-signal inventory_updated(inventory_data: Dictionary, current_active_item: ItemData)
+signal inventory_updated(current_active_item: ItemData, inventory_data: Dictionary)
 signal active_item_changed(item_data: ItemData)
 signal code_fragments_inventory_updated(fragments_inventory: Dictionary)
 signal equipped_skills_changed(equipped_q: Skill, equipped_e: Skill)
@@ -382,7 +382,7 @@ func remove_item_from_inventory(item_data: ItemData):
 		set_active_item(null)
 	
 	# Notifica a UI sobre a mudança no inventário
-	inventory_updated.emit(inventory, active_item)
+	inventory_updated.emit(active_item, inventory)
 	
 func apply_skill_upgrade(upgrade_effect_id: String):
 	if upgrade_effect_id in unlocked_upgrade_ids: return

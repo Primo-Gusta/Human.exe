@@ -14,6 +14,7 @@ const RecipeSlotScene = preload("res://Scenes/Upgrades/RecipeSlot.tscn")
 @onready var recipe_slots_container = $DetailsPanel/ContentVbox/HBoxContainer/RecipePanel/RecipeSlotsContainer
 @onready var fragment_inventory_grid = $DetailsPanel/ContentVbox/HBoxContainer/FragmentsPanel/ScrollContainer/FragmentInventoryGrid
 @onready var compile_button = $DetailsPanel/ContentVbox/HBoxContainer/RecipePanel/CompileButton
+@onready var skill_icon = $DetailsPanel/ContentVbox/HeaderVbox/SkillIcon
 @onready var close_button = $DetailsPanel/CloseButton
 
 
@@ -32,10 +33,11 @@ func _ready():
 	
 # ATUALIZADO: A função agora recebe uma LISTA de receitas
 # ATUALIZADO: A função agora recebe o nome e o código base da skill
-func open_with_recipes(recipes: Array[UpgradeRecipeData], p_player: Node, skill_name: String, p_base_code: String):
+func open_with_recipes(recipes: Array[UpgradeRecipeData], p_player: Node, skill_name: String, p_base_code: String, skill_texture: Texture2D):
 	self.possible_recipes = recipes
 	self.player_node = p_player
 	self.base_code_text = p_base_code
+	self.skill_icon.texture = skill_texture
 	
 	if is_instance_valid(player_node) and not player_node.code_fragments_inventory_updated.is_connected(populate_fragment_inventory):
 		player_node.code_fragments_inventory_updated.connect(populate_fragment_inventory)

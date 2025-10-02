@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://dmvdb78ivhd4v"]
+[gd_scene load_steps=10 format=3 uid="uid://dmvdb78ivhd4v"]
 
 [ext_resource type="Script" uid="uid://yqwp6ovg6pgl" path="res://Scripts/HUD.gd" id="1_sd512"]
 [ext_resource type="Texture2D" uid="uid://dq25jpnf5whh3" path="res://Assets/icon.svg" id="2_jo1ms"]
@@ -6,6 +6,13 @@
 [ext_resource type="Texture2D" uid="uid://c1743w4pxqt1r" path="res://Assets/Pixelarium - Interfaces Bundle - Free version/Pack Content/DarkMode Interface/Player interface/Player Status/Player status bars frame for 9-slice/spr_health_bar_9slice.png" id="3_c3eba"]
 [ext_resource type="Texture2D" uid="uid://banq0mvtd7117" path="res://Assets/Pixelarium - Interfaces Bundle - Free version/Pack Content/DarkMode Interface/Player interface/Player Status/Player status bars frame for 9-slice/spr_mana_bar_9slice.png" id="4_g8s2e"]
 [ext_resource type="Texture2D" uid="uid://ld24y5ydy4ue" path="res://Assets/Pixelarium - Interfaces Bundle - Free version/Pack Content/DarkMode Interface/Player interface/Player Status/Player status bars frame for 9-slice/spr_mana_bar_bk_9slice.png" id="5_t385i"]
+[ext_resource type="Texture2D" uid="uid://ctu46r3hi5ycs" path="res://Assets/UI/Frames/skills_frame.tres" id="6_t385i"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_nfm57"]
+texture = ExtResource("6_t385i")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_b5b84"]
+texture = ExtResource("6_t385i")
 
 [node name="HUD" type="CanvasLayer"]
 script = ExtResource("1_sd512")
@@ -86,6 +93,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "Q
 "
+theme_override_styles/panel = SubResource("StyleBoxTexture_nfm57")
 
 [node name="SkillQ_Icon" type="TextureRect" parent="SkillBarContainer/SkillSlotQ"]
 layout_mode = 1
@@ -146,6 +154,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "Q
 "
+theme_override_styles/panel = SubResource("StyleBoxTexture_b5b84")
 
 [node name="SkillE_Icon" type="TextureRect" parent="SkillBarContainer/SkillSlotE"]
 layout_mode = 1

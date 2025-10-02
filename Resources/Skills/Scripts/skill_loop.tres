@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="SkillData" load_steps=5 format=3 uid="uid://bovv80piofqpw"]
 
-[ext_resource type="Texture2D" uid="uid://c8kmejivnb65u" path="res://Assets/1200 Icons RPG + Recolors - Free version/Abyssal lamp/Variant 2/Abyssal lamp19_Variant 2_1.png" id="1_54lxi"]
+[ext_resource type="Texture2D" uid="uid://cj4k32jrn8nad" path="res://Assets/UI/PNG/Icon36.png" id="1_54lxi"]
 [ext_resource type="Script" uid="uid://dww0skht3p658" path="res://Scripts/Upgrades/UpgradeReceiptData.gd" id="1_gbyke"]
 [ext_resource type="Script" uid="uid://lr1cpsyhtirc" path="res://Scripts/Upgrades/SkillData.gd" id="2_8cpqj"]
 [ext_resource type="PackedScene" uid="uid://qpimemjdbg2k" path="res://Scenes/Skills/AttackLoopSkill.tscn" id="4_54lxi"]
