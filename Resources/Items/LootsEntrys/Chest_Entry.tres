@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="SpawnerEntry" load_steps=4 format=3 uid="uid://cu6yg0186nk8t"]
+
+[ext_resource type="Resource" uid="uid://dvgqvicrsxrno" path="res://Resources/Items/LootTables/Chest_IntroFragments_Loot.tres" id="1_2i4c0"]
+[ext_resource type="Script" uid="uid://bcdtptmyeqj21" path="res://Scripts/Items/SpawnerEntry.gd" id="1_qmdsj"]
+[ext_resource type="PackedScene" uid="uid://bsrl1yn0nd8j2" path="res://Scenes/Items/Chest.tscn" id="2_kquiy"]
+
+[resource]
+script = ExtResource("1_qmdsj")
+scene = ExtResource("2_kquiy")
+data_resource = ExtResource("1_2i4c0")
+metadata/_custom_type_script = "uid://bcdtptmyeqj21"

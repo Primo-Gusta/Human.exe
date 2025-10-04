@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://cgbrftyxikcd2"]
+[gd_scene load_steps=11 format=3 uid="uid://cgbrftyxikcd2"]
 
 [ext_resource type="Script" uid="uid://wconnifnreuf" path="res://Scripts/World.gd" id="1_knhn4"]
 [ext_resource type="PackedScene" uid="uid://dvh8xr2aqvtxp" path="res://Scenes/Player.tscn" id="2_jiin1"]
@@ -10,7 +10,6 @@
 [ext_resource type="Resource" uid="uid://4upytm4btuql" path="res://Resources/Spawners/GrassAreaSpawn.tres" id="15_lyix8"]
 [ext_resource type="PackedScene" uid="uid://ci4t2wu63ld5w" path="res://Scenes/Enemies/Worm.tscn" id="15_rg1o4"]
 [ext_resource type="PackedScene" uid="uid://bsrl1yn0nd8j2" path="res://Scenes/Items/Chest.tscn" id="16_35l6f"]
-[ext_resource type="Resource" uid="uid://dvgqvicrsxrno" path="res://Resources/Items/LootTables/Chest_IntroFragments_Loot.tres" id="17_g7lm8"]
 
 [node name="World" type="Node2D"]
 script = ExtResource("1_knhn4")
@@ -32,12 +31,13 @@ spawn_data = ExtResource("15_lyix8")
 
 [node name="Chest" parent="." instance=ExtResource("16_35l6f")]
 position = Vector2(-42, 277)
-loot_data = ExtResource("17_g7lm8")
 
 [node name="Worm" parent="." instance=ExtResource("15_rg1o4")]
 position = Vector2(298, 285)
 
 [node name="TileSet Human" parent="." instance=ExtResource("13_mk8no")]
 z_index = -20
+
+[node name="WorldObjects" type="Node2D" parent="."]
 
 [editable path="Player"]

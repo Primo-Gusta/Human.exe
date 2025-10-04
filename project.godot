@@ -18,6 +18,7 @@ config/icon="res://Assets/icon.svg"
 [autoload]
 
 GameManager="*res://Scripts/GameManager.gd"
+LootManager="*res://Scripts/Singletons/LootManager.gd"
 
 [editor_plugins]
 

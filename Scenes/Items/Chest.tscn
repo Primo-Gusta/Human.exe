@@ -1,26 +1,100 @@
-[gd_scene load_steps=5 format=3 uid="uid://bsrl1yn0nd8j2"]
+[gd_scene load_steps=16 format=3 uid="uid://bsrl1yn0nd8j2"]
 
 [ext_resource type="Script" uid="uid://bpfo7f5unsh25" path="res://Scripts/Items/Chest.gd" id="1_8jwqm"]
-[ext_resource type="Texture2D" uid="uid://do222dm8mhfyi" path="res://Assets/Pixelarium - GrassLands - Free Version/Pack content/Sprites/Objects and buildings/Chest/spr_chest.png" id="2_8jwqm"]
+[ext_resource type="Texture2D" uid="uid://dpvbdbxc28qx8" path="res://Assets/Pixelarium - GrassLands - Free Version/Pack content/Animated sprites/Animated Chest/chest_opening_stretch_squash.png" id="2_8jwqm"]
+[ext_resource type="Resource" uid="uid://dvgqvicrsxrno" path="res://Resources/Items/LootTables/Chest_IntroFragments_Loot.tres" id="2_g1aq8"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g1aq8"]
+atlas = ExtResource("2_8jwqm")
+region = Rect2(0, 0, 40, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_epmpa"]
+atlas = ExtResource("2_8jwqm")
+region = Rect2(40, 0, 40, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gbloj"]
+atlas = ExtResource("2_8jwqm")
+region = Rect2(80, 0, 40, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hlq4y"]
+atlas = ExtResource("2_8jwqm")
+region = Rect2(120, 0, 40, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kwoea"]
+atlas = ExtResource("2_8jwqm")
+region = Rect2(160, 0, 40, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7bvsj"]
+atlas = ExtResource("2_8jwqm")
+region = Rect2(200, 0, 40, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_frall"]
+atlas = ExtResource("2_8jwqm")
+region = Rect2(240, 0, 40, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mqruy"]
+atlas = ExtResource("2_8jwqm")
+region = Rect2(280, 0, 40, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fdsdc"]
+atlas = ExtResource("2_8jwqm")
+region = Rect2(320, 0, 40, 40)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_46eav"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g1aq8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_epmpa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gbloj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hlq4y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kwoea")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7bvsj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_frall")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mqruy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fdsdc")
+}],
+"loop": false,
+"name": &"open",
+"speed": 30.0
+}]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mqxk5"]
-size = Vector2(150, 145)
+size = Vector2(34, 30)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8jwqm"]
-size = Vector2(130, 130)
+size = Vector2(28, 28)
 
 [node name="Chest" type="StaticBody2D"]
 script = ExtResource("1_8jwqm")
+loot_data = ExtResource("2_g1aq8")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_8jwqm")
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_46eav")
+animation = &"open"
 
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="InteractionShape" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(-1.72853e-05, -2.5)
+position = Vector2(-9.53674e-07, 3)
 shape = SubResource("RectangleShape2D_mqxk5")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-4.17232e-06, -7.15256e-06)
+position = Vector2(-1.90735e-06, 3)
 shape = SubResource("RectangleShape2D_8jwqm")

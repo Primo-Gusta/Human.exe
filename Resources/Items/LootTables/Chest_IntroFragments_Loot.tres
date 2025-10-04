@@ -1,49 +1,26 @@
-[gd_resource type="Resource" script_class="LootTableData" load_steps=13 format=3 uid="uid://dvgqvicrsxrno"]
+[gd_resource type="Resource" script_class="LootTableData" load_steps=7 format=3 uid="uid://dvgqvicrsxrno"]
 
 [ext_resource type="Script" uid="uid://csa4m2e7e7dw1" path="res://Scripts/Items/LootTableData.gd" id="1_uejdt"]
 [ext_resource type="Script" uid="uid://ciogljxhp40ot" path="res://Scripts/Items/LootDrop.gd" id="1_ygmam"]
-[ext_resource type="Resource" uid="uid://dcq3sknr3k40d" path="res://Resources/Upgrades/Fragments/Scripts/Skill 1/fragment_one.tres" id="2_rj5wp"]
-[ext_resource type="Resource" uid="uid://b2dyou1cis1df" path="res://Resources/Upgrades/Fragments/Scripts/Skill 1/fragment_plus_equals.tres" id="3_fovqf"]
-[ext_resource type="Resource" uid="uid://c7mgf8fri38bp" path="res://Resources/Upgrades/Fragments/Scripts/Skill 1/fragment_skill_q_damage.tres" id="4_2tivd"]
-[ext_resource type="Resource" uid="uid://rtve7qifwnug" path="res://Resources/Items/HealthPotion.tres" id="5_71prc"]
-[ext_resource type="Resource" uid="uid://bi3uey6fvv5xf" path="res://Resources/Items/ManaPotion.tres" id="6_fovqf"]
+[ext_resource type="Resource" uid="uid://rtve7qifwnug" path="res://Resources/Items/Items/HealthPotion.tres" id="2_8hpwc"]
+[ext_resource type="Resource" uid="uid://bi3uey6fvv5xf" path="res://Resources/Items/Items/ManaPotion.tres" id="3_ghgga"]
 
-[sub_resource type="Resource" id="Resource_4ca3u"]
+[sub_resource type="Resource" id="Resource_rj5wp"]
 script = ExtResource("1_ygmam")
-item_data = ExtResource("2_rj5wp")
+item_data = ExtResource("2_8hpwc")
 quantity = 1
-chance_percent = 100.0
+chance_percent = 50.0
 metadata/_custom_type_script = "uid://ciogljxhp40ot"
 
-[sub_resource type="Resource" id="Resource_5d7hu"]
+[sub_resource type="Resource" id="Resource_fovqf"]
 script = ExtResource("1_ygmam")
-item_data = ExtResource("3_fovqf")
+item_data = ExtResource("3_ghgga")
 quantity = 1
-chance_percent = 100.0
-metadata/_custom_type_script = "uid://ciogljxhp40ot"
-
-[sub_resource type="Resource" id="Resource_jbsmg"]
-script = ExtResource("1_ygmam")
-item_data = ExtResource("4_2tivd")
-quantity = 1
-chance_percent = 100.0
-metadata/_custom_type_script = "uid://ciogljxhp40ot"
-
-[sub_resource type="Resource" id="Resource_od7b5"]
-script = ExtResource("1_ygmam")
-item_data = ExtResource("5_71prc")
-quantity = 2
-chance_percent = 100.0
-metadata/_custom_type_script = "uid://ciogljxhp40ot"
-
-[sub_resource type="Resource" id="Resource_2tivd"]
-script = ExtResource("1_ygmam")
-item_data = ExtResource("6_fovqf")
-quantity = 2
-chance_percent = 100.0
+chance_percent = 50.0
 metadata/_custom_type_script = "uid://ciogljxhp40ot"
 
 [resource]
 script = ExtResource("1_uejdt")
-loot_drops = Array[ExtResource("1_ygmam")]([SubResource("Resource_4ca3u"), SubResource("Resource_5d7hu"), SubResource("Resource_jbsmg"), SubResource("Resource_od7b5"), SubResource("Resource_2tivd")])
+loot_drops = Array[ExtResource("1_ygmam")]([SubResource("Resource_rj5wp"), SubResource("Resource_fovqf")])
+contains_unique_code_fragment = false
 metadata/_custom_type_script = "uid://csa4m2e7e7dw1"
