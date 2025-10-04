@@ -19,6 +19,10 @@ config/icon="res://Assets/icon.svg"
 
 GameManager="*res://Scripts/GameManager.gd"
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/YATI-1332dd7c9fa3171ddd7c740a88f3a21db239bc57/GDScript/addons/YATI/plugin.cfg")
+
 [global_group]
 
 player=""

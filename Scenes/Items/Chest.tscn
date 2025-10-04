@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://bsrl1yn0nd8j2"]
 
 [ext_resource type="Script" uid="uid://bpfo7f5unsh25" path="res://Scripts/Items/Chest.gd" id="1_8jwqm"]
-[ext_resource type="Texture2D" uid="uid://dq25jpnf5whh3" path="res://Assets/icon.svg" id="2_g1aq8"]
+[ext_resource type="Texture2D" uid="uid://do222dm8mhfyi" path="res://Assets/Pixelarium - GrassLands - Free Version/Pack content/Sprites/Objects and buildings/Chest/spr_chest.png" id="2_8jwqm"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mqxk5"]
 size = Vector2(150, 145)
@@ -10,20 +10,17 @@ size = Vector2(150, 145)
 size = Vector2(130, 130)
 
 [node name="Chest" type="StaticBody2D"]
-scale = Vector2(0.2, 0.2)
 script = ExtResource("1_8jwqm")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_g1aq8")
+texture = ExtResource("2_8jwqm")
 
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="InteractionShape" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(-1.72853e-05, -2.5)
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_mqxk5")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-4.17232e-06, -7.15256e-06)
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_8jwqm")

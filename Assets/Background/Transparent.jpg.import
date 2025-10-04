@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dy2lsbpvwky6y"
-path="res://.godot/imported/Parallax.png-d8e6ba7ced2f2d83bdec7c5d4b1e1117.ctex"
+uid="uid://buv4u4wjrwv12"
+path="res://.godot/imported/Transparent.jpg-33aec8573653b0eff0c0f11adbdd8ef6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Background/Parallax.png"
-dest_files=["res://.godot/imported/Parallax.png-d8e6ba7ced2f2d83bdec7c5d4b1e1117.ctex"]
+source_file="res://Assets/Background/Transparent.jpg"
+dest_files=["res://.godot/imported/Transparent.jpg-33aec8573653b0eff0c0f11adbdd8ef6.ctex"]
 
 [params]
 
@@ -21,7 +21,7 @@ compress/lossy_quality=0.7
 compress/hdr_compression=1
 compress/normal_map=0
 compress/channel_pack=0
-mipmaps/generate=true
+mipmaps/generate=false
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""

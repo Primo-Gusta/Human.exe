@@ -2,9 +2,9 @@
 
 [ext_resource type="Script" uid="uid://csa4m2e7e7dw1" path="res://Scripts/Items/LootTableData.gd" id="1_uejdt"]
 [ext_resource type="Script" uid="uid://ciogljxhp40ot" path="res://Scripts/Items/LootDrop.gd" id="1_ygmam"]
-[ext_resource type="Resource" uid="uid://dcq3sknr3k40d" path="res://Resources/Upgrades/Fragments/fragment_one.tres" id="2_rj5wp"]
-[ext_resource type="Resource" uid="uid://b2dyou1cis1df" path="res://Resources/Upgrades/Fragments/fragment_plus_equals.tres" id="3_fovqf"]
-[ext_resource type="Resource" uid="uid://c7mgf8fri38bp" path="res://Resources/Upgrades/Fragments/fragment_skill_q_damage.tres" id="4_2tivd"]
+[ext_resource type="Resource" uid="uid://dcq3sknr3k40d" path="res://Resources/Upgrades/Fragments/Scripts/Skill 1/fragment_one.tres" id="2_rj5wp"]
+[ext_resource type="Resource" uid="uid://b2dyou1cis1df" path="res://Resources/Upgrades/Fragments/Scripts/Skill 1/fragment_plus_equals.tres" id="3_fovqf"]
+[ext_resource type="Resource" uid="uid://c7mgf8fri38bp" path="res://Resources/Upgrades/Fragments/Scripts/Skill 1/fragment_skill_q_damage.tres" id="4_2tivd"]
 [ext_resource type="Resource" uid="uid://rtve7qifwnug" path="res://Resources/Items/HealthPotion.tres" id="5_71prc"]
 [ext_resource type="Resource" uid="uid://bi3uey6fvv5xf" path="res://Resources/Items/ManaPotion.tres" id="6_fovqf"]
 

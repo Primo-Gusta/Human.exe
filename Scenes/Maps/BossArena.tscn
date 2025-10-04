@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" uid="uid://wconnifnreuf" path="res://Scripts/World.gd" id="1_3w8fg"]
 [ext_resource type="PackedScene" uid="uid://dvh8xr2aqvtxp" path="res://Scenes/Player.tscn" id="2_mgyg6"]
-[ext_resource type="Resource" uid="uid://dedmw6kg165m8" path="res://Resources/Skills/Scripts/skill_pulse.tres" id="3_lchnr"]
-[ext_resource type="Resource" uid="uid://bovv80piofqpw" path="res://Resources/Skills/Scripts/skill_loop.tres" id="4_8eb7r"]
+[ext_resource type="Resource" uid="uid://dedmw6kg165m8" path="res://Resources/Skills/Scripts/Skill 2/skill_pulse.tres" id="3_lchnr"]
+[ext_resource type="Resource" uid="uid://bovv80piofqpw" path="res://Resources/Skills/Scripts/Skill 1/skill_loop.tres" id="4_8eb7r"]
 [ext_resource type="PackedScene" uid="uid://dmvdb78ivhd4v" path="res://Scenes/HUD.tscn" id="13_nxpvl"]
 [ext_resource type="PackedScene" uid="uid://co87jgfjywgku" path="res://Scenes/Enemies/GuardianBoss.tscn" id="18_qrabn"]
 

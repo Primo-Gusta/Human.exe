@@ -14,8 +14,8 @@ signal player_ready(player_node)
 
 # --- ATRIBUTOS ---
 @export var velocidade = 150.0
-var health = 5
-var max_health = 5
+var health = 100
+var max_health = 100
 var mana = 20
 var max_mana = 20
 @export var mana_regeneration_rate: float = 0.5

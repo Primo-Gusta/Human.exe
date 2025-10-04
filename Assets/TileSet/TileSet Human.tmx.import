@@ -1,0 +1,23 @@
+[remap]
+
+importer="YATI"
+type="PackedScene"
+uid="uid://u86j45cg7u8v"
+path="res://.godot/imported/TileSet Human.tmx-9451313c03ee53ffcd2258495a60e4a8.tscn"
+
+[deps]
+
+source_file="res://Assets/TileSet/TileSet Human.tmx"
+dest_files=["res://.godot/imported/TileSet Human.tmx-9451313c03ee53ffcd2258495a60e4a8.tscn"]
+
+[params]
+
+use_default_filter=false
+add_class_as_metadata=false
+add_id_as_metadata=false
+no_alternative_tiles=false
+map_wangset_to_terrain=false
+custom_data_prefix="data_"
+tiled_project_file=""
+post_processor=""
+save_tileset_to=""

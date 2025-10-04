@@ -1,0 +1,23 @@
+[remap]
+
+importer="YATI"
+type="PackedScene"
+uid="uid://uojlc66r0hfv"
+path="res://.godot/imported/sem título.tmx-72f7087f6d5796b0e847bae31752391c.tscn"
+
+[deps]
+
+source_file="res://Assets/TileSet/sem título.tmx"
+dest_files=["res://.godot/imported/sem título.tmx-72f7087f6d5796b0e847bae31752391c.tscn"]
+
+[params]
+
+use_default_filter=false
+add_class_as_metadata=false
+add_id_as_metadata=false
+no_alternative_tiles=false
+map_wangset_to_terrain=false
+custom_data_prefix="data_"
+tiled_project_file=""
+post_processor=""
+save_tileset_to=""
