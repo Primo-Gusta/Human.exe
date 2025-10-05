@@ -86,6 +86,12 @@ func spawn_loot():
 			var random_chance = randf_range(0, 100)
 			
 			if random_chance < drop.chance_percent:
+				var item_to_dropar: ItemData = drop.item_data
+
+				if item_to_dropar.item_name == "Backup":
+					if is_instance_valid(player_in_area) and player_in_area.inventory.has("Backup de Integridade"):
+						print("Baú tentou dropar 'Backup de Integridade', mas o jogador já o possui. A pular o drop.")
+						continue 
 				var item_instance
 				if drop.item_data is ItemData:
 					item_instance = ITEM_SCENE.instantiate()

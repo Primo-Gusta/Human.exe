@@ -8,21 +8,21 @@
 size = Vector2(25, 23)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_j2kye"]
-size = Vector2(28, 26)
+size = Vector2(25, 23)
 
-[node name="Crate" type="CharacterBody2D"]
+[node name="Crate" type="StaticBody2D"]
 script = ExtResource("1")
 loot_data = ExtResource("2_hfedy")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_qfu4f")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["loots"]]
 position = Vector2(0, 2)
 shape = SubResource("RectangleShape2D_hfedy")
 
-[node name="Hitbox" type="Area2D" parent="."]
+[node name="Hitbox" type="Area2D" parent="." groups=["loots"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
-position = Vector2(0, 2)
+position = Vector2(-0.5, 1.5)
 shape = SubResource("RectangleShape2D_j2kye")

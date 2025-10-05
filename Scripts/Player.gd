@@ -14,8 +14,8 @@ signal player_ready(player_node)
 
 # --- ATRIBUTOS ---
 @export var velocidade = 150.0
-var health = 100
-var max_health = 100
+var health = 5
+var max_health = 5
 var mana = 20
 var max_mana = 20
 @export var mana_regeneration_rate: float = 0.5
@@ -285,10 +285,18 @@ func _on_animated_sprite_2d_animation_finished():
 		update_animation(Vector2.ZERO)
 
 func _on_hitbox_body_entered(body):
-	if body.is_in_group("enemies") and not body in hit_enemies:
+	if body in hit_enemies:
+		return
+	
+	# Agora o jogador pode atingir inimigos e loots (caixas, baús, etc)
+	if body.is_in_group("enemies") or body.is_in_group("loots"):
 		hit_enemies.append(body)
+		
 		var knockback_direction = (body.global_position - global_position).normalized()
-		body.take_damage(1, knockback_direction)
+		
+		# Se o corpo tiver a função take_damage(), chamamos ela
+		if body.has_method("take_damage"):
+			body.take_damage(1, knockback_direction)
 		
 func take_damage(amount, knockback_direction = Vector2.ZERO):
 	if is_dead:
@@ -307,9 +315,29 @@ func on_knockback_finished():
 	is_in_knockback = false
 		
 func die():
-	if is_dead:
-		return
+	# Procura no inventário por um item com o nome "Backup de Integridade"
+	var backup_item: ItemData = null
+	for item in inventory.keys():
+		if item.item_name == "Backup":
+			backup_item = item
+			break # Encontrou, pode parar de procurar
 
+	# Se encontrou o item no inventário...
+	if is_instance_valid(backup_item):
+		print("Backup de Integridade consumido! O jogador sobreviveu.")
+		
+		# Consome o item do inventário
+		remove_item_from_inventory(backup_item)
+		
+		# Restaura metade da vida e emite os sinais
+		health = max_health / 2
+		health_updated.emit(health, max_health)
+		
+		# Efeito visual/sonoro de reviver aqui
+		
+		return # Interrompe a função 'die', o jogador não morre.
+
+	if is_dead: return
 	is_dead = true
 	is_attacking = false
 	is_in_knockback = false
@@ -342,8 +370,8 @@ func use_active_item():
 	print("Tentando usar o item: ", active_item.item_name)
 	
 	# Usa um 'match' para decidir o que fazer com base no efeito do item
-	match active_item.effect_type:
-		"Cura":
+	match active_item.item_name:
+		"Poção de Vida":
 			# NOVO: Verifica se a vida já está cheia
 			if health >= max_health:
 				print("Vida já está cheia! Não é possível usar a poção.")
@@ -351,14 +379,22 @@ func use_active_item():
 			
 			restore_health(active_item.effect_value)
 
-		"Mana": # Nota: Certifique-se que no seu .tres o Effect Type está como "RestauraMana"
+		"Poção de Mana":
 			# NOVO: Verifica se a mana já está cheia
 			if mana >= max_mana:
 				print("Mana já está cheia! Não é possível usar a poção.")
 				return # Interrompe a função aqui, o item não é consumido
 			
 			restore_mana(active_item.effect_value)
-			
+		"Bomba Lógica":
+			# Instancia a cena da bomba na posição do jogador
+			var bomb_instance = preload("res://Scenes/Items/LogicBomb.tscn").instantiate()
+			get_parent().add_child(bomb_instance)
+			bomb_instance.global_position = global_position
+		"Backup":
+			print("Este item tem um efeito passivo e não pode ser usado activamente.")
+			# Tocar um som de "erro" ou "falha" aqui é uma boa ideia.
+			return # Interrompe a função aqui para que o item NÃO seja consumido.
 		_: 
 			print("O item '", active_item.item_name, "' não tem efeito.")
 			return
@@ -380,7 +416,7 @@ func remove_item_from_inventory(item_data: ItemData):
 		set_active_item(null)
 	
 	# Notifica a UI sobre a mudança no inventário
-	inventory_updated.emit(active_item, inventory)
+	inventory_updated.emit(inventory, active_item)
 	
 func apply_skill_upgrade(upgrade_effect_id: String):
 	if upgrade_effect_id in unlocked_upgrade_ids: return

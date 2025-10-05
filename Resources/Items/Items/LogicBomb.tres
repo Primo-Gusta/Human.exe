@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3 uid="uid://dx04wj3rtwnit"]
+
+[ext_resource type="Script" uid="uid://cbtwiu7viccda" path="res://Scripts/Items/ItemData.gd" id="1_cfqpy"]
+[ext_resource type="Texture2D" uid="uid://xivx0ewejqfv" path="res://Assets/48x48 - Large bomb/48x48 - LargeBombStaticFrame4.png" id="1_fr788"]
+
+[resource]
+script = ExtResource("1_cfqpy")
+item_name = "Bomba Lógica"
+item_description = "Descreva o item aqui."
+item_icon = ExtResource("1_fr788")
+is_stackable = true
+effect_type = "Nenhum"
+effect_value = 0.0
+metadata/_custom_type_script = "uid://cbtwiu7viccda"

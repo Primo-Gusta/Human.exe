@@ -18,7 +18,7 @@ script = ExtResource("1_knhn4")
 
 [node name="Player" parent="." instance=ExtResource("2_jiin1")]
 y_sort_enabled = true
-position = Vector2(103, 1564)
+position = Vector2(20, 1580)
 scale = Vector2(1, 1)
 default_skill_q = ExtResource("3_y05l5")
 default_skill_e = ExtResource("4_kj7jh")

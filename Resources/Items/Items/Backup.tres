@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3 uid="uid://c3v3juvdmtkle"]
+
+[ext_resource type="Texture2D" uid="uid://cldqes7w60rup" path="res://Assets/rewind.png" id="1_c5lyc"]
+[ext_resource type="Script" uid="uid://cbtwiu7viccda" path="res://Scripts/Items/ItemData.gd" id="1_f6s4v"]
+
+[resource]
+script = ExtResource("1_f6s4v")
+item_name = "Backup"
+item_description = "Um item passivo. Se a sua integridade (vida) chegar a zero enquanto o tiver, este item será consumido para o restaurar com metade da vida. [NÃO EQUIPÁVEL]"
+item_icon = ExtResource("1_c5lyc")
+is_stackable = false
+effect_type = "Nenhum"
+effect_value = 0.0
+metadata/_custom_type_script = "uid://cbtwiu7viccda"

@@ -5,7 +5,7 @@
 
 [resource]
 script = ExtResource("2_1db67")
-item_name = "Poção de vida"
+item_name = "Poção de Vida"
 item_description = "Restaura 5 de vida"
 item_icon = ExtResource("1_sqehs")
 is_stackable = true

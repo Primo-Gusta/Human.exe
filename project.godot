@@ -29,6 +29,7 @@ enabled=PackedStringArray("res://addons/YATI-1332dd7c9fa3171ddd7c740a88f3a21db23
 player=""
 enemies=""
 spawners=""
+loots=""
 
 [gui]
 
