@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://cytds6supafcl"]
+[gd_scene load_steps=5 format=3 uid="uid://cytds6supafcl"]
 
 [ext_resource type="Script" uid="uid://dsf73us3764c3" path="res://Scripts/Items/Crate.gd" id="1"]
 [ext_resource type="Resource" uid="uid://dvgqvicrsxrno" path="res://Resources/Items/LootTables/Chest_IntroFragments_Loot.tres" id="2_hfedy"]
@@ -6,9 +6,6 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hfedy"]
 size = Vector2(25, 23)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_j2kye"]
-size = Vector2(28, 26)
 
 [node name="Crate" type="CharacterBody2D"]
 script = ExtResource("1")
@@ -18,11 +15,5 @@ loot_data = ExtResource("2_hfedy")
 texture = ExtResource("2_qfu4f")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 2)
+position = Vector2(-0.5, 1.5)
 shape = SubResource("RectangleShape2D_hfedy")
-
-[node name="Hitbox" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
-position = Vector2(0, 2)
-shape = SubResource("RectangleShape2D_j2kye")

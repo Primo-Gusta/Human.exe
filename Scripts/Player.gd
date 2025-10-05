@@ -5,7 +5,7 @@ signal health_updated(current_health)
 signal player_died
 signal player_took_damage
 signal mana_updated(current_mana)
-signal inventory_updated(current_active_item: ItemData, inventory_data: Dictionary)
+signal inventory_updated(inventory: Dictionary, current_active_item: ItemData)
 signal active_item_changed(item_data: ItemData)
 signal code_fragments_inventory_updated(fragments_inventory: Dictionary)
 signal equipped_skills_changed(equipped_q: Skill, equipped_e: Skill)
@@ -22,6 +22,7 @@ var max_mana = 20
 
 # --- INVENTÁRIOS ---
 var inventory: Dictionary = {}
+var current_active_item: ItemData = null
 var code_fragments_inventory: Dictionary = {}
 var unlocked_upgrade_ids: Array[String] = []
 
@@ -66,27 +67,24 @@ func _ready():
 
 # --- NOVO: Função de Inventário ---
 func add_item_to_inventory(item_data: ItemData):
-	# NOVO: Verifica se o inventário estava vazio ANTES de adicionar o novo item.
-	var inventory_was_empty = inventory.is_empty()
+	if not item_data:
+		return
 
-	# Lógica existente para adicionar/empilhar o item
+	# Verifica se o item já existe no inventário
 	if inventory.has(item_data):
 		if item_data.is_stackable:
 			inventory[item_data]["quantity"] += 1
-		else:
-			print("Item '", item_data.item_name, "' não é empilhável.")
-			return
 	else:
 		inventory[item_data] = {"quantity": 1}
-	
-	print("Item adicionado: ", item_data.item_name, " | Quantidade: ", inventory[item_data]["quantity"])
-	
-	# NOVO: Se o inventário estava vazio, define o item recém-coletado como ativo.
-	if inventory_was_empty:
-		set_active_item(item_data)
-	
-	# Emite o sinal com todo o dicionário atualizado para a UI
-	inventory_updated.emit(inventory, active_item)
+
+	# Define o item ativo caso ainda não tenha um
+	if current_active_item == null:
+		current_active_item = item_data
+
+	# ✅ Corrigido: agora o sinal envia o inventário E o item ativo
+	emit_signal("inventory_updated", inventory, current_active_item)
+
+	print("Item adicionado ao inventário:", item_data.item_name)
 	
 # Esta função será conectada ao sinal 'item_collected' de qualquer item.
 func _on_item_collected(item_data: ItemData):

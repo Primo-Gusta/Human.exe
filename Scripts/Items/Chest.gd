@@ -76,16 +76,33 @@ func spawn_loot():
 		else:
 			print("AVISO: O baú tentou gerar um fragmento único, mas o LootManager não tem mais nenhum disponível.")
 	
-	# 2. Se não for um baú de fragmento, processa o loot normal
-	else:
+	# --- LÓGICA DE DROP GARANTIDO PARA ITENS NORMAIS ---
+	var has_dropped_an_item = false
+	
+	# Continua a tentar até que um item seja dropado
+	while not has_dropped_an_item:
+		# Percorre cada "slot" de loot definido no nosso recurso
 		for drop in loot_data.loot_drops:
 			var random_chance = randf_range(0, 100)
+			
 			if random_chance < drop.chance_percent:
+				var item_instance
 				if drop.item_data is ItemData:
-					item_to_spawn = ITEM_SCENE.instantiate()
-					item_to_spawn.item_data = drop.item_data
-				# Se encontrar um item, sai do loop para dropar apenas um item por baú (opcional)
-				break 
+					item_instance = ITEM_SCENE.instantiate()
+					item_instance.item_data = drop.item_data
+				else:
+					continue
+
+				# Se um item for gerado, chama a função de animação
+				if is_instance_valid(item_instance):
+					_spawn_item_with_animation(item_instance)
+					has_dropped_an_item = true # Define a flag para sair do loop
+					break # Sai do loop 'for' para não dropar múltiplos itens
+		
+		# Se o loop 'for' terminar e nada tiver sido dropado,
+		# o 'while' continuará e tentará tudo de novo.
+		if not has_dropped_an_item:
+			print("Baú não dropou nada na primeira tentativa. A tentar novamente...")
 
 	# --- LÓGICA DE SPAWN (AGORA SEPARADA) ---
 	# Se um item foi escolhido para ser dropado, chama a função de animação

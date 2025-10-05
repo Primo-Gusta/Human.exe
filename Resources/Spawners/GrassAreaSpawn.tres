@@ -8,5 +8,5 @@
 script = ExtResource("3_mgj4e")
 enemy_scenes = Array[PackedScene]([ExtResource("1_tr7m6"), ExtResource("2_s5tot")])
 max_enemies_on_screen = 2
-respawn_cooldown = 60.0
+respawn_cooldown = 180.0
 metadata/_custom_type_script = "uid://cy1eeexgoj5rf"

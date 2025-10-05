@@ -1,0 +1,100 @@
+[gd_scene load_steps=16 format=3 uid="uid://boaiw01ohfthk"]
+
+[ext_resource type="Script" uid="uid://bpfo7f5unsh25" path="res://Scripts/Items/Chest.gd" id="1_7gvwr"]
+[ext_resource type="Resource" uid="uid://c3chl1qa2ds28" path="res://Resources/Items/LootTables/CodeChest_Loot.tres" id="2_7gvwr"]
+[ext_resource type="Texture2D" uid="uid://cj0qs7hdo6ajq" path="res://Assets/Pixelarium - GrassLands - Free Version/Pack content/Animated sprites/Animated Chest/codechest_opening_stretch_squash.png" id="3_7gvwr"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pmcdj"]
+atlas = ExtResource("3_7gvwr")
+region = Rect2(0, 0, 40, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qxo6o"]
+atlas = ExtResource("3_7gvwr")
+region = Rect2(40, 0, 40, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iimxa"]
+atlas = ExtResource("3_7gvwr")
+region = Rect2(80, 0, 40, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tgt0a"]
+atlas = ExtResource("3_7gvwr")
+region = Rect2(120, 0, 40, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_psmlt"]
+atlas = ExtResource("3_7gvwr")
+region = Rect2(160, 0, 40, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_87w58"]
+atlas = ExtResource("3_7gvwr")
+region = Rect2(200, 0, 40, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_35eet"]
+atlas = ExtResource("3_7gvwr")
+region = Rect2(240, 0, 40, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6vi2m"]
+atlas = ExtResource("3_7gvwr")
+region = Rect2(280, 0, 40, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wvbox"]
+atlas = ExtResource("3_7gvwr")
+region = Rect2(320, 0, 40, 40)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_46eav"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pmcdj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qxo6o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iimxa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tgt0a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_psmlt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_87w58")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_35eet")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6vi2m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wvbox")
+}],
+"loop": false,
+"name": &"open",
+"speed": 30.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mqxk5"]
+size = Vector2(34, 30)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8jwqm"]
+size = Vector2(28, 28)
+
+[node name="CodeChest" type="StaticBody2D"]
+script = ExtResource("1_7gvwr")
+loot_data = ExtResource("2_7gvwr")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_46eav")
+animation = &"open"
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="InteractionShape" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-9.53674e-07, 3)
+shape = SubResource("RectangleShape2D_mqxk5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1.90735e-06, 3)
+shape = SubResource("RectangleShape2D_8jwqm")

@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="LootTableData" load_steps=3 format=3 uid="uid://c3chl1qa2ds28"]
+
+[ext_resource type="Script" uid="uid://ciogljxhp40ot" path="res://Scripts/Items/LootDrop.gd" id="1_n0dnr"]
+[ext_resource type="Script" uid="uid://csa4m2e7e7dw1" path="res://Scripts/Items/LootTableData.gd" id="4_leh8n"]
+
+[resource]
+script = ExtResource("4_leh8n")
+loot_drops = Array[ExtResource("1_n0dnr")]([])
+contains_unique_code_fragment = true
+metadata/_custom_type_script = "uid://csa4m2e7e7dw1"

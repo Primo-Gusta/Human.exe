@@ -61,9 +61,8 @@ func _populate_objects_from_layers():
 			var local_pos = layer.map_to_local(cell)
 			var world_pos = layer.to_global(local_pos) + Vector2(layer.tile_set.tile_size) / 2
 
-			# Adiciona ao nó correto para interação
-			world_objects_node.add_child(instance)
-			instance.global_position = world_pos
+			# Adiciona ao nó correto para interação de forma segura
+			call_deferred("_add_object_to_world", world_objects_node, instance, world_pos)
 
 			# Marca todas as células 2x2 como processadas para não repetir
 			for x in range(2):
@@ -76,3 +75,10 @@ func _populate_objects_from_layers():
 					layer.erase_cell(cell + Vector2i(x,y))
 		
 	print("LevelLayout: Povoamento de objetos concluído.")
+
+func _add_object_to_world(parent_node: Node, obj: Node, pos: Vector2):
+	parent_node.add_child(obj)
+	obj.global_position = pos
+	# Garante que a física e os sinais do crate rodem após adicionar
+	if obj.has_method("initialize_after_spawn"):
+		obj.initialize_after_spawn()

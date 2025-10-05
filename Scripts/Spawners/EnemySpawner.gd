@@ -4,6 +4,7 @@ class_name EnemySpawner
 @export var spawn_data: SpawnData
 @export var min_spawn_radius: float = 50.0
 @export var max_spawn_radius: float = 100.0
+@export var max_spawn_attempts: int = 50 # Um número mais alto para garantir que encontramos um ponto
 
 @onready var area_2d: Area2D = $Area2D
 @onready var timer: Timer = $Timer
@@ -33,26 +34,44 @@ func find_spawn_position() -> Vector2:
 		print("ERRO: Spawner não tem referência da câmera do jogador.")
 		return Vector2.INF
 
-	# 1. Pega o tamanho da tela (viewport)
+	# Pega o estado do mundo físico 2D
+	var space_state = get_world_2d().direct_space_state
+	var attempts = 0
+	
+	# Calcula a área da câmara (o seu código para isto já está perfeito)
 	var viewport_size = get_viewport().get_visible_rect().size
-	# 2. Calcula o tamanho visível no mundo, considerando o zoom da câmera
 	var visible_world_size = viewport_size / player_camera.zoom
-	# 3. Calcula o canto superior esquerdo da visão da câmera no mundo
 	var camera_top_left = player_camera.global_position - (visible_world_size / 2)
-	# 4. Cria um retângulo que representa a visão da câmera em coordenadas do mundo
 	var camera_world_rect = Rect2(camera_top_left, visible_world_size)
 	
-	# Tenta encontrar uma posição válida
-	for i in range(20):
+	# Loop de tentativas
+	while attempts < max_spawn_attempts:
+		attempts += 1
+		
+		# 1. Gera um ponto aleatório ao redor do spawner
 		var random_angle = randf_range(0, TAU)
 		var random_radius = randf_range(min_spawn_radius, max_spawn_radius)
 		var spawn_point_world = global_position + Vector2.RIGHT.rotated(random_angle) * random_radius
 		
-		# 5. Verifica se o ponto de spawn NO MUNDO está fora do retângulo da câmera NO MUNDO
-		if not camera_world_rect.has_point(spawn_point_world):
-			return spawn_point_world
+		# 2. Primeira verificação: O ponto está fora do ecrã?
+		if camera_world_rect.has_point(spawn_point_world):
+			continue # Se estiver no ecrã, salta para a próxima tentativa
 
-	# Se não encontrou um ponto válido
+		# 3. Segunda verificação (A mais importante): O ponto está num local vazio?
+		var query = PhysicsPointQueryParameters2D.new()
+		query.position = spawn_point_world
+		# Opcional: Se as suas paredes estiverem numa camada de física específica, pode optimizar aqui
+		# query.collision_mask = 1 
+		
+		var result = space_state.intersect_point(query)
+
+		# Se 'result' estiver vazio, significa que não há colisões. É um ponto válido!
+		if result.is_empty():
+			print("Spawner: Posição válida encontrada na tentativa ", attempts)
+			return spawn_point_world # Retorna a posição válida e sai da função
+
+	# Se o loop terminar sem sucesso, retorna o valor de falha
+	print("AVISO: Spawner desistiu após ", max_spawn_attempts, " tentativas.")
 	return Vector2.INF
 	
 # --- O resto do script permanece o mesmo ---

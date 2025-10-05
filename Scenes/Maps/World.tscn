@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://cgbrftyxikcd2"]
+[gd_scene load_steps=9 format=3 uid="uid://cgbrftyxikcd2"]
 
 [ext_resource type="Script" uid="uid://wconnifnreuf" path="res://Scripts/World.gd" id="1_knhn4"]
 [ext_resource type="PackedScene" uid="uid://dvh8xr2aqvtxp" path="res://Scenes/Player.tscn" id="2_jiin1"]
@@ -6,38 +6,52 @@
 [ext_resource type="Resource" uid="uid://bovv80piofqpw" path="res://Resources/Skills/Scripts/Skill 1/skill_loop.tres" id="4_kj7jh"]
 [ext_resource type="PackedScene" uid="uid://dmvdb78ivhd4v" path="res://Scenes/HUD.tscn" id="13_1py4a"]
 [ext_resource type="PackedScene" uid="uid://877vmtdxy6ip" path="res://Scenes/Maps/TileSet.tscn" id="13_mk8no"]
-[ext_resource type="PackedScene" uid="uid://byrtlap1avmsl" path="res://Scenes/Spawners/EnemySpawner.tscn" id="14_doarn"]
-[ext_resource type="Resource" uid="uid://4upytm4btuql" path="res://Resources/Spawners/GrassAreaSpawn.tres" id="15_lyix8"]
-[ext_resource type="PackedScene" uid="uid://ci4t2wu63ld5w" path="res://Scenes/Enemies/Worm.tscn" id="15_rg1o4"]
-[ext_resource type="PackedScene" uid="uid://bsrl1yn0nd8j2" path="res://Scenes/Items/Chest.tscn" id="16_35l6f"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qolho"]
+size = Vector2(1601.5, 250)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_x2dow"]
+size = Vector2(118, 1612)
 
 [node name="World" type="Node2D"]
 script = ExtResource("1_knhn4")
 
 [node name="Player" parent="." instance=ExtResource("2_jiin1")]
-position = Vector2(133, 364)
+y_sort_enabled = true
+position = Vector2(103, 1564)
 scale = Vector2(1, 1)
 default_skill_q = ExtResource("3_y05l5")
 default_skill_e = ExtResource("4_kj7jh")
+
+[node name="Camera2D" parent="Player" index="2"]
+limit_left = 0
+limit_top = 0
+limit_right = 1600
+limit_bottom = 1600
 
 [node name="HUD" parent="." instance=ExtResource("13_1py4a")]
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 
-[node name="EnemySpawner" parent="." instance=ExtResource("14_doarn")]
-visible = false
-position = Vector2(701, 289)
-spawn_data = ExtResource("15_lyix8")
-
-[node name="Chest" parent="." instance=ExtResource("16_35l6f")]
-position = Vector2(-42, 277)
-
-[node name="Worm" parent="." instance=ExtResource("15_rg1o4")]
-position = Vector2(298, 285)
-
 [node name="TileSet Human" parent="." instance=ExtResource("13_mk8no")]
 z_index = -20
 
-[node name="WorldObjects" type="Node2D" parent="."]
+[node name="WorldBoundaries" type="StaticBody2D" parent="."]
+
+[node name="StaticBody2D" type="CollisionShape2D" parent="WorldBoundaries"]
+position = Vector2(801.5, -125)
+shape = SubResource("RectangleShape2D_qolho")
+
+[node name="StaticBody2D2" type="CollisionShape2D" parent="WorldBoundaries"]
+position = Vector2(800.75, 1725)
+shape = SubResource("RectangleShape2D_qolho")
+
+[node name="StaticBody2D3" type="CollisionShape2D" parent="WorldBoundaries"]
+position = Vector2(1659, 805)
+shape = SubResource("RectangleShape2D_x2dow")
+
+[node name="StaticBody2D4" type="CollisionShape2D" parent="WorldBoundaries"]
+position = Vector2(-59, 794)
+shape = SubResource("RectangleShape2D_x2dow")
 
 [editable path="Player"]
