@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="UpgradeRecipeData" load_steps=6 format=3 uid="uid://c222al1irywyu"]
+
+[ext_resource type="Script" uid="uid://bs312yevxwkex" path="res://Scripts/Upgrades/CodeFragmentData.gd" id="1_6pgap"]
+[ext_resource type="Resource" uid="uid://hdexse0c5fvq" path="res://Resources/Fragments/connect.tres" id="2_6pgap"]
+[ext_resource type="Resource" uid="uid://dm42027q2tonx" path="res://Resources/Fragments/bounced.tres" id="3_h5m7f"]
+[ext_resource type="Resource" uid="uid://bjm7rwnuc70gn" path="res://Resources/Fragments/spawn.tres" id="4_dwr6f"]
+[ext_resource type="Script" uid="uid://dww0skht3p658" path="res://Scripts/Upgrades/UpgradeReceiptData.gd" id="5_mk0vw"]
+
+[resource]
+script = ExtResource("5_mk0vw")
+upgrade_name = "Fragmentação de Dados"
+upgrade_description = " Cada vez que o projétil ricocheteia, gera um fragmento secundário que dispara numa direção aleatória após 1 segundo."
+target_skill_id = "loop"
+upgrade_effect_id = "loop_fragmentation_2"
+required_fragments = Array[ExtResource("1_6pgap")]([ExtResource("2_6pgap"), ExtResource("3_h5m7f"), ExtResource("4_dwr6f")])
+result_code_line = "projétil.dividir_em_impacto = verdadeiro"
+placeholder_to_replace = "# UPGRADE 2"
+metadata/_custom_type_script = "uid://dww0skht3p658"

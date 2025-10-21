@@ -13,9 +13,8 @@ class_name SkillData
 @export_group("Stats Base")
 @export var mana_cost: int = 5
 @export var cooldown_time: float = 2.0
-@export_group("Attack Pulse Stats") # Use grupos para organizar
+@export_group("Additional Stats") # Use grupos para organizar
 @export var base_damage: int = 1
 @export var base_range: float = 60.0
-# --- ADICIONE O GRUPO E A LINHA ABAIXO ---
-@export_group("Attack Loop Stats")
 @export var base_bounces: int = 2
+@export var base_duration: int = 4

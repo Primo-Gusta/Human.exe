@@ -22,11 +22,19 @@ var is_in_knockback = false
 @onready var attack_cooldown = $AttackCooldown
 @onready var attack_animation_player = $AttackAnimationPlayer
 
+# Variável para guardar a velocidade original antes do slow
+var original_speed: float = -1.0
+# Referência para o timer que controla a duração do slow
+var slow_timer: Timer
 
 var last_direction = Vector2.ZERO
 
 func _ready():
 	health_updated.emit(health) # NOVO: Emite a vida inicial
+	slow_timer = Timer.new()
+	slow_timer.one_shot = true
+	slow_timer.timeout.connect(_on_slow_timer_timeout)
+	add_child(slow_timer)
 
 func _physics_process(delta):
 	if is_dead:
@@ -174,7 +182,7 @@ func _on_hitbox_body_entered(body):
 	if body.is_in_group("player"): # Só ataca o player
 		# A lógica de dano e knockback no player é do próprio player
 		var knockback_direction = (body.global_position - global_position).normalized()
-		body.take_damage(1, knockback_direction) # Player também recebe knockback
+		body.take_damage(1, knockback_direction, self) # Player também recebe knockback
 		call_deferred("disable_hitbox_deferred")
 
 func disable_hitbox_deferred():
@@ -182,3 +190,27 @@ func disable_hitbox_deferred():
 
 func enable_hitbox():
 	hitbox_shape.disabled = false
+	
+func apply_slow(duration: float):
+	# Se o inimigo já não estiver lento, guarda a sua velocidade original
+	if original_speed == -1.0:
+		original_speed = speed
+
+	# Reduz a velocidade actual (ex: para 50%)
+	speed = original_speed * 0.5
+	
+	# Inicia ou reinicia o timer com a nova duração
+	slow_timer.start(duration)
+	
+	# Efeito visual (opcional): muda a cor para indicar o slow
+	animated_sprite.modulate = Color.CORNFLOWER_BLUE
+
+# Chamado quando o timer do slow termina
+func _on_slow_timer_timeout():
+	# Restaura a velocidade original
+	if original_speed != -1.0:
+		speed = original_speed
+		original_speed = -1.0 # Reseta a variável
+	
+	# Restaura a cor original
+	animated_sprite.modulate = Color.WHITE

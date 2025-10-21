@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="CodeFragmentData" load_steps=3 format=3 uid="uid://b01bqo1er7mpv"]
+
+[ext_resource type="Texture2D" uid="uid://dq25jpnf5whh3" path="res://Assets/icon.svg" id="1_8pequ"]
+[ext_resource type="Script" uid="uid://bs312yevxwkex" path="res://Scripts/Upgrades/CodeFragmentData.gd" id="2_gxclb"]
+
+[resource]
+script = ExtResource("2_gxclb")
+fragment_text = "permitir_repetidos"
+fragment_id = "target_filter"
+icon = ExtResource("1_8pequ")
+metadata/_custom_type_script = "uid://bs312yevxwkex"

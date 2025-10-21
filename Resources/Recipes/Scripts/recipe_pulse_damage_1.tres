@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="UpgradeRecipeData" load_steps=6 format=3 uid="uid://dp0rbvprpjj27"]
+
+[ext_resource type="Script" uid="uid://bs312yevxwkex" path="res://Scripts/Upgrades/CodeFragmentData.gd" id="1_oiey4"]
+[ext_resource type="Resource" uid="uid://c7mgf8fri38bp" path="res://Resources/Fragments/pulse_damage.tres" id="2_aio14"]
+[ext_resource type="Script" uid="uid://dww0skht3p658" path="res://Scripts/Upgrades/UpgradeReceiptData.gd" id="2_bbt3m"]
+[ext_resource type="Resource" uid="uid://b2dyou1cis1df" path="res://Resources/Fragments/fragment_plus_equals.tres" id="3_42hgd"]
+[ext_resource type="Resource" uid="uid://dcq3sknr3k40d" path="res://Resources/Fragments/fragment_one.tres" id="4_q34ao"]
+
+[resource]
+script = ExtResource("2_bbt3m")
+upgrade_name = "Aumentar Dano do Pulso Nv.1"
+upgrade_description = "Adiciona +1 ao dano base da habilidade Pulso de Ataque."
+target_skill_id = "attack_pulse"
+upgrade_effect_id = "pulse_damage_1"
+required_fragments = Array[ExtResource("1_oiey4")]([ExtResource("2_aio14"), ExtResource("3_42hgd"), ExtResource("4_q34ao")])
+result_code_line = "dano_base = dano_base + 1"
+placeholder_to_replace = "# UPGRADE 1"
+metadata/_custom_type_script = "uid://dww0skht3p658"

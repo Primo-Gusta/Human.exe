@@ -213,6 +213,12 @@ theme_override_font_sizes/font_size = 50
 text = "Começar o Jogo
 "
 
+[node name="BossButton" type="Button" parent="MainOptionsScreen/ButtonsContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 50
+text = "Começar Boss"
+
 [node name="OptionsButton" type="Button" parent="MainOptionsScreen/ButtonsContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 50

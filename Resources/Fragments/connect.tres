@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="CodeFragmentData" load_steps=3 format=3 uid="uid://hdexse0c5fvq"]
+
+[ext_resource type="Texture2D" uid="uid://dq25jpnf5whh3" path="res://Assets/icon.svg" id="1_4pedb"]
+[ext_resource type="Script" uid="uid://bs312yevxwkex" path="res://Scripts/Upgrades/CodeFragmentData.gd" id="2_6omja"]
+
+[resource]
+script = ExtResource("2_6omja")
+fragment_text = "projétil"
+fragment_id = "connect"
+icon = ExtResource("1_4pedb")
+metadata/_custom_type_script = "uid://bs312yevxwkex"

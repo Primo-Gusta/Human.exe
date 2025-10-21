@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="CodeFragmentData" load_steps=3 format=3 uid="uid://jwwtnkm57cgr"]
+
+[ext_resource type="Texture2D" uid="uid://dq25jpnf5whh3" path="res://Assets/icon.svg" id="1_yir0p"]
+[ext_resource type="Script" uid="uid://bs312yevxwkex" path="res://Scripts/Upgrades/CodeFragmentData.gd" id="2_i16p4"]
+
+[resource]
+script = ExtResource("2_i16p4")
+fragment_text = "="
+fragment_id = ".ignore_previously_hit"
+icon = ExtResource("1_yir0p")
+metadata/_custom_type_script = "uid://bs312yevxwkex"

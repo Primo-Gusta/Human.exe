@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="UpgradeRecipeData" load_steps=6 format=3 uid="uid://c6h7gxvlp5ck2"]
+
+[ext_resource type="Script" uid="uid://bs312yevxwkex" path="res://Scripts/Upgrades/CodeFragmentData.gd" id="1_imqpq"]
+[ext_resource type="Resource" uid="uid://c55b8nxx875or" path="res://Resources/Fragments/interceptado.tres" id="2_imqpq"]
+[ext_resource type="Resource" uid="uid://bdo548wxoi0hl" path="res://Resources/Fragments/converter.tres" id="3_ivc50"]
+[ext_resource type="Resource" uid="uid://dbe5qelqflmjo" path="res://Resources/Fragments/reserva_mana.tres" id="4_ydd1d"]
+[ext_resource type="Script" uid="uid://dww0skht3p658" path="res://Scripts/Upgrades/UpgradeReceiptData.gd" id="5_dqthr"]
+
+[resource]
+script = ExtResource("5_dqthr")
+upgrade_name = "Sifão de Dados"
+upgrade_description = "Converte os dados brutos do pacote interceptado em energia para o seu sistema, restaurando uma porção da sua mana."
+target_skill_id = "packet_analysis"
+upgrade_effect_id = "data_siphon"
+required_fragments = Array[ExtResource("1_imqpq")]([ExtResource("2_imqpq"), ExtResource("3_ivc50"), ExtResource("4_ydd1d")])
+result_code_line = "PACOTE_INTERCEPTADO: converter_energia(para_reserva_mana)"
+placeholder_to_replace = "# UPGRADE 2"
+metadata/_custom_type_script = "uid://dww0skht3p658"

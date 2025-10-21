@@ -23,6 +23,11 @@ var knockback_strength = 120.0
 @export var small_worm_speed_multiplier = 1.2
 var is_small_worm = false # Flag para saber se este é um worm "filho"
 
+# Variável para guardar a velocidade original antes do slow
+var original_speed: float = -1.0
+# Referência para o timer que controla a duração do slow
+var slow_timer: Timer
+
 func _ready():
 	# Ajusta os status se for um worm pequeno
 	if is_small_worm:
@@ -32,6 +37,10 @@ func _ready():
 		
 		# Feedback visual para o clone (opcional)
 		animated_sprite.modulate = Color(0.8, 0.8, 1.0) # Um tom levemente azulado/pálido
+	slow_timer = Timer.new()
+	slow_timer.one_shot = true
+	slow_timer.timeout.connect(_on_slow_timer_timeout)
+	add_child(slow_timer)
 
 
 func _physics_process(delta):
@@ -60,7 +69,7 @@ func _physics_process(delta):
 			var collider = collision.get_collider()
 			if is_instance_valid(collider) and collider.is_in_group("player"):
 				var knockback_dir = (collider.global_position - global_position).normalized()
-				collider.take_damage(1, knockback_dir)
+				collider.take_damage(1, knockback_dir, self)
 				contact_damage_cooldown.start()
 				break
 
@@ -123,3 +132,28 @@ func _on_animated_sprite_2d_animation_finished():
 	if animated_sprite.animation == "take_damage":
 		is_in_knockback = false
 		update_animation() # Volta para a animação de idle ou walk
+
+# Esta é a função que a FirewallSkill irá chamar
+func apply_slow(duration: float):
+	# Se o inimigo já não estiver lento, guarda a sua velocidade original
+	if original_speed == -1.0:
+		original_speed = speed
+
+	# Reduz a velocidade actual (ex: para 50%)
+	speed = original_speed * 0.5
+	
+	# Inicia ou reinicia o timer com a nova duração
+	slow_timer.start(duration)
+	
+	# Efeito visual (opcional): muda a cor para indicar o slow
+	animated_sprite.modulate = Color.CORNFLOWER_BLUE
+
+# Chamado quando o timer do slow termina
+func _on_slow_timer_timeout():
+	# Restaura a velocidade original
+	if original_speed != -1.0:
+		speed = original_speed
+		original_speed = -1.0 # Reseta a variável
+	
+	# Restaura a cor original
+	animated_sprite.modulate = Color.WHITE

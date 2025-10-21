@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="CodeFragmentData" load_steps=2 format=3 uid="uid://dbe5qelqflmjo"]
+
+[ext_resource type="Script" uid="uid://bs312yevxwkex" path="res://Scripts/Upgrades/CodeFragmentData.gd" id="1_y2t18"]
+
+[resource]
+script = ExtResource("1_y2t18")
+fragment_text = "(para_reserva_mana)"
+fragment_id = "siphon"
+metadata/_custom_type_script = "uid://bs312yevxwkex"

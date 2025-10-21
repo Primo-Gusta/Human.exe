@@ -5,6 +5,7 @@ extends Control
 @onready var start_game_button = $MainOptionsScreen/ButtonsContainer/StartGameButton
 @onready var options_button = $MainOptionsScreen/ButtonsContainer/OptionsButton
 @onready var quit_button = $MainOptionsScreen/ButtonsContainer/QuitButton
+@onready var boss_button = $MainOptionsScreen/ButtonsContainer/BossButton
 @onready var animation_player = $AnimationPlayer
 @onready var world_scene_packed = preload("res://Scenes/Maps/World.tscn")
 
@@ -15,6 +16,7 @@ func _ready():
 	start_game_button.pressed.connect(on_start_game_button_pressed)
 	options_button.pressed.connect(on_options_button_pressed)
 	quit_button.pressed.connect(on_quit_button_pressed)
+	boss_button.pressed.connect(on_boss_button_pressed)
 	
 	# Garante que o estado inicial está correto
 	main_options_screen.visible = false
@@ -65,6 +67,10 @@ func _start_intro_sequence():
 func on_start_game_button_pressed():
 	print("MainMenu: A pedir ao GameManager para iniciar o jogo...")
 	GameManager.start_new_game()
+	
+func on_boss_button_pressed():
+	print("MainMenu: A pedir ao GameManager para iniciar o jogo...")
+	GameManager.start_boss()
 
 func on_options_button_pressed():
 	print("MainMenu: Botão OPÇÕES pressionado!")

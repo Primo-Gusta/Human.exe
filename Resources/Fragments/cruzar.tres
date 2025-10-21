@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="CodeFragmentData" load_steps=2 format=3 uid="uid://dqhm2lfo2beqv"]
+
+[ext_resource type="Script" uid="uid://bs312yevxwkex" path="res://Scripts/Upgrades/CodeFragmentData.gd" id="1_nyvrb"]
+
+[resource]
+script = ExtResource("1_nyvrb")
+fragment_text = "novo_fragmento"
+fragment_id = ""
+metadata/_custom_type_script = "uid://bs312yevxwkex"

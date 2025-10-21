@@ -1,31 +1,30 @@
-[gd_resource type="Resource" script_class="SkillData" load_steps=5 format=3 uid="uid://bovv80piofqpw"]
+[gd_resource type="Resource" script_class="SkillData" load_steps=7 format=3 uid="uid://bovv80piofqpw"]
 
-[ext_resource type="Texture2D" uid="uid://cj4k32jrn8nad" path="res://Assets/UI/PNG/Icon36.png" id="1_54lxi"]
+[ext_resource type="Texture2D" uid="uid://cj4k32jrn8nad" path="res://Assets/UI/SKILLS/Icon36.png" id="1_6rtei"]
 [ext_resource type="Script" uid="uid://dww0skht3p658" path="res://Scripts/Upgrades/UpgradeReceiptData.gd" id="1_gbyke"]
 [ext_resource type="Script" uid="uid://lr1cpsyhtirc" path="res://Scripts/Upgrades/SkillData.gd" id="2_8cpqj"]
+[ext_resource type="Resource" uid="uid://dd8pxq53jphb4" path="res://Resources/Recipes/Scripts/recipe_inteligent_loop.tres" id="3_mwf6f"]
 [ext_resource type="PackedScene" uid="uid://qpimemjdbg2k" path="res://Scenes/Skills/AttackLoopSkill.tscn" id="4_54lxi"]
+[ext_resource type="Resource" uid="uid://c222al1irywyu" path="res://Resources/Recipes/Scripts/recipe_fragmentation.tres" id="4_c3pmq"]
 
 [resource]
 script = ExtResource("2_8cpqj")
 skill_id = "loop"
 skill_name = "Loop Shot"
-icon = ExtResource("1_54lxi")
+icon = ExtResource("1_6rtei")
 description = "Atira no inimigo com um loop que não termina até concluir sua condição"
 function_name = "func loop_shot()"
-base_code = "var projectile = Projectile.new()
-
-projectile.setup(direction, initial_damage)
-
-projectile.spawn()
-
+base_code = "VAR projétil = criar_novo_projétil()
+projétil.configurar(direção, dano_inicial)
+projétil.lançar()
 # UPGRADE 1
-
 # UPGRADE 2"
-recipes = Array[ExtResource("1_gbyke")]([])
+recipes = Array[ExtResource("1_gbyke")]([ExtResource("3_mwf6f"), ExtResource("4_c3pmq")])
 skill_scene = ExtResource("4_54lxi")
 mana_cost = 8
 cooldown_time = 2.0
 base_damage = 1
 base_range = 60.0
 base_bounces = 2
+base_duration = 4
 metadata/_custom_type_script = "uid://lr1cpsyhtirc"

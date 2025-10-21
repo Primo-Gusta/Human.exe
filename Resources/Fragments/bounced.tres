@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="CodeFragmentData" load_steps=3 format=3 uid="uid://dm42027q2tonx"]
+
+[ext_resource type="Texture2D" uid="uid://dq25jpnf5whh3" path="res://Assets/icon.svg" id="1_jum32"]
+[ext_resource type="Script" uid="uid://bs312yevxwkex" path="res://Scripts/Upgrades/CodeFragmentData.gd" id="2_uggqm"]
+
+[resource]
+script = ExtResource("2_uggqm")
+fragment_text = ".dividir_em_impacto"
+fragment_id = "(\"bounced\","
+icon = ExtResource("1_jum32")
+metadata/_custom_type_script = "uid://bs312yevxwkex"

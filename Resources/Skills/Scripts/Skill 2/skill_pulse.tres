@@ -1,9 +1,10 @@
-[gd_resource type="Resource" script_class="SkillData" load_steps=6 format=3 uid="uid://dedmw6kg165m8"]
+[gd_resource type="Resource" script_class="SkillData" load_steps=7 format=3 uid="uid://dedmw6kg165m8"]
 
 [ext_resource type="Script" uid="uid://dww0skht3p658" path="res://Scripts/Upgrades/UpgradeReceiptData.gd" id="1_1g67k"]
-[ext_resource type="Texture2D" uid="uid://c7kqq0t7l1e2w" path="res://Assets/UI/PNG/Icon13.png" id="1_ge4yg"]
+[ext_resource type="Texture2D" uid="uid://c7kqq0t7l1e2w" path="res://Assets/UI/SKILLS/Icon13.png" id="1_ge4yg"]
 [ext_resource type="Script" uid="uid://lr1cpsyhtirc" path="res://Scripts/Upgrades/SkillData.gd" id="2_oukl4"]
-[ext_resource type="Resource" uid="uid://dp0rbvprpjj27" path="res://Resources/Recipes/recipe_pulse_damage_1.tres" id="3_ge4yg"]
+[ext_resource type="Resource" uid="uid://dp0rbvprpjj27" path="res://Resources/Recipes/Scripts/recipe_pulse_damage_1.tres" id="3_pjhdu"]
+[ext_resource type="Resource" uid="uid://cnlihd05e2gvp" path="res://Resources/Recipes/Scripts/recipe_resonance_charge.tres" id="4_816x7"]
 [ext_resource type="PackedScene" uid="uid://djfwenjljl5ol" path="res://Scenes/Skills/AttackPulseSkill.tscn" id="5_ge4yg"]
 
 [resource]
@@ -13,16 +14,17 @@ skill_name = "Pulso de ataque"
 icon = ExtResource("1_ge4yg")
 description = "Lança um pulso em inimigos"
 function_name = "func attack_pulse()"
-base_code = "var targets = get_nearby_enemies(area_range)
+base_code = "VAR alvos = procurar_inimigos_proximos(raio_da_habilidade)
 # UPGRADE 1
-for target in targets:
-ㅤtarget.take_damage(base_damage)
+PARA CADA alvo EM alvos:
+    causar_dano(alvo, dano_base)
 # UPGRADE 2"
-recipes = Array[ExtResource("1_1g67k")]([ExtResource("3_ge4yg")])
+recipes = Array[ExtResource("1_1g67k")]([ExtResource("3_pjhdu"), ExtResource("4_816x7")])
 skill_scene = ExtResource("5_ge4yg")
 mana_cost = 5
 cooldown_time = 2.0
 base_damage = 1
 base_range = 60.0
 base_bounces = 2
+base_duration = 4
 metadata/_custom_type_script = "uid://lr1cpsyhtirc"

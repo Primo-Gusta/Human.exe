@@ -1,18 +1,56 @@
-[gd_scene load_steps=4 format=3 uid="uid://icaccng767bp"]
+[gd_scene load_steps=9 format=3 uid="uid://icaccng767bp"]
 
 [ext_resource type="Script" uid="uid://c121noxqosqt8" path="res://Scripts/Projectiles/RicocheteProjectile.gd" id="1_336pn"]
-[ext_resource type="Texture2D" uid="uid://dq25jpnf5whh3" path="res://Assets/icon.svg" id="2_x1y0v"]
+[ext_resource type="Texture2D" uid="uid://bbg7rn25ugu4q" path="res://Assets/VFX/Red Effect Bullet Impact Explosion 32x32.png" id="2_336pn"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x1y0v"]
+atlas = ExtResource("2_336pn")
+region = Rect2(352, 320, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_610fu"]
+atlas = ExtResource("2_336pn")
+region = Rect2(384, 320, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cefbm"]
+atlas = ExtResource("2_336pn")
+region = Rect2(416, 320, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ufmlt"]
+atlas = ExtResource("2_336pn")
+region = Rect2(448, 320, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_kuoo2"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x1y0v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_610fu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cefbm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ufmlt")
+}],
+"loop": false,
+"name": &"fly",
+"speed": 10.0
+}]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_610fu"]
-radius = 3.0
-height = 26.0
+radius = 15.0
 
 [node name="RicocheteProjectile" type="Area2D"]
+scale = Vector2(0.8, 0.8)
 script = ExtResource("1_336pn")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.04, 0.2)
-texture = ExtResource("2_x1y0v")
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_kuoo2")
+animation = &"fly"
+frame = 3
+frame_progress = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_610fu")

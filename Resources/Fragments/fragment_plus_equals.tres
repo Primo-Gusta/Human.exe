@@ -5,7 +5,7 @@
 
 [resource]
 script = ExtResource("1_15w8f")
-fragment_text = "+="
+fragment_text = "="
 fragment_id = "+="
 icon = ExtResource("1_dan6j")
 metadata/_custom_type_script = "uid://bs312yevxwkex"

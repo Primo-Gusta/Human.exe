@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="CodeFragmentData" load_steps=2 format=3 uid="uid://c8liglsbaug56"]
+
+[ext_resource type="Script" uid="uid://bs312yevxwkex" path="res://Scripts/Upgrades/CodeFragmentData.gd" id="1_ybahv"]
+
+[resource]
+script = ExtResource("1_ybahv")
+fragment_text = "descarregar_pulso_de_dano"
+fragment_id = "_"
+metadata/_custom_type_script = "uid://bs312yevxwkex"

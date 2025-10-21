@@ -15,6 +15,11 @@ var max_bounces: int
 var cooldown_time: float
 var can_use: bool = true
 
+# --- NOVAS FLAGS DE UPGRADE ---
+var smart_loop_unlocked: bool = false
+var fragmentation_unlocked: bool = false
+
+
 func _ready():
 	cooldown_timer.timeout.connect(_on_cooldown_finished)
 
@@ -53,15 +58,18 @@ func _execute():
 	get_parent().add_child(projectile_instance)
 	
 	projectile_instance.global_position = player.global_position
-	projectile_instance.setup_projectile(player.last_direction, damage, max_bounces)
+	projectile_instance.setup_projectile(player.last_direction, damage, max_bounces, smart_loop_unlocked, fragmentation_unlocked)
 
 func _on_cooldown_finished():
 	can_use = true
 
 # Esta função SOBRESCREVE a função de upgrade do nosso "contrato"
 func _apply_upgrade(upgrade_id: String):
-	match upgrade_id:
-		"loop_bounces_1":
-			max_bounces += 1
-			print("Stat de ricochetes do Loop de Dano atualizado para: ", max_bounces)
-		# Adicione outros 'case' para upgrades futuros desta skill aqui
+	match upgrade_id:		
+		# --- ADIÇÕES AQUI ---
+		"loop_smart_targeting_1":
+			smart_loop_unlocked = true
+			print("Upgrade 'Loop Inteligente' ativado!")
+		"loop_fragmentation_2":
+			fragmentation_unlocked = true
+			print("Upgrade 'Fragmentação de Dados' ativado!")

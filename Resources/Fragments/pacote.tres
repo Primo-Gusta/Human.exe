@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="CodeFragmentData" load_steps=2 format=3 uid="uid://bwr70yh58qc0a"]
+
+[ext_resource type="Script" uid="uid://bs312yevxwkex" path="res://Scripts/Upgrades/CodeFragmentData.gd" id="1_v1nhf"]
+
+[resource]
+script = ExtResource("1_v1nhf")
+fragment_text = "(pacote_dados)"
+fragment_id = "loop"
+metadata/_custom_type_script = "uid://bs312yevxwkex"

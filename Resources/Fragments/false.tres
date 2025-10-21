@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="CodeFragmentData" load_steps=3 format=3 uid="uid://wkau4x7hm6em"]
+
+[ext_resource type="Texture2D" uid="uid://dq25jpnf5whh3" path="res://Assets/icon.svg" id="1_j2hwo"]
+[ext_resource type="Script" uid="uid://bs312yevxwkex" path="res://Scripts/Upgrades/CodeFragmentData.gd" id="2_2b6u0"]
+
+[resource]
+script = ExtResource("2_2b6u0")
+fragment_text = "verdadeiro"
+fragment_id = "= false"
+icon = ExtResource("1_j2hwo")
+metadata/_custom_type_script = "uid://bs312yevxwkex"

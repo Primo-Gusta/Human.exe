@@ -1,0 +1,80 @@
+[gd_scene load_steps=10 format=3 uid="uid://bjpqifvbexqkw"]
+
+[ext_resource type="Script" uid="uid://bl8kloo5xp5" path="res://Scripts/Skills/FirewallSkill.gd" id="1_o40gw"]
+[ext_resource type="Texture2D" uid="uid://bbg7rn25ugu4q" path="res://Assets/VFX/Red Effect Bullet Impact Explosion 32x32.png" id="2_tygpr"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lad0u"]
+atlas = ExtResource("2_tygpr")
+region = Rect2(352, 384, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cvjdr"]
+atlas = ExtResource("2_tygpr")
+region = Rect2(384, 384, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_80ejp"]
+atlas = ExtResource("2_tygpr")
+region = Rect2(416, 384, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p6yus"]
+atlas = ExtResource("2_tygpr")
+region = Rect2(448, 384, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_b647y"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lad0u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cvjdr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_80ejp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p6yus")
+}],
+"loop": true,
+"name": &"fire",
+"speed": 10.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tygpr"]
+size = Vector2(32, 25)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lad0u"]
+size = Vector2(32, 25)
+
+[node name="FirewallSkill" type="Node"]
+script = ExtResource("1_o40gw")
+
+[node name="CooldownTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="Wall" type="Area2D" parent="."]
+position = Vector2(2, 10)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Wall"]
+position = Vector2(-2, -8.99999)
+sprite_frames = SubResource("SpriteFrames_b647y")
+animation = &"fire"
+frame_progress = 0.135489
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall"]
+position = Vector2(-2, -5.5)
+shape = SubResource("RectangleShape2D_tygpr")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Wall"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall/StaticBody2D"]
+position = Vector2(-2, -5.5)
+shape = SubResource("RectangleShape2D_lad0u")
+
+[node name="DurationTimer" type="Timer" parent="Wall"]
+one_shot = true
+
+[node name="PulseTimer" type="Timer" parent="Wall"]
+
+[connection signal="timeout" from="CooldownTimer" to="." method="_on_cooldown_finished"]
+[connection signal="timeout" from="Wall/DurationTimer" to="." method="_on_wall_duration_finished"]
+[connection signal="timeout" from="Wall/PulseTimer" to="." method="_on_wall_duration_finished"]

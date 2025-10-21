@@ -1,0 +1,54 @@
+[gd_scene load_steps=8 format=3 uid="uid://bhm150v6qdlms"]
+
+[ext_resource type="Script" uid="uid://ykbs4fddxms" path="res://Scripts/Skills/PacketAnalysisSkill.gd" id="1_emolw"]
+[ext_resource type="Texture2D" uid="uid://bbg7rn25ugu4q" path="res://Assets/VFX/Red Effect Bullet Impact Explosion 32x32.png" id="2_6gioj"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jlhm2"]
+atlas = ExtResource("2_6gioj")
+region = Rect2(192, 416, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2vs70"]
+atlas = ExtResource("2_6gioj")
+region = Rect2(224, 416, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8rcfg"]
+atlas = ExtResource("2_6gioj")
+region = Rect2(256, 416, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_besit"]
+atlas = ExtResource("2_6gioj")
+region = Rect2(288, 416, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8cb5t"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jlhm2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2vs70")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8rcfg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_besit")
+}],
+"loop": false,
+"name": &"impact",
+"speed": 20.0
+}]
+
+[node name="PacketAnalysisSkill" type="Node2D"]
+script = ExtResource("1_emolw")
+
+[node name="ParryTimer" type="Timer" parent="."]
+
+[node name="ParryVFX" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_8cb5t")
+animation = &"impact"
+frame = 3
+frame_progress = 1.0
+
+[connection signal="timeout" from="ParryTimer" to="." method="_on_parry_timer_timeout"]
+[connection signal="animation_finished" from="ParryVFX" to="." method="_on_parry_timer_timeout"]

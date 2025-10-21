@@ -1,0 +1,32 @@
+[gd_resource type="Resource" script_class="SkillData" load_steps=7 format=3 uid="uid://dphxseiw7b0hh"]
+
+[ext_resource type="Script" uid="uid://dww0skht3p658" path="res://Scripts/Upgrades/UpgradeReceiptData.gd" id="1_b6800"]
+[ext_resource type="Texture2D" uid="uid://p6pucrejqfil" path="res://Assets/UI/SKILLS/Icon1.png" id="1_vkqas"]
+[ext_resource type="Script" uid="uid://lr1cpsyhtirc" path="res://Scripts/Upgrades/SkillData.gd" id="2_vkqas"]
+[ext_resource type="Resource" uid="uid://beuk71yq1nupm" path="res://Resources/Recipes/Scripts/recipe_feedbackloop.tres" id="3_6w5r1"]
+[ext_resource type="Resource" uid="uid://c6h7gxvlp5ck2" path="res://Resources/Recipes/Scripts/recipe_datasiphon.tres" id="4_3xc56"]
+[ext_resource type="PackedScene" uid="uid://bhm150v6qdlms" path="res://Scenes/Skills/PacketAnalysisSkill.tscn" id="4_ge8np"]
+
+[resource]
+script = ExtResource("2_vkqas")
+skill_id = "packet_analysis"
+skill_name = "Análise de Pacotes"
+icon = ExtResource("1_vkqas")
+description = "Executa uma interrupção de kernel de alta prioridade. Analisa e corrompe o pacote de dados de um ataque inimigo que está prestes a ser executado. O sucesso resulta na anulação do ataque e causa uma falha temporária no sistema do atacante (atordoamento)."
+function_name = "packet_analysis exec()"
+base_code = "QUANDO (pacote_dano_recebido):
+	SE (janela_analise_ativa == VERDADEIRO):
+		anluar_pacote(pacote_dano)
+ 		acionar_contra_medida(\"stun_origem\")
+	# UPGRADE 1
+	# UPGRADE 2
+"
+recipes = Array[ExtResource("1_b6800")]([ExtResource("3_6w5r1"), ExtResource("4_3xc56")])
+skill_scene = ExtResource("4_ge8np")
+mana_cost = 10
+cooldown_time = 5.0
+base_damage = 1
+base_range = 60.0
+base_bounces = 2
+base_duration = 4
+metadata/_custom_type_script = "uid://lr1cpsyhtirc"

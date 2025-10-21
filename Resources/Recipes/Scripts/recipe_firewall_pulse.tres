@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="UpgradeRecipeData" load_steps=6 format=3 uid="uid://cqm6rko2ewgrc"]
+
+[ext_resource type="Script" uid="uid://bs312yevxwkex" path="res://Scripts/Upgrades/CodeFragmentData.gd" id="1_315d4"]
+[ext_resource type="Resource" uid="uid://bm0l2s6dxckdl" path="res://Resources/Fragments/loop_ativo.tres" id="2_315d4"]
+[ext_resource type="Resource" uid="uid://c8liglsbaug56" path="res://Resources/Fragments/descarregar.tres" id="3_wn2nh"]
+[ext_resource type="Resource" uid="uid://c1n5n5ccxj6s6" path="res://Resources/Fragments/area_proxima.tres" id="4_qflrc"]
+[ext_resource type="Script" uid="uid://dww0skht3p658" path="res://Scripts/Upgrades/UpgradeReceiptData.gd" id="5_70m1p"]
+
+[resource]
+script = ExtResource("5_70m1p")
+upgrade_name = "Rede Eletrificada"
+upgrade_description = "A parede agora emite pulsos de energia a cada segundo, causando dano a inimigos que estejam muito próximos, mesmo que não a atravessem."
+target_skill_id = "Firewall"
+upgrade_effect_id = "firewall_pulse"
+required_fragments = Array[ExtResource("1_315d4")]([ExtResource("2_315d4"), ExtResource("3_wn2nh"), ExtResource("4_qflrc")])
+result_code_line = "LOOP_ATIVO(1s): descarregar_pulso_de_dano(área_próxima)"
+placeholder_to_replace = "# UPGRADE 2"
+metadata/_custom_type_script = "uid://dww0skht3p658"

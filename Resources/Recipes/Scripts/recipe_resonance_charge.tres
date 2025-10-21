@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="UpgradeRecipeData" load_steps=6 format=3 uid="uid://cnlihd05e2gvp"]
+
+[ext_resource type="Script" uid="uid://bs312yevxwkex" path="res://Scripts/Upgrades/CodeFragmentData.gd" id="1_o1vrs"]
+[ext_resource type="Resource" uid="uid://bgpfhlffxaot4" path="res://Resources/Fragments/target.tres" id="2_o1vrs"]
+[ext_resource type="Resource" uid="uid://coqg7w3jsnt5e" path="res://Resources/Fragments/add_marker.tres" id="3_28lc5"]
+[ext_resource type="Resource" uid="uid://bk70lm3b43wmp" path="res://Resources/Fragments/ressonance.tres" id="4_o8ccm"]
+[ext_resource type="Script" uid="uid://dww0skht3p658" path="res://Scripts/Upgrades/UpgradeReceiptData.gd" id="5_j1b1g"]
+
+[resource]
+script = ExtResource("5_j1b1g")
+upgrade_name = "Resonancia de Pulso"
+upgrade_description = "Ao atingir um inimigo, o \"Pulso de Ataque\" aplica uma \"Marca de Ressonância\" por 5 segundos. Se o jogador atingir um inimigo marcado com o seu ataque básico, a marca detona, causando uma pequena explosão de dano em área à volta do inimigo atingido. A marca é consumida após a detonação."
+target_skill_id = "attack_pulse"
+upgrade_effect_id = "pulse_resonance_2"
+required_fragments = Array[ExtResource("1_o1vrs")]([ExtResource("2_o1vrs"), ExtResource("3_28lc5"), ExtResource("4_o8ccm")])
+result_code_line = "alvo.atingido(aplicar_efeito(\"marca_ressonante\"))"
+placeholder_to_replace = "# UPGRADE 2"
+metadata/_custom_type_script = "uid://dww0skht3p658"

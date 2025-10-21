@@ -108,25 +108,17 @@ func consume_code_patch():
 
 
 func add_fragment_to_inventory(fragment_data: CodeFragmentData):
-	# A CHAVE agora é o ID do fragmento (uma String), que é único e confiável.
 	var id = fragment_data.fragment_id
-	
-	# Se o jogador já tem este tipo de fragmento, aumenta a quantidade.
 	if code_fragments_inventory.has(id):
 		code_fragments_inventory[id]["quantity"] += 1
-	# Se for a primeira vez, cria uma nova entrada no inventário.
 	else:
 		code_fragments_inventory[id] = {
-			"data": fragment_data, # Armazena a referência completa ao Resource.
+			"data": fragment_data,
 			"quantity": 1
 		}
-	
 	print("Fragmento de código coletado: '", fragment_data.fragment_text, "' | Quantidade: ", code_fragments_inventory[id]["quantity"])
-	# Avisa a UI que este inventário específico foi atualizado.
 	code_fragments_inventory_updated.emit(code_fragments_inventory)
-	
-		# NOVO: Conecta o sinal do timer de cooldown do dash
-	dash_cooldown_timer.timeout.connect(_on_dash_cooldown_timer_timeout)
+
 	
 func set_active_item(item_data: ItemData):
 	# Se o item clicado for o mesmo que já está ativo, desativa-o (deixa as mãos livres)
@@ -298,7 +290,23 @@ func _on_hitbox_body_entered(body):
 		if body.has_method("take_damage"):
 			body.take_damage(1, knockback_direction)
 		
-func take_damage(amount, knockback_direction = Vector2.ZERO):
+func take_damage(amount, knockback_direction = Vector2.ZERO, attacker = null):
+	
+	if is_instance_valid(equipped_skill_q) and equipped_skill_q is PacketAnalysisSkill:
+		# 2. Tenta executar o parry, passando o atacante e o dano
+		var parry_succeeded = await equipped_skill_q.try_parry_attack(attacker, amount)
+		# 3. Se o parry foi bem-sucedido, interrompe a função aqui. Nenhum dano é levado.
+		if parry_succeeded:
+			return
+			
+	if is_instance_valid(equipped_skill_e) and equipped_skill_e is PacketAnalysisSkill:
+		# 2. Tenta executar o parry, passando o atacante e o dano
+		var parry_succeeded = await equipped_skill_e.try_parry_attack(attacker, amount)
+		# 3. Se o parry foi bem-sucedido, interrompe a função aqui. Nenhum dano é levado.
+		if parry_succeeded:
+			return
+			
+			
 	if is_dead:
 		return
 	health -= amount

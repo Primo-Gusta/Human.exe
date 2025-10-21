@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="CodeFragmentData" load_steps=2 format=3 uid="uid://c55b8nxx875or"]
+
+[ext_resource type="Script" uid="uid://bs312yevxwkex" path="res://Scripts/Upgrades/CodeFragmentData.gd" id="1_cbshc"]
+
+[resource]
+script = ExtResource("1_cbshc")
+fragment_text = "ROTA_ATAQUE"
+fragment_id = "feedback"
+metadata/_custom_type_script = "uid://bs312yevxwkex"

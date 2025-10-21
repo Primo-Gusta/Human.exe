@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="UpgradeRecipeData" load_steps=6 format=3 uid="uid://cxesnv5lkpp12"]
+
+[ext_resource type="Script" uid="uid://bs312yevxwkex" path="res://Scripts/Upgrades/CodeFragmentData.gd" id="1_jgqnp"]
+[ext_resource type="Resource" uid="uid://dqhm2lfo2beqv" path="res://Resources/Fragments/cruzar.tres" id="2_jgqnp"]
+[ext_resource type="Resource" uid="uid://cmdmesqsbbeaq" path="res://Resources/Fragments/executarscript.tres" id="3_5dg3c"]
+[ext_resource type="Resource" uid="uid://00fdlun164lf" path="res://Resources/Fragments/slow.tres" id="4_5ks3s"]
+[ext_resource type="Script" uid="uid://dww0skht3p658" path="res://Scripts/Upgrades/UpgradeReceiptData.gd" id="5_mtfc3"]
+
+[resource]
+script = ExtResource("5_mtfc3")
+upgrade_name = "Purga de Pacotes"
+upgrade_description = "Inimigos que atravessam a parede de fogo têm os seus pacotes de dados corrompidos, resultando numa redução da sua velocidade de movimento por um curto período."
+target_skill_id = "Firewall"
+upgrade_effect_id = "firewall_slow"
+required_fragments = Array[ExtResource("1_jgqnp")]([ExtResource("2_jgqnp"), ExtResource("3_5dg3c"), ExtResource("4_5ks3s")])
+result_code_line = "AO_CRUZAR_BARREIRA: executar_script(\"slow.dll\")"
+placeholder_to_replace = "# UPGRADE 1"
+metadata/_custom_type_script = "uid://dww0skht3p658"

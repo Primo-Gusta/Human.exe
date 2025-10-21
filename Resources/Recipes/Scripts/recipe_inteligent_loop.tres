@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="UpgradeRecipeData" load_steps=6 format=3 uid="uid://dd8pxq53jphb4"]
+
+[ext_resource type="Script" uid="uid://bs312yevxwkex" path="res://Scripts/Upgrades/CodeFragmentData.gd" id="1_twjy4"]
+[ext_resource type="Resource" uid="uid://b01bqo1er7mpv" path="res://Resources/Fragments/target_filter.tres" id="2_twjy4"]
+[ext_resource type="Resource" uid="uid://jwwtnkm57cgr" path="res://Resources/Fragments/ignore.tres" id="3_48e1g"]
+[ext_resource type="Resource" uid="uid://wkau4x7hm6em" path="res://Resources/Fragments/false.tres" id="4_4xpbi"]
+[ext_resource type="Script" uid="uid://dww0skht3p658" path="res://Scripts/Upgrades/UpgradeReceiptData.gd" id="5_4qbqg"]
+
+[resource]
+script = ExtResource("5_4qbqg")
+upgrade_name = "Loop Inteligente"
+upgrade_description = "Aprimora a lógica de alvo. O projétil agora pode atingir o mesmo inimigo mais de uma vez se não houver novos alvos disponíveis."
+target_skill_id = "loop"
+upgrade_effect_id = "loop_smart_targeting_1"
+required_fragments = Array[ExtResource("1_twjy4")]([ExtResource("2_twjy4"), ExtResource("3_48e1g"), ExtResource("4_4xpbi")])
+result_code_line = "permitir_repetido = verdadeiro"
+placeholder_to_replace = "# UPGRADE 1"
+metadata/_custom_type_script = "uid://dww0skht3p658"

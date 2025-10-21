@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://b0aoy2ddbdmkp"]
 
 [ext_resource type="Script" uid="uid://dn5pk2an8si1t" path="res://Scripts/UI/SkillsDetailsPopup.gd" id="1_wgkj1"]
-[ext_resource type="Texture2D" uid="uid://c7kqq0t7l1e2w" path="res://Assets/UI/PNG/Icon13.png" id="2_wgkj1"]
+[ext_resource type="Texture2D" uid="uid://c7kqq0t7l1e2w" path="res://Assets/UI/SKILLS/Icon13.png" id="2_wgkj1"]
 
 [node name="SkillsDetailPopup" type="Control"]
 layout_mode = 3

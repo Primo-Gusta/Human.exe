@@ -1,0 +1,31 @@
+[gd_resource type="Resource" script_class="SkillData" load_steps=7 format=3 uid="uid://c3k5068e1buue"]
+
+[ext_resource type="Texture2D" uid="uid://cpyyng6fk40dc" path="res://Assets/UI/SKILLS/Icon47.png" id="1_3r5e7"]
+[ext_resource type="Script" uid="uid://dww0skht3p658" path="res://Scripts/Upgrades/UpgradeReceiptData.gd" id="1_sba38"]
+[ext_resource type="Script" uid="uid://lr1cpsyhtirc" path="res://Scripts/Upgrades/SkillData.gd" id="2_1yhei"]
+[ext_resource type="Resource" uid="uid://cxesnv5lkpp12" path="res://Resources/Recipes/Scripts/recipe_firewall_slow.tres" id="3_82cn3"]
+[ext_resource type="PackedScene" uid="uid://bjpqifvbexqkw" path="res://Scenes/Skills/FirewallSkill.tscn" id="4_asbi0"]
+[ext_resource type="Resource" uid="uid://cqm6rko2ewgrc" path="res://Resources/Recipes/Scripts/recipe_firewall_pulse.tres" id="4_sw3ep"]
+
+[resource]
+script = ExtResource("2_1yhei")
+skill_id = "Firewall"
+skill_name = "Firewall"
+icon = ExtResource("1_3r5e7")
+description = "Instancia uma parede de dados estática que bloqueia projéteis inimigos e causa dano contínuo a inimigos que a atravessam. A parede dura por um curto período."
+function_name = "firewall_exec()"
+base_code = "VAR parede = instanciar_barreira(direção_jogador)
+parede.duração = 4.0
+parede.set_propriedade(\"bloquear_projéteis\", verdadeiro)
+parede.set_propriedade(\"causar_dano_ao_toque\", verdadeiro)
+# UPGRADE 1
+# UPGRADE 2"
+recipes = Array[ExtResource("1_sba38")]([ExtResource("3_82cn3"), ExtResource("4_sw3ep")])
+skill_scene = ExtResource("4_asbi0")
+mana_cost = 10
+cooldown_time = 12.0
+base_damage = 1
+base_range = 60.0
+base_bounces = 2
+base_duration = 4
+metadata/_custom_type_script = "uid://lr1cpsyhtirc"

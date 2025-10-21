@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="UpgradeRecipeData" load_steps=6 format=3 uid="uid://beuk71yq1nupm"]
+
+[ext_resource type="Script" uid="uid://bs312yevxwkex" path="res://Scripts/Upgrades/CodeFragmentData.gd" id="1_keoae"]
+[ext_resource type="Resource" uid="uid://cx1gnu7ptldjy" path="res://Resources/Fragments/ROTA.tres" id="2_keoae"]
+[ext_resource type="Resource" uid="uid://b1skwyp1pk40o" path="res://Resources/Fragments/redirecionar.tres" id="3_7b1fl"]
+[ext_resource type="Resource" uid="uid://bwr70yh58qc0a" path="res://Resources/Fragments/pacote.tres" id="4_h6p7o"]
+[ext_resource type="Script" uid="uid://dww0skht3p658" path="res://Scripts/Upgrades/UpgradeReceiptData.gd" id="5_x5awp"]
+
+[resource]
+script = ExtResource("5_x5awp")
+upgrade_name = "Loop de Feedback"
+upgrade_description = "Redireciona a energia do pacote de ataque inimigo de volta à sua origem, causando dano."
+target_skill_id = "packet_analysis"
+upgrade_effect_id = "feedback_loop"
+required_fragments = Array[ExtResource("1_keoae")]([ExtResource("2_keoae"), ExtResource("3_7b1fl"), ExtResource("4_h6p7o")])
+result_code_line = "ROTA_ATAQUE: redirecionar_para_origem(pacote_dados)"
+placeholder_to_replace = "# UPGRADE 1"
+metadata/_custom_type_script = "uid://dww0skht3p658"

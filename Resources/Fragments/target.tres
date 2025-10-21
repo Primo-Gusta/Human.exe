@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="CodeFragmentData" load_steps=3 format=3 uid="uid://bgpfhlffxaot4"]
+
+[ext_resource type="Script" uid="uid://bs312yevxwkex" path="res://Scripts/Upgrades/CodeFragmentData.gd" id="1_qbaet"]
+[ext_resource type="Texture2D" uid="uid://dq25jpnf5whh3" path="res://Assets/icon.svg" id="1_ynvme"]
+
+[resource]
+script = ExtResource("1_qbaet")
+fragment_text = "alvo.atingido("
+fragment_id = "target."
+icon = ExtResource("1_ynvme")
+metadata/_custom_type_script = "uid://bs312yevxwkex"

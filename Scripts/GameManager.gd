@@ -2,6 +2,7 @@ extends Node
 
 var main_menu_scene = "res://Scenes/UI/MainMenu.tscn"
 var world_scene = "res://Scenes/Maps/World.tscn"
+var boss_scene = "res://Scenes/Maps/BossArena.tscn"
 
 func _ready():
 	# Garante que o jogo não está pausado quando o gestor inicia
@@ -16,6 +17,11 @@ func start_new_game():
 	print("GameManager: A iniciar novo jogo...")
 	get_tree().paused = false
 	get_tree().change_scene_to_file(world_scene)
+
+func start_boss():
+	print("GameManager: A iniciar novo jogo...")
+	get_tree().paused = false
+	get_tree().change_scene_to_file(boss_scene)
 
 func restart_current_level():
 	print("GameManager: A reiniciar o nível actual...")

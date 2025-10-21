@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="CodeFragmentData" load_steps=2 format=3 uid="uid://c1n5n5ccxj6s6"]
+
+[ext_resource type="Script" uid="uid://bs312yevxwkex" path="res://Scripts/Upgrades/CodeFragmentData.gd" id="1_lfeln"]
+
+[resource]
+script = ExtResource("1_lfeln")
+fragment_text = "(área_próxima)"
+fragment_id = "pulse"
+metadata/_custom_type_script = "uid://bs312yevxwkex"

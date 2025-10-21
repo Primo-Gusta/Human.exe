@@ -1,7 +1,59 @@
-[gd_scene load_steps=3 format=3 uid="uid://djfwenjljl5ol"]
+[gd_scene load_steps=9 format=3 uid="uid://djfwenjljl5ol"]
 
 [ext_resource type="Script" uid="uid://b68v8uc5sehyi" path="res://Scripts/Skills/AttackPulseSkill.gd" id="1_o82aa"]
-[ext_resource type="Texture2D" uid="uid://dq25jpnf5whh3" path="res://Assets/icon.svg" id="2_wub36"]
+[ext_resource type="Texture2D" uid="uid://bbg7rn25ugu4q" path="res://Assets/VFX/Red Effect Bullet Impact Explosion 32x32.png" id="2_o82aa"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wub36"]
+atlas = ExtResource("2_o82aa")
+region = Rect2(192, 320, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fekod"]
+atlas = ExtResource("2_o82aa")
+region = Rect2(224, 320, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3qvls"]
+atlas = ExtResource("2_o82aa")
+region = Rect2(256, 320, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bhr75"]
+atlas = ExtResource("2_o82aa")
+region = Rect2(288, 320, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o82aa"]
+atlas = ExtResource("2_o82aa")
+region = Rect2(0, 480, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_v6cat"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wub36")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fekod")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3qvls")
+}, {
+"duration": 1.5,
+"texture": SubResource("AtlasTexture_bhr75")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3qvls")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fekod")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wub36")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o82aa")
+}],
+"loop": false,
+"name": &"pulse",
+"speed": 10.0
+}]
 
 [node name="AttackPulseSkill" type="Node"]
 script = ExtResource("1_o82aa")
@@ -9,8 +61,8 @@ script = ExtResource("1_o82aa")
 [node name="CooldownTimer" type="Timer" parent="."]
 one_shot = true
 
-[node name="PulseVisual" type="Sprite2D" parent="."]
-modulate = Color(0, 1, 1, 0)
-position = Vector2(-5.72205e-06, 0)
-scale = Vector2(0.1, 0.1)
-texture = ExtResource("2_wub36")
+[node name="PulseVFX" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_v6cat")
+animation = &"pulse"
+frame = 7
+frame_progress = 1.0

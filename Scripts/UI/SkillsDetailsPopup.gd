@@ -81,34 +81,44 @@ func populate_recipe_slots():
 
 # Substitua a função inteira por esta versão com depuração
 func populate_fragment_inventory(_inventory_data = {}):
-	print("--- Iniciando populate_fragment_inventory ---")
+	print("--- Iniciando populate_fragment_inventory (com filtro) ---")
 
-	# Limpa os filhos antigos
 	for child in fragment_inventory_grid.get_children():
 		child.queue_free()
 		
-	if not is_instance_valid(player_node):
-		print("DEBUG: Referência do player_node é INVÁLIDA.")
+	if not is_instance_valid(player_node): return
+	
+	# --- NOVA LÓGICA DE FILTRAGEM ---
+	# 1. Cria um set (uma lista sem duplicados) com todos os fragmentos necessários para esta skill
+	var required_fragments_for_this_skill = {} # Usamos um dicionário como um 'set'
+	for recipe in possible_recipes:
+		for fragment in recipe.required_fragments:
+			required_fragments_for_this_skill[fragment] = true
+
+	if required_fragments_for_this_skill.is_empty():
+		print("DEBUG: Esta habilidade não tem fragmentos de upgrade necessários.")
 		return
+	# --- FIM DA LÓGICA DE FILTRAGEM ---
+
+	print("DEBUG: Verificando o inventário do jogador...")
+	var player_inventory = player_node.code_fragments_inventory
 	
-	print("DEBUG: Player encontrado. Verificando inventário de fragmentos...")
-	var inventory_to_display = player_node.code_fragments_inventory
-	
-	if inventory_to_display.is_empty():
+	if player_inventory.is_empty():
 		print("DEBUG: Inventário de fragmentos do jogador está VAZIO.")
 		return
-	else:
-		print("DEBUG: Encontrados ", inventory_to_display.size(), " tipos de fragmentos no inventário.")
 
-	# Itera sobre os fragmentos e cria os ícones
-	for fragment_id in inventory_to_display:
-		var fragment_info = inventory_to_display[fragment_id]
+	# Itera sobre os fragmentos que o JOGADOR POSSUI
+	for fragment_id in player_inventory:
+		var fragment_info = player_inventory[fragment_id]
 		var fragment_data = fragment_info["data"]
-		print("DEBUG: Criando ícone para o fragmento '", fragment_data.fragment_text, "'")
 		
-		var icon_instance = FragmentIconScene.instantiate()
-		icon_instance.fragment_data = fragment_data
-		fragment_inventory_grid.add_child(icon_instance)
+		# SÓ MOSTRA o fragmento se ele for um dos necessários para esta skill
+		if required_fragments_for_this_skill.has(fragment_data):
+			print("DEBUG: Criando ícone para o fragmento relevante: '", fragment_data.fragment_text, "'")
+			
+			var icon_instance = FragmentIconScene.instantiate()
+			icon_instance.fragment_data = fragment_data
+			fragment_inventory_grid.add_child(icon_instance)
 	
 	print("--- Finalizando populate_fragment_inventory ---")
 # ATUALIZADO: Apenas rastreia o estado atual dos slots

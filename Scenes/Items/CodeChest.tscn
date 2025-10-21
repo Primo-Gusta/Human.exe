@@ -1,6 +1,6 @@
 [gd_scene load_steps=16 format=3 uid="uid://boaiw01ohfthk"]
 
-[ext_resource type="Script" uid="uid://bpfo7f5unsh25" path="res://Scripts/Items/Chest.gd" id="1_7gvwr"]
+[ext_resource type="Script" uid="uid://ppnbxokq8uml" path="res://Scripts/Items/CodeChest.gd" id="1_5dksn"]
 [ext_resource type="Resource" uid="uid://c3chl1qa2ds28" path="res://Resources/Items/LootTables/CodeChest_Loot.tres" id="2_7gvwr"]
 [ext_resource type="Texture2D" uid="uid://cj0qs7hdo6ajq" path="res://Assets/Pixelarium - GrassLands - Free Version/Pack content/Animated sprites/Animated Chest/codechest_opening_stretch_squash.png" id="3_7gvwr"]
 
@@ -82,7 +82,7 @@ size = Vector2(34, 30)
 size = Vector2(28, 28)
 
 [node name="CodeChest" type="StaticBody2D"]
-script = ExtResource("1_7gvwr")
+script = ExtResource("1_5dksn")
 loot_data = ExtResource("2_7gvwr")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
